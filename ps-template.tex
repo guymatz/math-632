@@ -57,6 +57,16 @@ innertopmargin=\topskip,
   \newpage
 }
 
+\newenvironment{problem}[1]{
+  \begin{Problem}
+  #1
+  \end{Problem}
+  \begin{Solution}
+}
+{
+  \end{Solution}
+}
+
 \newenvironment{smallquote}{
   \small\begin{quotation}
   }
@@ -182,26 +192,11 @@ innertopmargin=\topskip,
 %% %%Start the assignment now
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{Problem}
-Type your problem here. \\
+\begin{problem}{TYPE YOUR PROBLEM HERE.}
 Personally I recommend Mathpix (https://mathpix.com/), which can easily export your ProblemBook.pdf to \LaTeX \ code.
-\end{Problem}
-%% %
-\begin{Solution}
-Write your solution here.
 
-\end{Solution}
+\end{problem}
 
-\begin{Problem}
-Type your problem here. \\
-Personally I recommend Mathpix (https://mathpix.com/), which can easily export your ProblemBook.pdf to \LaTeX \ code.
-\end{Problem}
-%% %
-\begin{Solution}
-Write your solution here.
-
-\end{Solution}
-%% %
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% %%Complete the assignment now
 \end{document}
