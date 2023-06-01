@@ -42,6 +42,9 @@
 }
 
 \usepackage{tikzsymbols}
+\usepackage{tikz}
+\usepackage{hhline}
+\usepackage{float}
 \renewcommand\qedsymbol{$\Laughey$}
 
 
@@ -546,7 +549,8 @@
 % NOTE BOX
 %================================
 
-\usetikzlibrary{arrows,calc,shadows.blur}
+\usetikzlibrary{automata,arrows,positioning,calc,shadows,blur}
+
 \tcbuselibrary{skins}
 \newtcolorbox{note}[1][]{%
 	enhanced jigsaw,
