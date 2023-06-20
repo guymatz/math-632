@@ -5,9 +5,6 @@ snippet eps epsilon
 snippet inf infinity
 	\\infty
 
-snippet kstar Kleene Star
-	\\kleene 
-
 snippet Q Rationals
 	\\mathbb{Q} 
 
@@ -75,3 +72,74 @@ snippet lim \lim_{}
 
 snippet fx f of x
 	f(${1:x})${0}
+snippet Z Integers
+	\\mathbb{Z} 
+
+snippet N Natural Numbers
+	\\mathbb{N} 
+
+
+snippet R Real Numbers
+	\\mathbb{R} 
+
+
+
+snippet lim \lim_{}
+	\\lim_{${1:n} \\to ${2:\\infty}} ${3:f}(x) = ${0}
+
+snippet fx f of x
+	f(${1:x})${0}
+
+snippet f f as a function
+	\$f\$ 
+
+snippet g g as a function
+	\$g\$ 
+
+snippet a a as a point
+	\$a\$ 
+
+snippet x x as a point
+	\$x\$ 
+
+snippet x2 x^2 as a point
+	\$x^2\$ 
+
+snippet gx g of x
+	g(${1:x})${0}
+
+snippet t text
+	\\text{ ${1:${VISUAL:text}} }${0}
+
+snippet m math
+	\$${0:${VISUAL:math}}\$
+
+snippet mm math-mode on it's own line
+	\\[ ${0:${VISUAL:math}} \\]
+
+snippet cproof Contradiction Proof
+	\\renewcommand\\qedsymbol{\\Lightning}
+	\\begin{proof}[\\textbf{Proof by contradiction}]  Towards a contradiction,
+		Let's assume that ${1}
+	\\end{proof} 
+	\\renewcommand\\qedsymbol{\$\\square\$}
+
+snippet cases proof by cases
+	\\begin{proof}
+		\\begin{case}
+			${1:${VISUAL:first}}
+
+			$0
+		\\end{case}
+		\\begin{case}
+			${2:second}
+
+		\\end{case}
+	\\end{proof}
+
+
+snippet ssne Subset Not Equal
+	\\subsetneq 
+
+snippet ss Subset
+	\\subset 

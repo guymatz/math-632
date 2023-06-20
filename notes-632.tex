@@ -5,152 +5,75 @@
 \input{.tex/letterfonts}
 
 \title{
-  \Huge{Math 632 - Stochastic Processes}
+  \Huge{Math 431 - Introduction to Probability Theory}
   \\
   Notes
 }
 \author{\huge{Guy Matz}}
 \date{}
+
 \begin{document}
+%\maketitle
 
-\chapter{Markov Chains}
+% \setcounter{chapter}{1}
+\chapter*{20230620 - Introduction}
 
-\section{Definitions \& Examples}
-  \begin{itemize}
-    \item A Discrete Time Markov chain with transition matrix $p(i, j)$
-\[ P\left(X_{n+1}=j \mid X_n=i, X_{n-1}=i_{n-1}, \ldots, X_0=i_0\right)=p(i, j) \]
+\begin{itemize}
+  \item Renewal Process
+  \item Definitions
+    \dfn{ Renewal Process }{
+      Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
+          around min 12
+    }
 
-    Where $X_{n+1} = j$ means being at "position" $j$ at "time" $n+1$ 
-    \item Since Markov, we have
-      \[ p(i, j) = P(X_{n+1} = j  | X_n = i) \]
+    \dfn{ stachastic  }{
+      A series of random variables indexed by time
+    }
 
-  \end{itemize}
-  
+    \dfn{ IID Process }{
+      Independent, Identically distributed RVs
+    }
 
-\section{Multistep Transition Probabilities}
+    \dfn{ Renewal-Reward Process}{
+      Let $\{N_t: t \geq 0 \}  $ be a renewal process with strictly 
+      positiv inter-arrival times $\{X_k : k \geq 1 \}$.  Let 
+      $\{ Y_n : n \geq 1 \}$ be iid random valriables, .e. "rewards".
+      Then the process
+      \[ R_t = \sum^{N_t}_{n=1} Y_n, t \geq 0 \]
+      is called the renewal-reqard process corresponding to 
+      inter-arrival times $(X_k)_{k=1}^{\infty}$ and rewards
+      $(Y_n)_{n=1}^{\infty}$
+    }
 
-  \begin{itemize}
-    \item $p^m(i,j) = P(X_{n+m} = j | X_n = i)$
-  \end{itemize}
+    \begin[author]{SLLN for RRP}
+    \[ \lim_{t \to \infty} \frac{R_t}{t}  =  \frac{E[Y_1]}{E[X_1]}  \]
+    \end{SLLN for RRP}
 
-\section{Classification of States}
-  \begin{itemize}
-    \item $T_y$: Time of the first return to $y$ ($n$ is the number of moves?)
-      \[ T_y = \text{min}\{n \geq 1 : X_n = y\} \]
-    \item The Probability $X_n$ returns to $y$ when it starts at $y$
-      \[ \rho_{yy} = P_y(T_y < \infty) \]
-      The probability the state will return to $y$ within an inifite period of time
-      \item \textbf{$T$ is a stopping time} if the iccurence (or nonoccurence) 
-        of the event "we stop at time $n$", $\{T = n\}$, can be determined
-        by looking at the values of the proess up to that time: $X_0, \dots, X_n$
 
-      \item \textbf{Strong Markov Peroperty}: Suppose T is a stopping time.
-        Given that $T=n$ and $X_T = y$, and any other inforamation about
-        $X_0,\dots,X_T$ is irrelevent for predicting the future, and $X_{T+k},
-        k \geq 0$ behaves like the Markov chain with initial state $y$
+    \item Properties of aRenewal Processes
+      \begin{enumerate}
+        \item $N_0 = 0$
+        \item $N_t$ is increasing in time, and right-continuous
+        \item $mathcal{Z}_{\geq 0}$-valued piece-wise function
+        \item $\lim_{t \to \infty} N_t = \infty$
+        \item SLLN (String Law of Large Numbers) for RP (Renewal Process)
+          $$\lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}$$
 
-      \item \textbf{Transient}: A state that, after some point, is never visited
-      \item \textbf{Recurrent}: A state that, after some point, continually recurs
-      \item \textbf{$x$ communicates with $y$ ($x \rightarrow y$)} if there is a
-        positive probability of reaching $y$ starting from $x$
-      \item  A set $A$ is  \textbf{Closed} it it is impossible to get out, 
-        i.e., if $i \in A$ and $j \notin A$, then $p(i,j) = 0$.
-      \item A set $B$ is \textbf{irreducible} if whenever $i, j \in B, i$
-        communicates with $j$.
-      \item If $C$ is a finite closed and irreducible set, then all states
-        in $C$ are recurrent
+      \end{enumerate}
 
-        \item $E_XN(y)=\sum^{\infty}_{n=1}P_X(X_n=y) = \sum^{\infty}_{n=1}p^n(x,y)$
-
-          Is this the expected number of steps to go from $x$ to $y$?
-  \end{itemize}
-
-\section{Stationary Distributions}%
-  \begin{itemize}
-    \item $q(i) = P(X_0 = i)$: $q(i)$ is the probability of starting at $i$
-    \item  \textbf{Stationary Distribution}: If $p$ st time 0 is the same as
-      at time 1 then, by the Morkov property, it will be $p$ for all $n \geq 1$
-      \[ qp = q \]
-    \item $\pi$: Denotes solutions of the equation $\pi p = \pi$
-    \item \textbf{Stationary Distribution for a 2-State Chain}
-      \[ \pi_1 = \frac{b}{a+b} , \pi_2 = \frac{a}{a+b} \]
-    \subsection{Doubly Stochastic Chains}%
-    \label{sub:Doubly Stochastic Chains}
-    \begin{itemize}
-      \item A transition matrix $p$ is said to be \textbf{Doubly Stochastic}
-        if its \textbf{columns also} sum to 1
-    \end{itemize}
+      \item Examples: See times (min) in video
+        \begin{itemize}
+          \item 38
+          \item 52 - Why is $P(X_1=m) = P(L_1 > m-1) - P(L_1 >m)$
+          \item 68
+        \end{itemize}
+      \item Questions
+        \begin{itemize}
+          \item So, $X_n$ is a time?  $S_n$ is, and $N_t$ is an integer
+          \item What is the difference between $S_{N_t}$ and $t$?
+        \end{itemize}
+      
 
   \end{itemize}
-
-\section{Detailed Balance Condition}%
-\label{sec:Detailed Balance Condition}
-  \begin{itemize}
-    \item $\pi$ is said to balance the \textbf{detailed balance condition} if
-      \[
-        \pi(x)p(x,y) = \pi(y)p(y,x)
-      \]
-    \item 
-  \end{itemize}
-
-
-\chapter{Poisson Processes}
-
-\chapter{Renewal Processes}
-\section{Laws of Large Numbers}
-\dfn{Inter-arrival Times}{$X_n$: Random Variable for one occurence}
-\dfn{Epoch Times}{$S_n$: Time for $n$ arrivals}
-\dfn{$N(t)$}{Number of arrivals in time $t$}
-
-\chapter{Continuous Time Markov Chains}
-  \section{Definitions and Examples}%
-  \dfn{ Continuous Time Markov Chain I}{
-    $X_t, t \geq 0$ i s a Markov chain if for any
-    $0 \leq s_0 < s_1 \dots s_n < s$ and possible states
-    $i_0 \dots i_n, i,j$ we have
-    \[ P(X_{t+s} = j | X_s = i, X_s_n = i_n; \dots , X_s_0 = i_0) = P(X_t = j|X_0 = i) \]
-
-    I.e, given the present state, the rest of the past is irrelevant for
-    predicting the future. Note that built into the definition is the fact
-    that the probability of going from $i$ at time $s$ to $j$ at time
-    $s + t$ only depends on t the difference in the times.
-  }
-  \dfn{ Continuous Time Markov Chain II }{
-    A Continuous-Time Markov Chain is a stochastic process that moves
-    from state to state in accordance with a (discrete-time) Markov chain,
-    but is such that the amount of time it spends in each state, before
-    proceeding to the next state, is exponentially distributed.
-    In addition, the amount of time the process spends in state $i$ ,
-    and the next state visited, must be independent random variables
-  }
-  
-  \dfn{ Jump Rate }{
-    Jump Rate from $i$ to $j$
-    \[ q(i,j) = \lim_{h \to \infty} \frac{p_h(i,j)}{h}   \]
-  }
-  
-  
-
-\chapter{Martingales}
-  \dfn{Martingale}{
-    $M_0, M_1, \dots$ is a \textbf{Martingale} with respect to $X_0, X_1,\dots$ if
-    \begin{enumerate}
-      \item for any $n \geq 0$ we have $E|M_n| < \infty$
-      \item the value of $M_n$ can be determined from the values for 
-        $X_n,\dots X_0$ and $M_0$
-      \item for any possible values $x_n, \dots , x_0$,
-        \[
-          E(M_{n+1} - M_n | X_n - x_n, X_{n-1} = x_{n-1}, \dots, X_0 = x_0, M_0 = m_0) = 0
-        \]
-    \end{enumerate}
-  }
-  \section{Conditional Expectations}%
-
-  \section{Examples}%
-
-  \begin{itemize}
-    \item $A_v = (x_n; \dots ; x_0;m_0)$
-  \end{itemize}
-  
 
 \end{document}
