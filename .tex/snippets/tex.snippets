@@ -32,3 +32,46 @@ snippet mc "Markov Chain"
 		;
 		\\end{tikzpicture}
 	\\end{figure}
+
+snippet t text
+	\\text{ ${1:${VISUAL:text}} }${0}
+
+snippet m math
+	\$${0:${VISUAL:math}}\$
+
+snippet mm math-mode on it's own line
+	\\[ ${0:${VISUAL:math}} \\]
+
+snippet thm Theorem
+	\\thm{ ${1:title} } {
+		${2:${VISUAL:body}}
+	}$0
+
+snippet def Definition (See /tex/pramble.tex)
+	\\dfn{ ${1:${VISUAL:title}} }{
+		${2:body}
+	}
+	$0
+
+snippet proof Proof
+	\\myproof {
+		${1:${VISUAL:proof}}
+	}$0
+
+snippet biproof Bidirectional proof
+	\\myproof {
+		\$\\Longleftarrow\$ First we want to show ${0:${VISUAL:Start}}
+
+		\$\\Longrightarrow\$ Next we want to show
+	}
+
+snippet rarrow rightarrow
+	\\Longrightarrow
+snippet larrow leftarrow
+	\\Longleftarrow
+
+snippet lim \lim_{}
+	\\lim_{${1:n} \\to ${2:\\infty}} ${3:f}(x) = ${0}
+
+snippet fx f of x
+	f(${1:x})${0}

@@ -71,6 +71,7 @@
     \item  \textbf{Stationary Distribution}: If $p$ st time 0 is the same as
       at time 1 then, by the Morkov property, it will be $p$ for all $n \geq 1$
       \[ qp = q \]
+    \item $\pi$: Denotes solutions of the equation $\pi p = \pi$
     \item \textbf{Stationary Distribution for a 2-State Chain}
       \[ \pi_1 = \frac{b}{a+b} , \pi_2 = \frac{a}{a+b} \]
     \subsection{Doubly Stochastic Chains}%
@@ -82,11 +83,74 @@
 
   \end{itemize}
 
+\section{Detailed Balance Condition}%
+\label{sec:Detailed Balance Condition}
+  \begin{itemize}
+    \item $\pi$ is said to balance the \textbf{detailed balance condition} if
+      \[
+        \pi(x)p(x,y) = \pi(y)p(y,x)
+      \]
+    \item 
+  \end{itemize}
+
+
+\chapter{Poisson Processes}
 
 \chapter{Renewal Processes}
 \section{Laws of Large Numbers}
 \dfn{Inter-arrival Times}{$X_n$: Random Variable for one occurence}
 \dfn{Epoch Times}{$S_n$: Time for $n$ arrivals}
 \dfn{$N(t)$}{Number of arrivals in time $t$}
+
+\chapter{Continuous Time Markov Chains}
+  \section{Definitions and Examples}%
+  \dfn{ Continuous Time Markov Chain I}{
+    $X_t, t \geq 0$ i s a Markov chain if for any
+    $0 \leq s_0 < s_1 \dots s_n < s$ and possible states
+    $i_0 \dots i_n, i,j$ we have
+    \[ P(X_{t+s} = j | X_s = i, X_s_n = i_n; \dots , X_s_0 = i_0) = P(X_t = j|X_0 = i) \]
+
+    I.e, given the present state, the rest of the past is irrelevant for
+    predicting the future. Note that built into the definition is the fact
+    that the probability of going from $i$ at time $s$ to $j$ at time
+    $s + t$ only depends on t the difference in the times.
+  }
+  \dfn{ Continuous Time Markov Chain II }{
+    A Continuous-Time Markov Chain is a stochastic process that moves
+    from state to state in accordance with a (discrete-time) Markov chain,
+    but is such that the amount of time it spends in each state, before
+    proceeding to the next state, is exponentially distributed.
+    In addition, the amount of time the process spends in state $i$ ,
+    and the next state visited, must be independent random variables
+  }
+  
+  \dfn{ Jump Rate }{
+    Jump Rate from $i$ to $j$
+    \[ q(i,j) = \lim_{h \to \infty} \frac{p_h(i,j)}{h}   \]
+  }
+  
+  
+
+\chapter{Martingales}
+  \dfn{Martingale}{
+    $M_0, M_1, \dots$ is a \textbf{Martingale} with respect to $X_0, X_1,\dots$ if
+    \begin{enumerate}
+      \item for any $n \geq 0$ we have $E|M_n| < \infty$
+      \item the value of $M_n$ can be determined from the values for 
+        $X_n,\dots X_0$ and $M_0$
+      \item for any possible values $x_n, \dots , x_0$,
+        \[
+          E(M_{n+1} - M_n | X_n - x_n, X_{n-1} = x_{n-1}, \dots, X_0 = x_0, M_0 = m_0) = 0
+        \]
+    \end{enumerate}
+  }
+  \section{Conditional Expectations}%
+
+  \section{Examples}%
+
+  \begin{itemize}
+    \item $A_v = (x_n; \dots ; x_0;m_0)$
+  \end{itemize}
+  
 
 \end{document}
