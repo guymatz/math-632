@@ -24,6 +24,7 @@
     \dfn{ Renewal Process }{
       Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
           around min 12
+          \[ \lim_{t \to \infty} frac{N_t}(t) = \frac{1}{E[X_1]}   \]
     }
 
     \dfn{ stachastic  }{
@@ -45,20 +46,18 @@
       $(Y_n)_{n=1}^{\infty}$
     }
 
-    \begin[author]{SLLN for RRP}
+    \dfn{ SLLN for RRP }{
     \[ \lim_{t \to \infty} \frac{R_t}{t}  =  \frac{E[Y_1]}{E[X_1]}  \]
-    \end{SLLN for RRP}
-
+    }
 
     \item Properties of aRenewal Processes
       \begin{enumerate}
         \item $N_0 = 0$
         \item $N_t$ is increasing in time, and right-continuous
-        \item $mathcal{Z}_{\geq 0}$-valued piece-wise function
+        \item $\mathcal{Z}_{\geq 0}$-valued piece-wise function
         \item $\lim_{t \to \infty} N_t = \infty$
         \item SLLN (String Law of Large Numbers) for RP (Renewal Process)
-          $$\lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}$$
-
+          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]} \]
       \end{enumerate}
 
       \item Examples: See times (min) in video
@@ -76,4 +75,49 @@
 
   \end{itemize}
 
+\chapter*{20230621 - Renewal-Reward}
+  \ex{On-OFF Process} {
+    See min 23 of video
+
+    \textit{A machine alternates between "ON" and "O".  On avergae it spends 5 hours at "ON" state, and 3 hours at "OFFF".  What is the limiting proportion of time spent in the "ON" state?}
+
+    We say "a renewal happens" when it is switched ffrfom "OF" to "ON"
+
+    Let $O_k, F_k$ denote the time spend in ON, OFF states during the k-th
+    renewal cycle.
+    \[ X_k = O_k + _k \]
+
+    Consider the time ON as a reward
+
+    \[ \sum^{N_t}_{k=1} O_k \leq R_t \leq \sum^{N_t+1}_{k=1} O_k \]
+    ??? Because we're not counting OFF for $R_t$ ???
+    \[ \frac{1}{t} \sum^{N_t}_{k=1} O_k \leq frac{R_t}{t} \leq \frac{1}{t} \sum^{N_t+1}_{k=1} O_k \]
+
+   \[ \frac{N_t}{t} \frac{1}{N_t} \sum^{N_t}_{k=1} O_k \leq frac{R_t}{t} \leq \frac{N_t+1}{t} \frac{1}{N_t+1} \sum^{N_t+1}_{k=1} O_k \]
+    \[ \frac{1}{E[X_1]} E[O_1]  \]
+
+    See video at min 35 for more
+
+  }
+
+  Take-away message:  The SLLN  for RRP still works even though rewards
+  do not come as "packages"
+
+  \section{Markove Chains}%
+  \dfn{ Markov Chain }{
+    A discrete-time stochastic process $\{X_t: k \in \mathbb{Z}_{\geq 0}\}$
+      with countable state space $S$ is said to be a Markov Chain if
+        $P(X_{n+1}=a_{n+1}|X_n=a_n, x_{n-1}=a_{n-1},\dots,X_0=a_0)$ \\
+        $= P(X_{n+1}=a_{n+1}|X_n=a_n)$
+
+      for all $a_0, a_1, \dots, a_{n+1} \in S, n \geq 0$
+
+      If $P(X_{n+1}=a_n+1|X_n=a_n)$ does not depend in n, then the Markov Chain is said to be "time-homogeneous" (because IID) , and
+        \[ P(a,b) := P(X_{n+1}=b|X_n =a ) \]
+        is the "transition probability" of jumping rfom a to b.
+  }
+  \ex{} {
+    Every IID process
+  }
+  
 \end{document}
