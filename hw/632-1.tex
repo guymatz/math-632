@@ -1,0 +1,120 @@
+\documentclass{article} % This command is used to set the type of document you are working on such as an article, book, or presenation
+
+%\usepackage[margin=1in]{geometry} % This package allows the editing of the page layout. I've set the margins to be 1 inch. 
+
+\usepackage{amsmath, amsfonts}  % The first package allows the use of a large range of mathematical formula, commands, and symbols.  The second gives some useful mathematical fonts.
+
+\usepackage{graphicx}  % This package allows the importing of images
+\usepackage{marvosym}  % Lightning!
+
+%This allows us to use the theorem and proof environment 
+\usepackage{enumitem}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+%Custom commands.  
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} %absolute value command
+
+%Custom symbols
+\newcommand{\Rb}{\mathbb{R}}
+
+\begin{document}
+
+\begin{center}
+\Large{\textbf{Assignment \#2}
+            
+UW-Madison MATH 421} % Name of course here
+\vspace{5pt}
+        
+\normalsize{  Guy Matz% Your name here
+        \\ Due: June 25, 2023}
+\vspace{15pt}
+\end{center}
+
+\section*{Exercises}%
+\begin{enumerate}[label={\fbox{\textbf{Exercise \#\arabic* :}}}]
+  \item Monica works on a temporary basis. The mean length of each job she
+    gets is 12 months and the amount of time she spends between jobs
+    is exponential with mean 3 months.
+    \begin{enumerate}
+      \item In the long run what is the average number of jobs she works in a year?
+      \item  In the long run what fraction of the time does she spend working?
+    \end{enumerate}
+  \newpage
+  \item Three children take turns shooting a ball at a basket. They each shoot until they miss and then
+it is the next child’s turn. Suppose that child i $(1 \leq i \leq 3)$ makes a basket with probability pi
+and that successive trials are independent. Determine the proportion of time in the long run
+that each child shoots. (Assume each shot takes one time unit.)
+Hint: Reviewing the geometric distribution could be helpful.
+
+  \newpage
+  \item A device has two states: ON and OFF. When it works normally, it spends a random time in the
+ON state, then a random time in the OFF state, then again in the ON state, and so on. However,
+when switched from OFF to ON, the device fails with probability 0.01 and a replacement process
+is triggered immediately. Once a new device is in place, it is turned ON. Suppose that the average
+durations in the ON and OFF states are 40 and 20 minutes, respectively, and that it takes 30
+minutes to replace a failed device.
+    \begin{enumerate}
+      \item In the long run what is the rate at which devices are replaced?
+      \item In the long run what is the fraction of time that the device is ON
+    \end{enumerate}
+  \newpage
+  \item After dropping off a customer, an Uber driver needs on average 10 minutes to receive a new
+ride request and pick up the customer. 90% of the customers are short distance riders who will
+pay $10 on average and whose ride lasts on average 20 minutes. The remaining 10% are long
+distance riders who pay $25 on average and whose rides take 40 minutes on average.
+    \begin{enumerate}
+      \item In the long term, what is the rate of customers the Uber driver serves, in units of persons per hour?
+      \item What is the long term rate of revenue (money coming in from the customers), in dollars per hour
+    \end{enumerate}
+
+  \newpage
+  \item Let $\left\{Y_k\right\}_{k \geq 1}$ be i.i.d. $\mathbb{Z}_{\geq 0}$-valued random variables with p.m.f.
+    \[
+      P\left(Y_k=m\right)=2^{-1-m} \text { for } m \geq 0 .
+      \]
+    Let $S_0=0$ and $S_n=Y_1+\cdots+Y_n$ for $n \geq 1$
+    \begin{enumerate}
+      \item Is the process $\left\{Y_k\right\}_{k \geq 1}$ a Markov chain? Prove that it is not, or prove that it is and give its transition probability.
+      \item  $S_n$ is a Markov chain as can be seen readily for example by following the reasoning of Example 2.1. So you need not prove it. What are the suitable choices of state space for $S_n$ ? Find the two-step transition probability $p^{(2)}(x, y)$ for $S_n$.
+    \end{enumerate} 
+  \newpage
+  \item A fair coin is tossed repeatedly with results $\left\{Y_k\right\}_{k \geq 0}$. That is, these random variables are i.i.d.  with common
+    probability mass function
+    \[ P(Y_k=0) = P(Y_k =1) = \\frac{1}{2}  \]
+    For $n \geq 1$ let $X_n = Y_{n-1} + Y_n$, the number of tails in the
+    last two flips. Is Xn a Markov chain?
+    Prove that it is or prove that it is not. An answer based on intuition
+    alone may get some partial credit. Full credit comes from a rigorous
+    solution. (Example 2.18 of the notes gives an example of how to prove
+    that something is not a Markov chain.)
+\end{enumerate}
+
+%\newpage
+%\section*{Theorems}
+%
+%    Suppose $a, b, c, x$ are real numbers,:
+%    \begin{theorem}
+%          $a+x=a \Rightarrow x=0$
+%    \end{theorem}
+%    \begin{theorem}
+%        If $a \cdot b=a \cdot c$ and $a \neq 0$, then $b = c$
+%    \end{theorem}
+%    \begin{theorem}
+%        $a \cdot 0 = 0$ and $0 \cdot a = 0$
+%    \end{theorem}
+%    \begin{theorem}
+%        If $a \cdot b=0$, then either $a=0$ or $b=0$
+%    \end{theorem}
+%
+%\section*{Properties}
+%%  \begin{enumerate}
+%$  \end{enumerate}
+%
+\end{document}
