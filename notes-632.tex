@@ -16,18 +16,33 @@
 %\maketitle
 
 % \setcounter{chapter}{1}
-\chapter*{20230620 - Introduction}
+\chapter*{20230620 - Renewal Process}
 
 \begin{itemize}
-  \item Renewal Process
+  \item Renewal Process - Video I @ min 59
+    \begin{itemize}
+      \item $N_t$: Number of arrivals before time t.  It is indexed by
+        time, so it is a continuous-time stochastic process
+      \item $S_n$: Arrival time of $n^{th}$ "particle"
+      \item $X_n$: Inter-arrival time.  Time between $n$ and $n-1$ (iid)
+    \end{itemize}
   \item Definitions
+    \dfn{ Arrival Time }{
+      Let $\{X_i: i = 1,2...\}$ be a sequence o iid strictly positive
+      RVs.  Let $S_0 = 0$,
+        \[ S_n = X_1 + \dots X_n, n \geq 1 \]
+      Then the process
+      \[ N_t \text{max} \{ n \geq 0; S_n \leq t \} \]
+      is called the Renewal Process corresponding to $\{X_i; i \geq 1 \}$
+    }
+
     \dfn{ Renewal Process }{
       Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
           around min 12
           \[ \lim_{t \to \infty} frac{N_t}(t) = \frac{1}{E[X_1]}   \]
     }
 
-    \dfn{ stachastic  }{
+    \dfn{ stochastic process }{
       A series of random variables indexed by time
     }
 
@@ -37,51 +52,120 @@
 
     \dfn{ Renewal-Reward Process}{
       Let $\{N_t: t \geq 0 \}  $ be a renewal process with strictly 
-      positiv inter-arrival times $\{X_k : k \geq 1 \}$.  Let 
-      $\{ Y_n : n \geq 1 \}$ be iid random valriables, .e. "rewards".
+      positive inter-arrival times $\{X_k : k \geq 1 \}$.  Let 
+      $\{ Y_n : n \geq 1 \}$ be iid random variables, i.e. "rewards".
       Then the process
       \[ R_t = \sum^{N_t}_{n=1} Y_n, t \geq 0 \]
-      is called the renewal-reqard process corresponding to 
+      is called the Renewal-Reward Process corresponding to 
       inter-arrival times $(X_k)_{k=1}^{\infty}$ and rewards
       $(Y_n)_{n=1}^{\infty}$
     }
+    \nt{
+      Renewal-Reward Process, whenever a renewal happens, we get a reward
 
-    \dfn{ SLLN for RRP }{
+      Generalization of a Renewal process, where the reward is always 1
+    }
+
+    \thm{ SLLN for RRP }{
     \[ \lim_{t \to \infty} \frac{R_t}{t}  =  \frac{E[Y_1]}{E[X_1]}  \]
     }
 
-    \item Properties of aRenewal Processes
+    \item Properties of a Renewal Processes
       \begin{enumerate}
         \item $N_0 = 0$
         \item $N_t$ is increasing in time, and right-continuous
         \item $\mathcal{Z}_{\geq 0}$-valued piece-wise function
         \item $\lim_{t \to \infty} N_t = \infty$
-        \item SLLN (String Law of Large Numbers) for RP (Renewal Process)
-          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]} \]
       \end{enumerate}
 
+      \thm{SLLN (Strong Law of Large Numbers) for RP (Renewal Process)} {
+          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]} \]
+      }
       \item Examples: See times (min) in video
-        \begin{itemize}
-          \item 38
-          \item 52 - Why is $P(X_1=m) = P(L_1 > m-1) - P(L_1 >m)$
-          \item 68
-        \end{itemize}
+        \ex{VIDEO 2, min 28: The Lifeftime of a lightbulb
+          $\sim Exp(\frac{1}{100})$. When
+        a lightbulb burns out, it takes 1 hour for the technician to 
+        notice.  It is then immediately replace.  What is the long-term
+        rate off consumption of lightbulbs?}
+        {
+          Let $L_k$ be the lifeftime of the k-th bulb.
+          Then the inter-arrival time is $X_k = L_k + 1$.  $N_t$ is the
+          number of bulbs replaced before time t.  By SLLN for RP,
+          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}  
+          = \frac{1}{E[L1 + 1]} = \frac{1}{100 + 1} \]
+          So the long-term replacement rate is 1 bulb every 101 days.
+        }
+
+        \ex{VIDEO 2, min 38: Same as above, but the technician only checks
+          the bulb exactly on the hour}
+        {
+          Let $L_k$ be the lifeftime of the k-th bulb.
+          Then the inter-arrival time is now an integer, since the
+          replacement happens on the hour. 
+          $X_k = \lceil L_k \rceil$.  $N_t$ is the
+          number of bulbs replaced before time t.  By SLLN for RP,
+          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}   \]
+          \[ P(X=m) = P(m-1 < L \leq m) = P(L_1 > m-1) - P(L > m)
+        = e^{-\frac{1}{100}(m-1)} - e^{-\frac{1}{100}m} \]
+        \[ = p^{m-1}(1-p) \]
+        I.e. $X_1 \sim Geom(1-e^{-\frac{1}{100}})$.
+        So
+        \[ E[X_1] = \frac{1}{1 - e^{-\frac{1}{100}}}  \]
+        So the long-term replacement rate is 1 over that!
+        }
+
+        \ex{VIDEO 2, min 49: \underline{Renewal-Reward Process} - 
+          Bus arrives at a station with inter-arrival time of 10 mins, on
+          avergae.  The number of customers, on average, get off.  What
+          is the long-term rate of passengers that get off at the station?
+        }
+        {
+          Intuitive answer.  3 passengers every 10 mins, or 18 / hr.
+
+          $X_k$ is the interarrival time of the buses. $Y_k$ is the 
+          number of passengers that get off the bus (reward).  Let $R_t$
+          be the number of people who get off the bus before time t.
+          \[ R_t = \sum^{N_t}_{k=1} Y_k \]
+          The longterm rate of passengers is
+          \begin{align*}
+            \lim_{t \to \infty} \frac{R_t}{t} &= \lim_{t \to \infty} \frac{1}{t} \sum^{N_t}_{k=1} Y_k \\
+                  &= \lim_{t \to \infty} \frac{N_t}{t} \frac{1}{N_t} 
+                             \sum^{N_t}_{k=1} Y_k \\
+                  &= \frac{E[Y_1]}{E[X_1]} \\
+                  &= \frac{3}{10} 
+          \end{align*}
+        }
+        
+        \nt{
+          \[ \lim_{t \to \infty} \frac{R_t}{t} = \frac{E[Y_1]}{E[X_1]}  \]
+          Where $E[Y_1]$ is the Reward mean, and $E[X_1]$ is the 
+          cycle length.
+
+          \textbf{So the long-term ratio of rewards is the mean reward
+          per cycle, divided by the mean of cycle length}
+        }
+
       \item Questions
         \begin{itemize}
-          \item So, $X_n$ is a time?  $S_n$ is, and $N_t$ is an integer
+          \item So, $X_n$ is a time for nth particle,  $S_n$ is total time,
+            and $N_t$ is \# of arrivals before time t, an integer
           \item What is the difference between $S_{N_t}$ and $t$?
         \end{itemize}
       
 
   \end{itemize}
 
-\chapter*{20230621 - Renewal-Reward}
+\chapter*{20230621 - Renewal-Reward / Markov Chains}
+\section{Renewal Reward}%
+
   \ex{On-OFF Process} {
-    See min 23 of video
+    See min 23 of video 3
 
-    \textit{A machine alternates between "ON" and "O".  On avergae it spends 5 hours at "ON" state, and 3 hours at "OFFF".  What is the limiting proportion of time spent in the "ON" state?}
+    \textit{A machine alternates between "ON" and "OFF".  On avergae it
+    spends 5 hours at "ON" state, and 3 hours at "OFFF".  What is the
+  limiting proportion of time spent in the "ON" state?}
 
-    We say "a renewal happens" when it is switched ffrfom "OF" to "ON"
+    We say "a renewal happens" when it is switched from "OF" to "ON"
 
     Let $O_k, F_k$ denote the time spend in ON, OFF states during the k-th
     renewal cycle.
@@ -103,21 +187,60 @@
   Take-away message:  The SLLN  for RRP still works even though rewards
   do not come as "packages"
 
-  \section{Markove Chains}%
+  \section{Markov Chains : Video 0621 @ min 43}%
   \dfn{ Markov Chain }{
     A discrete-time stochastic process $\{X_t: k \in \mathbb{Z}_{\geq 0}\}$
       with countable state space $S$ is said to be a Markov Chain if
-        $P(X_{n+1}=a_{n+1}|X_n=a_n, x_{n-1}=a_{n-1},\dots,X_0=a_0)$ \\
-        $= P(X_{n+1}=a_{n+1}|X_n=a_n)$
+      \begin{align*}
+         &P(X_{n+1}=a_{n+1}|X_n=a_n, x_{n-1}=a_{n-1},\dots,X_0=a_0) \\
+       = &P(X_{n+1}=a_{n+1}|X_n=a_n)
+      \end{align*}
 
       for all $a_0, a_1, \dots, a_{n+1} \in S, n \geq 0$
 
       If $P(X_{n+1}=a_n+1|X_n=a_n)$ does not depend in n, then the Markov Chain is said to be "time-homogeneous" (because IID) , and
         \[ P(a,b) := P(X_{n+1}=b|X_n =a ) \]
-        is the "transition probability" of jumping rfom a to b.
+        is the \underline{transition probability} of jumping rfom a to b.
   }
-  \ex{} {
-    Every IID process
+  \ex{HOW TO CHECK THE MARKOV Property - video 0621, min 51} {
+    Every IID process $\{X_k: k \geq 0\}$ is a time-homogeneous MC.
+    \[ P(X_{n+1} = a_{n+1} | X_n=a_n, \dots , x_0 = a_0) = 
+    P(X_{n+1}=a_{n+1}) \]
+
+    and,
+    \[ P(X_{n+1} = a_{n+1} | X_n=a_n) = P(X_{n+1}=a_{n+1}) \]
+
+    So to check MC, verify that 
+    \[ P(X_{n+1} = a_{n+1} | X_n=a_n, \dots , x_0 = a_0) = 
+     P(X_{n+1} = a_{n+1} | X_n=a_n) \]
+   Hence the Markov Property holds and $(X_k)_{k \geq 0}$ is a Markov Chain
+
+   Moreover, because $X$ are iid,
+   \[ P(X_{n+1} = b | X_n = a) = P(X_{n+1}=b) =  P(X_1=b) \]
+   does not depend on $n$, so the Markov Chain is time-homogeneous, with
+   \[ p(a,b) = P(X_1 = b) \]
   }
   
+  \ex{SRW: Video 0621 - min 58} {
+    The Simple Random Walk (SRW) is also a MC.
+
+    Let $(Y_k: k \geq 1)$ be iid RVs with $P(Y_1 = 1) = p$ and
+    $P(Y_1 = -1) = (1-p)$
+
+    Let $S_0 = 0, S_n = \sum^{\infty}_{k=1} , n \geq 1$
+
+    To check the Markov Property, we need to verify the conditioning on all
+    states equals the conditioning on the current state, I.e
+    \[ P(S_{n+1}=a_{n+1} | S_n=a_n,  \dots, S_0 = 0)
+      =  \frac{P(S_{n+1}=a_{n+1} , S_n=a_n,  \dots, S_0 = 0)}
+      {P(S_n=a_n,  \dots, S_0 = 0)}
+      \[  = \frac{P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n+1}=a_{n+1}-a_n}
+        {P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n}=a_{n}-a_{n-1}}
+      \]
+      =
+  }
+  \ex{For us to show: @ min 1:09} {
+    Let $\{Y_k, k\geq 0\}$ be iid RVs.  Let $X_k=(Y_k-1, Y_k), k \geq 1$.  
+    Then $\{X_n, k \keq 1\}$ is a MC.  Show this!
+  }
 \end{document}
