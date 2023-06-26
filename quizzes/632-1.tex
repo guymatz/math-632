@@ -51,7 +51,7 @@ Quiz 1}
     \begin{itemize}
 		\item $X_k$ is an independent process but not an identically-distributed process
 		\item $X_k$ is a renewal process
-		\item $X_k$ is a stochastic process
+		\item $X_k$ is a stochastic process \checkmark
 		\item $X_k$ is an iid process \checkmark
     \end{itemize}
 
@@ -59,6 +59,14 @@ Quiz 1}
 
   \item Let $U \sim$ Unif[0,6]. Calculate the expectation of the random
     variable $min(U, 4)$.
+
+    \begin{align*}
+      E[min(U, 4)] &= E[min(U, 4) | U \leq 4)P(U \leq 4) +
+                              E[min(U,4) | U > 4)P(U > 4) \\
+                   &= 2 \cdot  \frac{2}{3} + 4 \cdot  \frac{1}{3}  \\
+                   &= \frac{4}{3} + \frac{4}{3}  \\
+                   &= 2.667
+    \end{align*}
 
 \newpage
 
@@ -74,22 +82,34 @@ Quiz 1}
     a uniform random variable and a deterministic constant. Then apply the
     Renewal theorem. 
 
+    Let $U \sim$ Unif[0,8].  Then
+    \begin{align*}
+      E[min(U, 4)] &= E[min(U, 4) | U \leq 4)P(U \leq 4) + 
+                              E[min(U,4) | U > 4)P(U > 4) \\
+                   &= 2 \cdot  \frac{1}{2} + 4 \cdot  \frac{1}{2}  \\
+                   &= 1 + 2  \\
+                   &= 3
+    \end{align*}
+
+    So 
+    \[ \lim_{n \to \infty} \frac{N_t}{n} = \frac{1}{E[X]} = .33 \]
+
 \newpage
 
   \item Suppose the lifetimes of light bulbs used in a storage room have
     i.i.d. exponential distribution with mean 200 days. Suppose that a
     custodian checks the bulb exactly at noon every day. A burned-out bulb
     is replaced immediately upon discovery. Let $X_k$ denote the length of
-    the k-th cycle. $X_k$ is a \rule{1cm}{0.15mm} random variable. (Fill
-    in the distribution of $X$.) The long-term rate at which bulbs are
-    consumed is \rule{1cm}{0.15mm}.
+    the k-th cycle. $X_k$ is a \underline{exponential} random variable.
+    (Fill in the distribution of $X$.) The long-term rate at which bulbs
+    are consumed is \underline{1/200} ??
 
 \newpage
 
   \item Every iid process $X_n$ satisfies the Markov property.
     \begin{itemize}
-      \item True
-      \item False \checkmark
+      \item True \checkmark
+      \item False
     \end{itemize}
 
 \newpage
@@ -100,7 +120,7 @@ Quiz 1}
     $P(X_0=x_0, \dots X_3 = x_3) > 0$?
     \begin{enumerate}
       \item $P(X_4 = x_4 | X_0 = x_0)$
-      \item $P(X_4 = x_4 | X_3 = x_3)$
+      \item $P(X_4 = x_4 | X_3 = x_3)$ \checkmark
       \item $P(X_4 = x_4 | X_5 = x_5)$
     \end{enumerate}
 
@@ -109,5 +129,8 @@ Quiz 1}
   \item Suppose $X_n$ is a simple random walk with transition
     probabilities $P(X_{n+1} = b|X_n = a)$ equal to 0.5 if $b=a+1$ and
     equal to (1-0.5) if $b=a-1$.  If $P(X_0=0)=1$, what is $(X_3=-1)$
+
+    .375
+
 \end{enumerate}
 \end{document}
