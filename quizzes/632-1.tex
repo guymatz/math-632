@@ -1,0 +1,113 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+%\usepackage{enumitem}
+\usepackage[inline]{enumitem}
+
+%\input{.tex/preamble}
+%\input{.tex/macros}
+%\input{.tex/letterfonts}
+
+\title{UW - Math 632 \\
+Stachastic Processes \\
+Quiz 1}
+
+\author{Guy Matz}
+\date{\today}
+
+
+\begin{document}
+
+\begin{enumerate}
+  \item Suppose $X$ is a geometric random variable with success
+    probability $p=0.4$ and probability mass function:
+    \[ P(X=n)=p(1-p)^{n-1} \]
+    Compute the expectation of $X$.
+
+    \[ E[X] = \frac{1}{p} = \frac{1}{\frac{4}{10} } = 2.5   \]
+
+\newpage
+
+  \item Which of the following statements are true?
+    \begin{enumerate}
+      \item Every real-valued random variable has a probability mass function.
+      \item Every real-valued random variable has a cumulative distribution function. \checkmark
+      \item Every real-valued random variable has a probability distribution.
+      \item Every real-valued random variable has a probability density function \checkmark
+    \end{enumerate}
+
+\newpage
+
+  \item Let $\{ X_k : k = 0,1,2 \dots \}$ denote a collection of random
+    variables such that $X_k$ are independent Binomial random variables
+    with parameters $n$ and $p$.
+    Which of the following statements are correct?
+    \begin{itemize}
+		\item $X_k$ is an independent process but not an identically-distributed process
+		\item $X_k$ is a renewal process
+		\item $X_k$ is a stochastic process
+		\item $X_k$ is an iid process \checkmark
+    \end{itemize}
+
+\newpage
+
+  \item Let $U \sim$ Unif[0,6]. Calculate the expectation of the random
+    variable $min(U, 4)$.
+
+\newpage
+
+  \item Suppose the waiting times $\{X_k, k \geq 1\}$ of customers at
+    restaurant A (in minutes) are i.i.d. RVs distributed according to the
+    Unif[0,8] distribution. If the waiting time exceeds 4 (minutes), then
+    the customer will be served immediately. In the long run, what is the
+    rate at which the customers are served? 
+
+    Provide a numerical answer with precision up to 2 decimal places.
+
+    Hint: Question 4 shows how to compute the expectation of the minimum of
+    a uniform random variable and a deterministic constant. Then apply the
+    Renewal theorem. 
+
+\newpage
+
+  \item Suppose the lifetimes of light bulbs used in a storage room have
+    i.i.d. exponential distribution with mean 200 days. Suppose that a
+    custodian checks the bulb exactly at noon every day. A burned-out bulb
+    is replaced immediately upon discovery. Let $X_k$ denote the length of
+    the k-th cycle. $X_k$ is a \rule{1cm}{0.15mm} random variable. (Fill
+    in the distribution of $X$.) The long-term rate at which bulbs are
+    consumed is \rule{1cm}{0.15mm}.
+
+\newpage
+
+  \item Every iid process $X_n$ satisfies the Markov property.
+    \begin{itemize}
+      \item True
+      \item False \checkmark
+    \end{itemize}
+
+\newpage
+
+  \item Consider a Markov chain $X_n$ with state space $S$.  Which of the
+    following quantities must be equal to $P(X_4 = x_4 | X_0 = x_0, X_1 = 
+    x_1, X_2 = x_2, X_3 = x_3)$ for $x_0, \dots, x_4 \in S$ provided
+    $P(X_0=x_0, \dots X_3 = x_3) > 0$?
+    \begin{enumerate}
+      \item $P(X_4 = x_4 | X_0 = x_0)$
+      \item $P(X_4 = x_4 | X_3 = x_3)$
+      \item $P(X_4 = x_4 | X_5 = x_5)$
+    \end{enumerate}
+
+\newpage
+
+  \item Suppose $X_n$ is a simple random walk with transition
+    probabilities $P(X_{n+1} = b|X_n = a)$ equal to 0.5 if $b=a+1$ and
+    equal to (1-0.5) if $b=a-1$.  If $P(X_0=0)=1$, what is $(X_3=-1)$
+\end{enumerate}
+\end{document}

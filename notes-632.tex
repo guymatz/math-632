@@ -243,4 +243,92 @@
     Let $\{Y_k, k\geq 0\}$ be iid RVs.  Let $X_k=(Y_k-1, Y_k), k \geq 1$.  
     Then $\{X_n, k \keq 1\}$ is a MC.  Show this!
   }
+
+\chapter*{20230622 - Markov Chains}
+  \begin{itemize}
+    \item Conditioning is the same as conditioning on the current state?
+    \dfn{ Markov Chain }{
+      Discrete-time Stochastic Process
+    }
+    \dfn{ Time-Homogeneous }{
+      Transition probability does not depend on time.  I.e, if
+      \[ P(X_{n+1} = b | n_n=a) = p(a,b) \]
+      does not depend on time
+    }
+    \item Examples
+      \item SRW
+      \item IID process
+    \dfn{ Transition Probability }{
+      P of transition from a to b, i.e. $p(a,b)$
+    }
+    \dfn{ Transition Probability Function }{
+      A function $p : S \times S \rightarrow [0,1]$ is called a transition
+      probability function if
+        \[ \sum^{}_{b \in S} p(a,b) = 1 \]
+      for all $a \in S$
+    }
+    \nt{
+      For a time-homogensous MC, $P(X_{n+1}=b| X_n=a) = p(a,b)$
+        deffines a transition prob function
+    }
+    \ex{a Video 20230622} {
+      \begin{itemize}
+        \item rolling dice @ min 17?
+        \item (Biased) SRW @ min 18?
+          \begin{align}
+            P(a,b) = P(S_{n+1}=b|S_n=a) &= 0 \text{ if } |b-a| > 1 \\
+                                       &= p  \text{ if } b=a + 1 \\
+                                       &= 1-p  \text{ if } b=a - 
+          \end{align}
+        \item IID (min 24)
+
+          Let $Y_0, Y_1, \dots$ be iid with prob
+          \[ P(Y_0 = 1) = P(Y_0 = -1) = \frac{1}{2} \]
+          Then $X_n = (Y_n, Y_{n-1}) , n \geq 1$ is a MC with state space
+          \[ S =  \{ (-1, -1), (-1, 1), (1, -1), (1, 1) \} = \{-1,1\}^2\]
+          Its' Transition Probabiity Function
+          \begin{align}
+            P( (a_1, a_2), (b_1, b_2) &= P(X_{n+1} = (b_1, b_2) | X_n = (a_1, a_2)) \\
+                                  &= P(Y_{n+1} = b_1, Y_n=b_2| Y_n = a_1, Y_{n-1}=a_2)
+                                  &= \frac{P(Y_{n+1} = b_1, Y_n=b_2, Y_n = a_1, Y_{n-1}=a_2)}{P(Y_n=a_1, Y_{n-1} = a_2)}
+                                  &= 0 \text{ if } a_1 \neq b_2
+                                  &= \frac{1}{2}  \text{ if } a_1 = b_2
+          \end{align}
+          For all $(a_1, a_2), (b_1, b_2) \in S$
+        \item Gambler's Ruin at min 35
+
+          Win with prob p (lose with prob 1-p).  The games stops when
+          fortune is 0 or \$5.  $X_0 = x$.  Transition probability function
+          \begin{align}
+            p(a,b) &= p \text{ if } b = a+1, 1 \leq a \leq 4 \\
+                   &= 1-p \text{ if } b = a-1, 1 \leq a \leq 4 \\
+                   &= 1 \text{ if } a=b \\
+                   &= 0 \text{ otherwise }
+          \end{align}
+
+          \dfn{ Absorbing State}{
+            If a state $a \in S$ such that $p(a,a) = 1$ , then a
+            is called an absorbing state
+          }
+          \dfn{ Initial Distribution }{
+            Let $\mu$ be a prob dist on $S$.  We say that the MC
+            $(X_n), n \geq 0$ has initial dist $\mu$ is $P(X_0=x)=\mu(x)
+            , x \in S$
+          }
+          \thm{ title } {
+            For any prod dist $\mu$ on $S$ and trans prob func
+            $p(\cdot,\cdot)$ there exists a time-homo MC with state space
+            $S$ , init dist $\mu$ and trans prob $p(\cdot,\cdot)$
+          }
+          \ex{@ 1:08} {
+            example of Gambler's ruin by MC
+          }
+      \end{itemize}
+      \nt{
+        If a MC has initial distribution $\mu$, then it's distribution
+        is denoted by $P_{\mu}$
+      }
+    }
+  \end{itemize}
+
 \end{document}
