@@ -39,7 +39,7 @@
     \dfn{ Renewal Process }{
       Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
           around min 12
-          \[ \lim_{t \to \infty} frac{N_t}(t) = \frac{1}{E[X_1]}   \]
+          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}   \]
     }
 
     \dfn{ stochastic process }{
@@ -221,32 +221,32 @@
    \[ p(a,b) = P(X_1 = b) \]
   }
   
-  \ex{SRW: Video 0621 - min 58} {
-    The Simple Random Walk (SRW) is also a MC.
-
-    Let $(Y_k: k \geq 1)$ be iid RVs with $P(Y_1 = 1) = p$ and
-    $P(Y_1 = -1) = (1-p)$
-
-    Let $S_0 = 0, S_n = \sum^{\infty}_{k=1} , n \geq 1$
-
-    To check the Markov Property, we need to verify the conditioning on all
-    states equals the conditioning on the current state, I.e
-    \[ P(S_{n+1}=a_{n+1} | S_n=a_n,  \dots, S_0 = 0)
-      =  \frac{P(S_{n+1}=a_{n+1} , S_n=a_n,  \dots, S_0 = 0)}
-      {P(S_n=a_n,  \dots, S_0 = 0)}
-      \[  = \frac{P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n+1}=a_{n+1}-a_n}
-        {P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n}=a_{n}-a_{n-1}}
-      \]
-      =
-  }
+%  \ex{SRW: Video 0621 - min 58} {
+%    The Simple Random Walk (SRW) is also a MC.
+%
+%    Let $(Y_k: k \geq 1)$ be iid RVs with $P(Y_1 = 1) = p$ and
+%    $P(Y_1 = -1) = (1-p)$
+%
+%    Let $S_0 = 0, S_n = \sum^{\infty}_{k=1} , n \geq 1$
+%
+%    To check the Markov Property, we need to verify the conditioning on all
+%    states equals the conditioning on the current state, I.e
+%    \[ P(S_{n+1}=a_{n+1} | S_n=a_n,  \dots, S_0 = 0)
+%      =  \frac{P(S_{n+1}=a_{n+1} , S_n=a_n,  \dots, S_0 = 0)}
+%      {P(S_n=a_n,  \dots, S_0 = 0)}
+%      \[  = \frac{P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n+1}=a_{n+1}-a_n}
+%        {P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n}=a_{n}-a_{n-1}}
+%      \]
+%  }
   \ex{For us to show: @ min 1:09} {
     Let $\{Y_k, k\geq 0\}$ be iid RVs.  Let $X_k=(Y_k-1, Y_k), k \geq 1$.  
-    Then $\{X_n, k \keq 1\}$ is a MC.  Show this!
+    Then $\{X_n, k \leq 1\}$ is a MC.  Show this!
   }
 
 \chapter*{20230622 - Markov Chains}
   \begin{itemize}
-    \item Conditioning is the same as conditioning on the current state?
+    \item Conditioning on the entire history is the same as conditioning
+      on the current state
     \dfn{ Markov Chain }{
       Discrete-time Stochastic Process
     }
@@ -331,4 +331,27 @@
     }
   \end{itemize}
 
+\chapter*{20230626 - Markov Chains}
+  \begin{itemize}
+    \item  Success Run Chain: success move you forward, failure moves
+      back to beginning
+    \item $P_a = P_\delta_a$: The dist of a MC with initial dist
+      $\mu = \delta_a$, i.e. $X_0 = a$ with prob 1
+    \item The Expectation with respect to $P_{\mu}$ and $P_a$ are
+      denoted by $E_{\mu}$ and $E_a$, respectively
+    \item Let $X_0$ be a RV .  Let $(Y_k)_{k \in \mathbb{N}}$ be a seq
+      of indep. RVs.  Let $g$ be a certain function.
+
+      Then the RVs $(X_n)_{n \in \mathbb{Z} \geq 0}$ defined by 
+      \[ X_{n+1} = g(X_n, Y_{n+1}) \]
+      is a Markov Chain
+
+  \end{itemize}
+
+  \section{Examples}%
+    \item min 22 - Transition Probability Function
+    \item min 45 - Success-Run chain with $g$ function above
+    \item min 110 - Multi-step MC
+  \label{sec:Examples}
+  
 \end{document}
