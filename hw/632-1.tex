@@ -89,23 +89,27 @@ UW-Madison MATH 632} % Name of course here
     \begin{enumerate}
       \item In the long run what is the rate at which devices are replaced?
 \par\noindent\rule{\textwidth}{0.1pt}
-        The RV $X \sim$ Geom(p), so $E[X] = \frac{60}{.05} = 1200 $
+        The Expected mins per inter-arrival of $X$ is
+        \[ E[X] = 40 + 20 + 30 \cdot .01 = 60.3 \]
+        $X \sim$ Geom(p), so 
+        \[ E[X] = (60 + 0.3) \cdot \frac{1}{0.1} = 6030 \]
 
         Then
-        \[ \frac{N_t}{t} = \frac{1}{E[X]} =  \frac{1}{1200} \]
+        \[ \frac{N_t}{t} = \frac{1}{E[X]} =  \frac{1}{6030} \]
       \item In the long run what is the fraction of time that the device is ON
+
         Let $Y$ be the random variable that takes $Y=F$ when there is a
         failure, otherwise $Y=G$\\
        The Expected value for a cycle is
-       \begin{align*}
+       \begin{equation*}\begin{split}
          E[X_n] &= E[E[X|Y]] \\
-                    & = E[X=ON]
-                            + E[X=OFF|Y=G] \cdot P(Y=G) 
+                &\qquad = E[X=ON] + E[X=OFF] \\
+                    &\qquad + E[X=OFF|Y=G] \cdot P(Y=G) 
                             + E[X=OFF|Y=F] \cdot P(Y=F)
-       \end{align*}
-       \[ E[X_n] = 40 + 20 \cdot 0.95 + 30 \cdot .05 = 60.5 \]
+       \end{split}\end{equation*}
+       \[ E[X_n] = 40 + 20  + 0 \cdot 0.95 + 30 \cdot .01 = 60.3 \]
        so
-       \[ \frac{R_t}{t} = \frac{40}{60.5} = .66 \]
+       \[ \frac{R_t}{t} = \frac{40}{60.3} = .66 \]
 \par\noindent\rule{\textwidth}{0.1pt}
     \end{enumerate}
   \newpage
@@ -118,8 +122,28 @@ UW-Madison MATH 632} % Name of course here
     \begin{enumerate}
       \item In the long term, what is the rate of customers the Uber driver serves, in units of persons per hour?
 \par\noindent\rule{\textwidth}{0.1pt}
-      \item What is the long term rate of revenue (money coming in from the customers), in dollars per hour
+        Let $X$ be the Variable for Ride Length, and $Y$ a variable for
+        Ride Type, with a probability for a short ride, and long 
+        defined as $P(Y=s) = 0.9, P(Y=l) = 0.1$, respectively.  Then
+        the expected rate, in mimutes, is
+       \begin{align*}
+         E[X] = E[E[X|Y]] &= E[X|Y=s]P(Y=s) + E[X|Y=l]P(Y=l)   \\
+                          &= (20+10) \cdot 0.9 + (40+10) \cdot 0.1 = 32
+       \end{align*}
+       In hours, this is $32/60$ = .533
+
+       Then the rate of customers the Uber driver serves, in units of persons per hour is
+       \[ \frac{N_t}{t}  = \frac{1}{E[X]}  = \frac{1}{32/60} = 1.875 \]
+     \item What is the long term rate of revenue (money coming in from the customers), in dollars per hour
 \par\noindent\rule{\textwidth}{0.1pt}
+        This is a Renewal-Reward process where the reward is the expected
+        fare for one ride.  Let $F$ be the variable for the fare, then
+       \begin{align*}
+         E[F] = E[E[F|Y]] &= E[F|Y=s]P(Y=s) + E[F|Y=l]P(Y=l)   \\
+                          &= 10 \cdot 0.9 + 25 \cdot 0.1 = 11.5
+       \end{align*}
+        We find the long term rate of revenue, in dollars per hour, is
+        \[ \frac{R_t}{t} = \frac{E[F]}{E[X]} = \frac{11.5}{.533} = 21.56 \]
     \end{enumerate}
 
   \newpage
@@ -131,6 +155,7 @@ UW-Madison MATH 632} % Name of course here
     \begin{enumerate}
       \item Is the process $\left\{Y_k\right\}_{k \geq 1}$ a Markov chain? Prove that it is not, or prove that it is and give its transition probability.
 \par\noindent\rule{\textwidth}{0.1pt}
+      $p(m, m+1) = 
       \item  $S_n$ is a Markov chain as can be seen readily for example by following the reasoning of Example 2.1. So you need not prove it. What are the suitable choices of state space for $S_n$ ? Find the two-step transition probability $p^{(2)}(x, y)$ for $S_n$.
 \par\noindent\rule{\textwidth}{0.1pt}
     \end{enumerate} 
