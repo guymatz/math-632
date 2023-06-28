@@ -89,7 +89,23 @@ UW-Madison MATH 632} % Name of course here
     \begin{enumerate}
       \item In the long run what is the rate at which devices are replaced?
 \par\noindent\rule{\textwidth}{0.1pt}
+        The RV $X \sim$ Geom(p), so $E[X] = \frac{60}{.05} = 1200 $
+
+        Then
+        \[ \frac{N_t}{t} = \frac{1}{E[X]} =  \frac{1}{1200} \]
       \item In the long run what is the fraction of time that the device is ON
+        Let $Y$ be the random variable that takes $Y=F$ when there is a
+        failure, otherwise $Y=G$\\
+       The Expected value for a cycle is
+       \begin{align*}
+         E[X_n] &= E[E[X|Y]] \\
+                    & = E[X=ON]
+                            + E[X=OFF|Y=G] \cdot P(Y=G) 
+                            + E[X=OFF|Y=F] \cdot P(Y=F)
+       \end{align*}
+       \[ E[X_n] = 40 + 20 \cdot 0.95 + 30 \cdot .05 = 60.5 \]
+       so
+       \[ \frac{R_t}{t} = \frac{40}{60.5} = .66 \]
 \par\noindent\rule{\textwidth}{0.1pt}
     \end{enumerate}
   \newpage
