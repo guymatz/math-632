@@ -45,10 +45,12 @@ UW-Madison MATH 632} % Name of course here
     \begin{enumerate}
       \item In the long run what is the average number of jobs she works in a year?
 
+\par\noindent\rule{\textwidth}{0.1pt}
         The is a Renewal Process with $E[X] = \frac{1}{15} $ 
 
       \item  In the long run what fraction of the time does she spend working?
 
+\par\noindent\rule{\textwidth}{0.1pt}
         Let $L_n$ be the length of time at each job, where $E[L_n] = 
         \frac{12}{12}$, and let $W_n$ be the time off between jobs, with
         $E[L_n] = \frac{5}{12}$.
@@ -66,9 +68,10 @@ UW-Madison MATH 632} % Name of course here
     one time unit.) \emph{Hint: Reviewing the geometric distribution
       could be helpful.}
 
+\par\noindent\rule{\textwidth}{0.1pt}
       Let each child's attempt by Geomtric RV with $X_n \sim $ Geom($\pi$).
     so $E[X] = \frac{1}{\pi}$.
-    And let $Y_n = X_1 + X_2 + X_3$, so $E[Y] = 3E[X] = \frac{3}{\pi}$. 
+    And let $Y_n = X_1 + X_2 + X_3$, so $E[Y] = 3, E[X] = \frac{3}{\pi}$. 
     Then for this Renewal Reward cycle we get
     \[ \lim_{n \to \infty} \frac{R_t}{t} =
         \frac{\text{Rewards per cycle}}{\text{Cycle Length}}
@@ -85,7 +88,9 @@ UW-Madison MATH 632} % Name of course here
     30 minutes to replace a failed device.
     \begin{enumerate}
       \item In the long run what is the rate at which devices are replaced?
+\par\noindent\rule{\textwidth}{0.1pt}
       \item In the long run what is the fraction of time that the device is ON
+\par\noindent\rule{\textwidth}{0.1pt}
     \end{enumerate}
   \newpage
   \item After dropping off a customer, an Uber driver needs on average 10
@@ -96,7 +101,9 @@ UW-Madison MATH 632} % Name of course here
     average and whose rides take 40 minutes on average.
     \begin{enumerate}
       \item In the long term, what is the rate of customers the Uber driver serves, in units of persons per hour?
+\par\noindent\rule{\textwidth}{0.1pt}
       \item What is the long term rate of revenue (money coming in from the customers), in dollars per hour
+\par\noindent\rule{\textwidth}{0.1pt}
     \end{enumerate}
 
   \newpage
@@ -107,18 +114,34 @@ UW-Madison MATH 632} % Name of course here
     Let $S_0=0$ and $S_n=Y_1+\cdots+Y_n$ for $n \geq 1$
     \begin{enumerate}
       \item Is the process $\left\{Y_k\right\}_{k \geq 1}$ a Markov chain? Prove that it is not, or prove that it is and give its transition probability.
+\par\noindent\rule{\textwidth}{0.1pt}
       \item  $S_n$ is a Markov chain as can be seen readily for example by following the reasoning of Example 2.1. So you need not prove it. What are the suitable choices of state space for $S_n$ ? Find the two-step transition probability $p^{(2)}(x, y)$ for $S_n$.
+\par\noindent\rule{\textwidth}{0.1pt}
     \end{enumerate} 
   \newpage
   \item A fair coin is tossed repeatedly with results $\left\{Y_k\right\}_{k \geq 0}$. That is, these random variables are i.i.d.  with common
     probability mass function
-    \[ P(Y_k=0) = P(Y_k =1) = \\frac{1}{2}  \]
+    \[ P(Y_k=0) = P(Y_k =1) = \frac{1}{2}  \]
     For $n \geq 1$ let $X_n = Y_{n-1} + Y_n$, the number of tails in the
     last two flips. Is Xn a Markov chain?
     Prove that it is or prove that it is not. An answer based on intuition
     alone may get some partial credit. Full credit comes from a rigorous
     solution. (Example 2.18 of the notes gives an example of how to prove
     that something is not a Markov chain.)
+\par\noindent\rule{\textwidth}{0.1pt}
+    The probability Mass Function for $X$ is 
+    \[ P(X_n=0) = \frac{1}{4},  P(X_n=1) = \frac{1}{2},
+          P(X_n=2)= \frac{1}{4}    \]
+    From the construction of the process it follows that for any
+    fixed $n \geq 1$ the random variables $X_n$ are NOT independent.
+    Imagine the sequence of rolls
+    \{\dots, $Y_{n-1}=0, Y_{n}=1, Y_{n+1}=0\}$, resulting in 
+    $X_{n-1}=1, X_{n}=1$
+    Then,
+    \[ P(X_{n+1} = 2 | X_n = 1) = \frac{1}{2}  \]
+    but
+    \[ P(X_{n+1} = 2 | X_n = 1, X_{n-1} = 1) = 0  \]
+    
 \end{enumerate}
 
 %\newpage
