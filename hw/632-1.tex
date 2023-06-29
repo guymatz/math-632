@@ -46,7 +46,10 @@ UW-Madison MATH 632} % Name of course here
       \item In the long run what is the average number of jobs she works in a year?
 
 \par\noindent\rule{\textwidth}{0.1pt}
-        The is a Renewal Process with $E[X] = \frac{1}{15} $ 
+        This is a Renewal Process wth $E[X] = 15 \text{ months } \cdot 
+        \frac{1 \text{ year }}{12 \text{ months }} = \frac{5}{4} $ ,
+        so the average number of jobs per year is given by
+        \[ \lim_{t \to \infty} \frac{1}{E[X]}  = \frac{4}{5}  \]
 
       \item  In the long run what fraction of the time does she spend working?
 
@@ -55,7 +58,7 @@ UW-Madison MATH 632} % Name of course here
         \frac{12}{12}$, and let $W_n$ be the time off between jobs, with
         $E[L_n] = \frac{5}{12}$.
         Then this a Renewal-Reward Process with 
-        \[ \lim_{t \to \infty} \frac{N_t}{t} =
+        \[ \lim_{t \to \infty} \frac{R_t}{t} =
         \frac{E[L_1]}{E[L_1] + E[W_1]}  = \frac{\frac{12}{12}}{\frac{12}{12} + \frac{3}{12} } = \frac{12}{15}    \]
 
     \end{enumerate}
@@ -89,8 +92,8 @@ UW-Madison MATH 632} % Name of course here
     \begin{enumerate}
       \item In the long run what is the rate at which devices are replaced?
 \par\noindent\rule{\textwidth}{0.1pt}
-        The Expected mins per inter-arrival of $X$ is
-        \[ E[X] = 40 + 20 + 30 \cdot .01 = 60.3 \]
+        The mins per inter-arrival of $X$ is
+        \[ X = 40 + 20 + 30 \cdot .01 = 60.3 \]
         $X \sim$ Geom(p), so 
         \[ E[X] = 60.3 \cdot \frac{1}{0.1} = 6030 \]
 
@@ -118,7 +121,7 @@ UW-Madison MATH 632} % Name of course here
         defined as $P(Y=s) = 0.9, P(Y=l) = 0.1$, respectively.  Then
         the expected rate, in mimutes, is
        \begin{align*}
-         E[X] = E[E[X|Y]] &= E[X|Y=s]P(Y=s) + E[X|Y=l]P(Y=l)   \\
+         E[X] = E[E[X|Y]] &= E[X|Y=s] \cdot P(Y=s) + E[X|Y=l] \cdot P(Y=l) \\
                           &= (20+10) \cdot 0.9 + (40+10) \cdot 0.1 = 32
        \end{align*}
        In hours, this is $32/60$ = .533
@@ -130,7 +133,7 @@ UW-Madison MATH 632} % Name of course here
         This is a Renewal-Reward process where the reward is the expected
         fare for one ride.  Let $F$ be the variable for the fare, then
        \begin{align*}
-         E[F] = E[E[F|Y]] &= E[F|Y=s]P(Y=s) + E[F|Y=l]P(Y=l)   \\
+         E[F] = E[E[F|Y]] &=E[F|Y=s] \cdot P(Y=s) +E[F|Y=l] \cdot P(Y=l) \\
                           &= 10 \cdot 0.9 + 25 \cdot 0.1 = 11.5
        \end{align*}
         We find the long term rate of revenue, in dollars per hour, is
@@ -144,9 +147,21 @@ UW-Madison MATH 632} % Name of course here
       \]
     Let $S_0=0$ and $S_n=Y_1+\cdots+Y_n$ for $n \geq 1$
     \begin{enumerate}
-      \item Is the process $\left\{Y_k\right\}_{k \geq 1}$ a Markov chain? Prove that it is not, or prove that it is and give its transition probability.
+      \item Is the process $\left\{Y_k\right\}_{k \geq 1}$ a Markov chain?
+        Prove that it is not, or prove that it is and give its transition
+        probability.
 \par\noindent\rule{\textwidth}{0.1pt}
-      $p(m, m+1) = $
+        We can see that the process is a Markov Chain by verifying that,
+        for the $k+1$ term, conditioning on the $k{th}$ term is the same
+        as conditioning on the term $\{1, \cdots, k\}$.   So we want to
+        verify that:
+        \[ P(Y_{k+1}= a_{k+1} | Y_{k} = a_k)=P(Y_{k+1}= a_{k+1} | Y_{k}=a_k, \dots , Y_{0}=a_0) \]
+
+        And clearly it is, since all events $Y_k$ are i.i.d.  Due
+        to the independence of events
+        \[ P(Y_{k+1}=b | Y_{k} = a)=P(Y_{k+1}=b) = P(Y_1 = b)  \]
+        The transition probability is given by the p.m.f:
+        \[ P(Y_{n+1}=m) = 2^{-1-m} \]
       \item  $S_n$ is a Markov chain as can be seen readily for example by following the reasoning of Example 2.1. So you need not prove it. What are the suitable choices of state space for $S_n$? Find the two-step transition probability $p^{(2)}(x, y)$ for $S_n$.
 \par\noindent\rule{\textwidth}{0.1pt}
         The State Space is $\Omega = \{ x \in \mathbb{N} \}$.
@@ -156,7 +171,7 @@ UW-Madison MATH 632} % Name of course here
        some intermediate point, e.g., from
        $x \rightarrow a \rightarrow y$, i.e.
        $p(x,a) \cdot p(a,y)$, which is
-       \[ \sum^{y}_{a=x} 2^{-1-(a-x)} \cdot 2^{-1-(y-a)} = (y-x) \cdot 2^{-2 + (x-y)} \]
+       \[ \sum^{y}_{a=x} 2^{-1-(a-x)} \cdot 2^{-1-(y-a)} = (y-x+1) \cdot 2^{-2 + (x-y)} \]
     \end{enumerate} 
 \newpage
   \item A fair coin is tossed repeatedly with results $\left\{Y_k\right\}_{k \geq 0}$. That is, these random variables are i.i.d.  with common
@@ -176,7 +191,7 @@ UW-Madison MATH 632} % Name of course here
     fixed $n \geq 1$ the random variables $X_n$ are NOT independent.
     Imagine the sequence of rolls
     \{\dots, $Y_{n-1}=0, Y_{n}=1, Y_{n+1}=0\}$, resulting in 
-    $X_{n-1}=1, X_{n}=1$
+    $\{ \dots, X_{n-1}=1, X_{n}=1 \}$
     Then,
     \[ P(X_{n+1} = 2 | X_n = 1) = \frac{1}{2}  \]
     but
