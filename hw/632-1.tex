@@ -92,25 +92,16 @@ UW-Madison MATH 632} % Name of course here
         The Expected mins per inter-arrival of $X$ is
         \[ E[X] = 40 + 20 + 30 \cdot .01 = 60.3 \]
         $X \sim$ Geom(p), so 
-        \[ E[X] = (60 + 0.3) \cdot \frac{1}{0.1} = 6030 \]
+        \[ E[X] = 60.3 \cdot \frac{1}{0.1} = 6030 \]
 
         Then
         \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X]} =  \frac{1}{6030} \]
-      \item In the long run what is the fraction of time that the device is ON
+      \item In the long run what is the fraction of time that the device is ON?
+\par\noindent\rule{\textwidth}{0.1pt}
 
-        Let $Y$ be the random variable that takes $Y=F$ when there is a
-        failure, otherwise $Y=G$\\
-       The Expected value for a cycle is
-       \begin{equation*}\begin{split}
-         E[X_n] &= E[E[X|Y]] \\
-                &\qquad = E[X=ON] + E[X=OFF] \\
-                    &\qquad + E[X=OFF|Y=G] \cdot P(Y=G) 
-                            + E[X=OFF|Y=F] \cdot P(Y=F)
-       \end{split}\end{equation*}
-       \[ E[X_n] = 40 + 20  + 0 \cdot 0.95 + 30 \cdot .01 = 60.3 \]
+       The Expected value for a cycle is 60.3,
        so
        \[ \lim_{t \to \infty} \frac{R_t}{t} = \frac{40}{60.3} = .66 \]
-\par\noindent\rule{\textwidth}{0.1pt}
     \end{enumerate}
   \newpage
   \item After dropping off a customer, an Uber driver needs on average 10
@@ -156,16 +147,16 @@ UW-Madison MATH 632} % Name of course here
       \item Is the process $\left\{Y_k\right\}_{k \geq 1}$ a Markov chain? Prove that it is not, or prove that it is and give its transition probability.
 \par\noindent\rule{\textwidth}{0.1pt}
       $p(m, m+1) = $
-      \item  $S_n$ is a Markov chain as can be seen readily for example by following the reasoning of Example 2.1. So you need not prove it. What are the suitable choices of state space for $S_n$ ? Find the two-step transition probability $p^{(2)}(x, y)$ for $S_n$.
+      \item  $S_n$ is a Markov chain as can be seen readily for example by following the reasoning of Example 2.1. So you need not prove it. What are the suitable choices of state space for $S_n$? Find the two-step transition probability $p^{(2)}(x, y)$ for $S_n$.
 \par\noindent\rule{\textwidth}{0.1pt}
         The State Space is $\Omega = \{ x \in \mathbb{N} \}$.
 
        The two-step transition probability $p^{(2)}(x, y)$ is equal to 
        the multiplication of two single-step transition functions using
        some intermediate point, e.g., from
-       $x \rightarrow a, a \rightarrow y$, i.e.
+       $x \rightarrow a \rightarrow y$, i.e.
        $p(x,a) \cdot p(a,y)$, which is
-       \[ 2^{-1-(a-x)} \cdot 2^{-1-(y-a)} = 2^{-2 + (x-y)} \]
+       \[ \sum^{y}_{a=x} 2^{-1-(a-x)} \cdot 2^{-1-(y-a)} = (y-x) \cdot 2^{-2 + (x-y)} \]
     \end{enumerate} 
 \newpage
   \item A fair coin is tossed repeatedly with results $\left\{Y_k\right\}_{k \geq 0}$. That is, these random variables are i.i.d.  with common
