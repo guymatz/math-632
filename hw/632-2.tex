@@ -1,0 +1,301 @@
+\documentclass{article} % This command is used to set the type of document you are working on such as an article, book, or presenation
+
+%\usepackage[margin=1in]{geometry} % This package allows the editing of the page layout. I've set the margins to be 1 inch. 
+
+\usepackage{amsmath, amsfonts}  % The first package allows the use of a large range of mathematical formula, commands, and symbols.  The second gives some useful mathematical fonts.
+
+\usepackage{graphicx}  % This package allows the importing of images
+\usepackage{marvosym}  % Lightning!
+
+%This allows us to use the theorem and proof environment 
+\usepackage{enumitem}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+%Custom commands.  
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} %absolute value command
+
+%Custom symbols
+\newcommand{\Rb}{\mathbb{R}}
+
+\begin{document}
+
+\begin{center}
+\Large{\textbf{Assignment \#2}
+            
+UW-Madison MATH 632} % Name of course here
+\vspace{5pt}
+        
+\normalsize{  Guy Matz% Your name here
+        \\ Due: July 6, 2023}
+\vspace{15pt}
+\end{center}
+
+\section*{Exercises}%
+\begin{enumerate}[label={\fbox{\textbf{Exercise \#\arabic* :}}}]
+  \item Consider a Markov chain $\left(X_n\right)_{n \geq 0}$ with transition probabilities $p(x, y)$ and state space $\mathcal{S}=$ $\{0,1, \ldots, 9\}$. Express the conditional probability
+$$
+P_2\left(X_4=3, X_6=0 \mid X_3=5, X_8=7\right)
+$$
+entirely in terms of (if necessary, multi-step) transition probabilities.
+\par\noindent\rule{\textwidth}{0.1pt}
+  \begin{align*}
+    P_2(X_4=3, X_6=0 &\mid X_3=5, X_8=7) \\
+\qquad      &=\frac{P_2(X_3=5, X_4=3, X_6=0 ,X_8=7) }
+          {P_2(X_3=5, X_8=7)} \\
+\qquad      &=\frac{p^3(2,5) \cdot p(5,3) \cdot p^2(3,0) \cdot p^2(0,7) }
+          {p^3(2,5) \cdot p^5(5,7) } \\
+\qquad      &=\frac {p(5,3) \cdot p^2(3,0) \cdot p^2(0,7) }
+          {p^5(5,7) } \\
+  \end{align*}
+
+\newpage
+
+  \item Let $\left(Y_k\right)_{k \geq 0}$ be i.i.d. uniform random variables on $\{1,2,3,4\}$. That is, $P\left(Y_1=k\right)=\frac{1}{4}$ for all $k \in\{1, \ldots, 4\}$. For $n \geq 0$, let $S_n=Y_0+\ldots+Y_n$ and define $X_n=S_n(\bmod 3)$. That is, $X_n$ is the remainder of $S_n$ divided by 3 .
+    \begin{enumerate}
+      \item  Show that $\left(X_n\right)_{n \geq 0}$ is a Markov chain with state space $\mathcal{S}=\{0,1,2\}$, and identify its initial distribution and transition matrix. (Hint: you may use Lemma 2.10 in the notes.)
+\par\noindent\rule{\textwidth}{0.1pt}
+
+    By Lemma 2.10 we can say that $\left(X_n\right)_{n \geq 0}$ is a
+    Markov Chain since $X_{n+1}$ can be computed from $X_n$ with random
+    input $Y_{n-1}$ through the fixed function, $(\bmod 3)$
+
+
+    \[ \mu = \left[ \frac{1}{2}, \frac{1}{4},   \frac{1}{4} \right]  \]
+        \begin{equation*}
+        \mathbb{P}_X =
+          \begin{bmatrix}
+           \frac{1}{4} & \frac{1}{2} & \frac{1}{4} \\ 
+           \frac{1}{4} & \frac{1}{4} & \frac{1}{2} \\  
+           \frac{1}{2} & \frac{1}{4} & \frac{1}{4} \\
+          \end{bmatrix}
+        \end{equation*}
+
+      \item  For $n \geq 1$, let $Z_n=Y_{n-1}+Y_n$. Is $Z_n$ a Markov chain? Prove that it is or prove that it is not. An answer based on intuition alone may get some partial credit. Full credit comes from a rigorous solution. (The fact that the index for $Z_n$ starts at $n=1$ is irrelevant. Example 2.18 in the notes gives an example of how to prove that something is not a Markov chain.)
+\par\noindent\rule{\textwidth}{0.1pt}
+    We want to show that conditional on the immediate past gives a
+    different result from conditioning on the entire past.  I.e.,
+    \[ P(Z_n | Z_{n-1}) \neq P(Z_n | Z_{n-1}, \dots, Z_0) \]
+
+    So we need to find an example . . .
+    \begin{align*}
+      P(Z_3  = 2| Z_{2} = 3) &= P(Y_2=2) \cdot P(Y_3 = 0) + P(Y_2=1) \cdot P(Y_3=1) \\
+              &= 0 + \frac{1}{4} \cdot \frac{1}{4}  =  \frac{1}{16} 
+    \end{align*}
+    But
+    \begin{align*}
+      P(Z_3  = 2| Z_{2} = 3, Z_{1}=2) &= P(Y_0=1) \cdot P(Y_1 = 1) \cdot P(Y_2=2) \cdot P(Y_3 = 0) \\
+              &= 0
+    \end{align*}
+
+    \end{enumerate}
+\newpage
+  \item Consider the Markov chain with state space $\mathcal{S}=\{0,1\}$ and transition probability matrix
+$$
+P=\left[\begin{array}{cc}
+\frac{2}{3} & \frac{1}{3} \\
+0 & 1
+\end{array}\right] .
+$$
+(a) Let $\mu$ be an initial distribution. Calculate the probability $P_\mu\left(X_1=0, X_7=1\right)$. (Your answer will depend on $\mu$.)
+\par\noindent\rule{\textwidth}{0.1pt}
+
+Are we really supposed to multiply the matrix 7 times?!
+  \[ \text{ Let } \mu=[\mu_0, \mu_1] \]
+  Then 
+  \begin{align*}
+    P\mu (X_1 = 0, X_7 = 1) &= \mu_0 \cdot p(0,0) \cdot p^{(6)}(0,1)  + \mu_1 \cdot p(1,0) \cdot p^{(6)}(0,1) \\
+          &= \mu_0 \cdot p(0,0) \cdot p^{(6)}(0,1)  + \mu_1 \cdot 0 \cdot p^{(6)}(0,1) \\
+          &= \mu_0 \cdot \frac{2}{3}  \cdot p^{(6)}(0,1)
+  \end{align*}
+    According to numpy, 
+        \begin{equation*}
+        \mathbb{P}^6 =
+          \begin{bmatrix}
+           0.088 & 0.912 \\  
+           0 & 1 \\
+          \end{bmatrix}
+        \end{equation*}
+
+        So 
+        \[ p^6_\mu(0,1) =  \mu_0 * \frac{2}{3} * 0.912 = 0.608  \]
+
+(b) Define the function $f: \mathcal{S} \rightarrow \mathbb{R}$ by $f(0)=2, f(1)=1$. Let the initial distribution of the Markov chain be
+$$
+\mu=[\mu(0), \mu(1)]=\left[\frac{1}{2}, \frac{1}{2}\right] .
+$$
+Calculate the expectation $E_\mu\left[f\left(X_3\right)\right]$.
+In plain English, start the Markov chain with initial distribution $\mu$. Run it until time 3. Collect a reward of $\$ 2$ if you find yourself in state 0 and a reward of $\$ 1$ if you find yourself in state 1 . What is the expected reward?
+\par\noindent\rule{\textwidth}{0.1pt}
+
+  \[
+      \left(
+      \begin{array}{cc}
+        1/2 & 1/2 \\
+      \end{array}
+     \right)
+%
+      \left(
+        \begin{array}{c c}
+          2/3 & 1/3 \\
+          0   & 1 
+        \end{array}
+      \right)^n
+%
+      \left(
+        \begin{array}{c}
+        2n \\
+        n 
+        \end{array}
+      \right)
+\]
+  And $P^3$ = 
+  \[
+      \left(
+        \begin{array}{c c}
+          \frac{8}{27} & \frac{19}{27} \\
+          0   & 1 
+        \end{array}
+      \right)
+    \]
+
+With $n=3$.  Is it a reward after each move?
+  \[
+      \left(
+      \begin{array}{cc}
+        1/2 & 1/2 \\
+      \end{array}
+     \right)
+%
+      \left(
+        \begin{array}{c c}
+          2/3 & 1/3 \\
+          0   & 1 
+        \end{array}
+      \right)^3
+%
+      \left(
+        \begin{array}{c}
+        6 \\
+        3 
+        \end{array}
+      \right) = 4
+\]
+Or is it a reward only at the end?
+  \[
+      \left(
+      \begin{array}{cc}
+        1/2 & 1/2 \\
+      \end{array}
+     \right)
+%
+      \left(
+        \begin{array}{c c}
+          2/3 & 1/3 \\
+          0   & 1 
+        \end{array}
+      \right)^3
+      \left(
+        \begin{array}{c}
+        2 \\
+        1 
+        \end{array}
+      \right) = 1 \frac{4}{27} \approx 1.15
+      \]
+
+\newpage
+
+  \item Consider the success run chain of Example 2.17 started from state 0 . Let
+$$
+\sigma=\inf \left\{n \geq 0: X_n=5\right\}
+$$
+be the first time I reach state 5 , and
+$$
+\eta=\inf \left\{n \geq 0: X_n=5, X_{n+1}=0\right\}
+$$
+be the first time I reach state 5 but then fail in the very next trial. You can assume that both $\sigma$ and $\eta$ are finite, no matter how the process is started.
+  \begin{itemize}
+	\item  Prove or disprove: $\sigma$ is a stopping time.
+\par\noindent\rule{\textwidth}{0.1pt}
+
+     To verify a \underline{Stopping Time},  we need to justify that
+     $\{\sigma=n\}$ only involves the history of the MC up to time n.
+     Surely this is the case, since $\sigma$ does not depend on
+     a future state.
+
+     The equality
+
+     \[ \{ \sigma = n \} = \{X_0 \neq 5, \dots, X_{n-1} \neq 5, X_n=5 \} \]
+     shows that the event $\{\sigma = n\}$ is equal to an event that 
+     only depends on $X_0 \neq 5, \dots, X_{n} $
+
+	\item  Calculate the probability $P_5\left(X_{\sigma+1}=0, X_{\sigma+2}=0\right)$.
+\par\noindent\rule{\textwidth}{0.1pt}
+      This is two failures in a row, so with $p = \alpha$ we have
+      \[ p(0,0) * p(0,0) = (1 - \alpha)^2 \]
+	\item  Prove or disprove: $\eta$ is a stopping time.
+\par\noindent\rule{\textwidth}{0.1pt}
+      $\eta$ is NOT a stopping time since 
+     \[ \{T = n\} = \{(X_0,...,X_n) \notin Cn \} \]
+      Where $C_n$ is the subset off elements in the chain up to time n.
+
+      I.e., it "looks into the future" to see $X_{n+1}$
+	\item  Calculate the probability $P_0\left(X_{\eta+1}=0, X_{\eta+2}=0\right)$.
+\par\noindent\rule{\textwidth}{0.1pt}
+      This cannot be done since $\eta$ is not a stopping time.
+	\item  Let $\zeta=\eta+1$. Is $\zeta$ a stopping time?
+\par\noindent\rule{\textwidth}{0.1pt}
+      No.  It is dependent on $\eta$, which is not well-defined.
+  \end{itemize}
+
+\newpage
+
+  \item Consider the gambler's ruin chain with state space $\mathcal{S}=\{0, \ldots, N\}$ for some positive integer $\mathrm{N}$ and transition probabilities:
+$$
+p(0,0)=p(N, N)=1, \quad p(x, x+1)=1-p(x, x-1)=\frac{1}{4} \text { for } 1 \leq x \leq N-1 .
+$$
+Find the formula for the probability
+$$
+h(x)=P_x(\text { state } 0 \text { is reached before state } N) .
+$$
+\par\noindent\rule{\textwidth}{0.1pt}
+
+  \[ h(x) = \frac{3}{4} h(x-1) + \frac{1}{4} h(x+1) \]
+  So
+  \[ h(x) = \frac{2N - x}{2N} \]
+
+\newpage
+
+  \item Let $\left(p_n\right)_{n \geq 0}$ be a sequence of numbers in $(0,1)$. Consider the following variant of the "success run chain" with state space $\mathcal{S}=\mathbb{Z}_{\geq 0}$ and transition probabilities
+$$
+p(n, n+1)=1-p(n, 0)=p_n, \quad n \geq 0 .
+$$
+Find conditions on $\left(p_n\right)_{n \geq 0}$ which guarantee that state 0 is recurrent.
+\par\noindent\rule{\textwidth}{0.1pt}
+
+  \[
+    \rho_{00} = P_0(T_0 < \infty) = \sum^{\infty}_{n=1} P_0(T_0=n)
+    = \sum^{\infty}_{n=1} \left( \prod_{i=0}^{n} p_{i}\right) (1 - p_n) = 1
+  \]
+
+\newpage
+
+  \item * Exercise 1.8 in Durrett's book. (This problem will not be graded, but you are highly recommended to try it.)
+\par\noindent\rule{\textwidth}{0.1pt}
+
+\end{enumerate}
+
+%\newpage
+%\section*{Theorems}
+%
+%\section*{Properties}
+%%  \begin{enumerate}
+%$  \end{enumerate}
+%
+\end{document}
