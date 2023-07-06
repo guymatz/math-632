@@ -1,0 +1,694 @@
+\documentclass{report}
+
+\input{.tex/preamble}
+\input{.tex/macros}
+\input{.tex/letterfonts}
+
+\title{
+  \Huge{Math 431 - Introduction to Probability Theory}
+  \\
+  Notes
+}
+\author{\huge{Guy Matz}}
+\date{}
+
+\begin{document}
+%\maketitle
+
+% \setcounter{chapter}{1}
+%\chapter*{20230620 - Renewal Process}
+%
+%\begin{itemize}
+%  \item Renewal Process - Video I @ min 59
+%    \begin{itemize}
+%      \item $N_t$: Number of arrivals before time t.  It is indexed by
+%        time, so it is a continuous-time stochastic process
+%      \item $S_n$: Arrival time of $n^{th}$ "particle"
+%      \item $X_n$: Inter-arrival time.  Time between $n$ and $n-1$ (iid)
+%    \end{itemize}
+%  \item Definitions
+%    \dfn{ Arrival Time }{
+%      Let $\{X_i: i = 1,2...\}$ be a sequence o iid strictly positive
+%      RVs.  Let $S_0 = 0$,
+%        \[ S_n = X_1 + \dots X_n, n \geq 1 \]
+%      Then the process
+%      \[ N_t \text{max} \{ n \geq 0; S_n \leq t \} \]
+%      is called the Renewal Process corresponding to $\{X_i; i \geq 1 \}$
+%    }
+%
+%    \dfn{ Renewal Process }{
+%      Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
+%          around min 12
+%          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}   \]
+%    }
+%
+%    \dfn{ stochastic process }{
+%      A series of random variables indexed by time
+%    }
+%
+%    \dfn{ IID Process }{
+%      Independent, Identically distributed RVs
+%    }
+%
+%    \dfn{ Renewal-Reward Process}{
+%      Let $\{N_t: t \geq 0 \}  $ be a renewal process with strictly 
+%      positive inter-arrival times $\{X_k : k \geq 1 \}$.  Let 
+%      $\{ Y_n : n \geq 1 \}$ be iid random variables, i.e. "rewards".
+%      Then the process
+%      \[ R_t = \sum^{N_t}_{n=1} Y_n, t \geq 0 \]
+%      is called the Renewal-Reward Process corresponding to 
+%      inter-arrival times $(X_k)_{k=1}^{\infty}$ and rewards
+%      $(Y_n)_{n=1}^{\infty}$
+%    }
+%    \nt{
+%      Renewal-Reward Process, whenever a renewal happens, we get a reward
+%
+%      Generalization of a Renewal process, where the reward is always 1
+%    }
+%
+%    \thm{ SLLN for RRP }{
+%    \[ \lim_{t \to \infty} \frac{R_t}{t}  =  \frac{E[Y_1]}{E[X_1]}  \]
+%    }
+%
+%    \item Properties of a Renewal Processes
+%      \begin{enumerate}
+%        \item $N_0 = 0$
+%        \item $N_t$ is increasing in time, and right-continuous
+%        \item $\mathcal{Z}_{\geq 0}$-valued piece-wise function
+%        \item $\lim_{t \to \infty} N_t = \infty$
+%      \end{enumerate}
+%
+%      \thm{SLLN (Strong Law of Large Numbers) for RP (Renewal Process)} {
+%          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]} \]
+%      }
+%      \item Examples: See times (min) in video
+%        \ex{VIDEO 2, min 28: The Lifeftime of a lightbulb
+%          $\sim Exp(\frac{1}{100})$. When
+%        a lightbulb burns out, it takes 1 hour for the technician to 
+%        notice.  It is then immediately replace.  What is the long-term
+%        rate off consumption of lightbulbs?}
+%        {
+%          Let $L_k$ be the lifeftime of the k-th bulb.
+%          Then the inter-arrival time is $X_k = L_k + 1$.  $N_t$ is the
+%          number of bulbs replaced before time t.  By SLLN for RP,
+%          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}  
+%          = \frac{1}{E[L1 + 1]} = \frac{1}{100 + 1} \]
+%          So the long-term replacement rate is 1 bulb every 101 days.
+%        }
+%
+%        \ex{VIDEO 2, min 38: Same as above, but the technician only checks
+%          the bulb exactly on the hour}
+%        {
+%          Let $L_k$ be the lifeftime of the k-th bulb.
+%          Then the inter-arrival time is now an integer, since the
+%          replacement happens on the hour. 
+%          $X_k = \lceil L_k \rceil$.  $N_t$ is the
+%          number of bulbs replaced before time t.  By SLLN for RP,
+%          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}   \]
+%          \[ P(X=m) = P(m-1 < L \leq m) = P(L_1 > m-1) - P(L > m)
+%        = e^{-\frac{1}{100}(m-1)} - e^{-\frac{1}{100}m} \]
+%        \[ = p^{m-1}(1-p) \]
+%        I.e. $X_1 \sim Geom(1-e^{-\frac{1}{100}})$.
+%        So
+%        \[ E[X_1] = \frac{1}{1 - e^{-\frac{1}{100}}}  \]
+%        So the long-term replacement rate is 1 over that!
+%        }
+%
+%        \ex{VIDEO 2, min 49: \underline{Renewal-Reward Process} - 
+%          Bus arrives at a station with inter-arrival time of 10 mins, on
+%          avergae.  The number of customers, on average, get off.  What
+%          is the long-term rate of passengers that get off at the station?
+%        }
+%        {
+%          Intuitive answer.  3 passengers every 10 mins, or 18 / hr.
+%
+%          $X_k$ is the interarrival time of the buses. $Y_k$ is the 
+%          number of passengers that get off the bus (reward).  Let $R_t$
+%          be the number of people who get off the bus before time t.
+%          \[ R_t = \sum^{N_t}_{k=1} Y_k \]
+%          The longterm rate of passengers is
+%          \begin{align*}
+%            \lim_{t \to \infty} \frac{R_t}{t} &= \lim_{t \to \infty} \frac{1}{t} \sum^{N_t}_{k=1} Y_k \\
+%                  &= \lim_{t \to \infty} \frac{N_t}{t} \frac{1}{N_t} 
+%                             \sum^{N_t}_{k=1} Y_k \\
+%                  &= \frac{E[Y_1]}{E[X_1]} \\
+%                  &= \frac{3}{10} 
+%          \end{align*}
+%        }
+%        
+%        \nt{
+%          \[ \lim_{t \to \infty} \frac{R_t}{t} = \frac{E[Y_1]}{E[X_1]}  \]
+%          Where $E[Y_1]$ is the Reward mean, and $E[X_1]$ is the 
+%          cycle length.
+%
+%          \textbf{So the long-term ratio of rewards is the mean reward
+%          per cycle, divided by the mean of cycle length}
+%        }
+%
+%      \item Questions
+%        \begin{itemize}
+%          \item So, $X_n$ is a time for nth particle,  $S_n$ is total time,
+%            and $N_t$ is \# of arrivals before time t, an integer
+%          \item What is the difference between $S_{N_t}$ and $t$?
+%        \end{itemize}
+%      
+%
+%  \end{itemize}
+%
+%\chapter*{20230621 - Renewal-Reward / Markov Chains}
+%\section*{Renewal Reward}%
+%
+%  \ex{On-OFF Process} {
+%    See min 23 of video 3
+%
+%    \textit{A machine alternates between "ON" and "OFF".  On avergae it
+%    spends 5 hours at "ON" state, and 3 hours at "OFFF".  What is the
+%  limiting proportion of time spent in the "ON" state?}
+%
+%    We say "a renewal happens" when it is switched from "OF" to "ON"
+%
+%    Let $O_k, F_k$ denote the time spend in ON, OFF states during the k-th
+%    renewal cycle.
+%    \[ X_k = O_k + _k \]
+%
+%    Consider the time ON as a reward
+%
+%    \[ \sum^{N_t}_{k=1} O_k \leq R_t \leq \sum^{N_t+1}_{k=1} O_k \]
+%    ??? Because we're not counting OFF for $R_t$ ???
+%    \[ \frac{1}{t} \sum^{N_t}_{k=1} O_k \leq frac{R_t}{t} \leq \frac{1}{t} \sum^{N_t+1}_{k=1} O_k \]
+%
+%   \[ \frac{N_t}{t} \frac{1}{N_t} \sum^{N_t}_{k=1} O_k \leq frac{R_t}{t} \leq \frac{N_t+1}{t} \frac{1}{N_t+1} \sum^{N_t+1}_{k=1} O_k \]
+%    \[ \frac{1}{E[X_1]} E[O_1]  \]
+%
+%    See video at min 35 for more
+%
+%  }
+%
+%  Take-away message:  The SLLN  for RRP still works even though rewards
+%  do not come as "packages"
+%
+%  \section*{Markov Chains : Video 0621 @ min 43}%
+%  \dfn{ Markov Chain }{
+%    A discrete-time stochastic process $\{X_t: k \in \mathbb{Z}_{\geq 0}\}$
+%      with countable state space $S$ is said to be a Markov Chain if
+%      \begin{align*}
+%         &P(X_{n+1}=a_{n+1}|X_n=a_n, x_{n-1}=a_{n-1},\dots,X_0=a_0) \\
+%       = &P(X_{n+1}=a_{n+1}|X_n=a_n)
+%      \end{align*}
+%
+%      for all $a_0, a_1, \dots, a_{n+1} \in S, n \geq 0$
+%
+%      If $P(X_{n+1}=a_n+1|X_n=a_n)$ does not depend in n, then the Markov Chain is said to be "time-homogeneous" (because IID) , and
+%        \[ P(a,b) := P(X_{n+1}=b|X_n =a ) \]
+%        is the \underline{transition probability} of jumping rfom a to b.
+%  }
+%  \ex{HOW TO CHECK THE MARKOV Property - video 0621, min 51} {
+%    Every IID process $\{X_k: k \geq 0\}$ is a time-homogeneous MC.
+%    \[ P(X_{n+1} = a_{n+1} | X_n=a_n, \dots , x_0 = a_0) = 
+%    P(X_{n+1}=a_{n+1}) \]
+%
+%    and,
+%    \[ P(X_{n+1} = a_{n+1} | X_n=a_n) = P(X_{n+1}=a_{n+1}) \]
+%
+%    So to check MC, verify that 
+%    \[ P(X_{n+1} = a_{n+1} | X_n=a_n, \dots , x_0 = a_0) = 
+%     P(X_{n+1} = a_{n+1} | X_n=a_n) \]
+%   Hence the Markov Property holds and $(X_k)_{k \geq 0}$ is a Markov Chain
+%
+%   Moreover, because $X$ are iid,
+%   \[ P(X_{n+1} = b | X_n = a) = P(X_{n+1}=b) =  P(X_1=b) \]
+%   does not depend on $n$, so the Markov Chain is time-homogeneous, with
+%   \[ p(a,b) = P(X_1 = b) \]
+%  }
+%  
+%%  \ex{SRW: Video 0621 - min 58} {
+%%    The Simple Random Walk (SRW) is also a MC.
+%%
+%%    Let $(Y_k: k \geq 1)$ be iid RVs with $P(Y_1 = 1) = p$ and
+%%    $P(Y_1 = -1) = (1-p)$
+%%
+%%    Let $S_0 = 0, S_n = \sum^{\infty}_{k=1} , n \geq 1$
+%%
+%%    To check the Markov Property, we need to verify the conditioning on all
+%%    states equals the conditioning on the current state, I.e
+%%    \[ P(S_{n+1}=a_{n+1} | S_n=a_n,  \dots, S_0 = 0)
+%%      =  \frac{P(S_{n+1}=a_{n+1} , S_n=a_n,  \dots, S_0 = 0)}
+%%      {P(S_n=a_n,  \dots, S_0 = 0)}
+%%      \[  = \frac{P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n+1}=a_{n+1}-a_n}
+%%        {P(Y_1=a_1,Y_2=a_2-a_1, \dots Y_{n}=a_{n}-a_{n-1}}
+%%      \]
+%%  }
+%  \ex{For us to show: @ min 1:09} {
+%    Let $\{Y_k, k\geq 0\}$ be iid RVs.  Let $X_k=(Y_k-1, Y_k), k \geq 1$.  
+%    Then $\{X_n, k \leq 1\}$ is a MC.  Show this!
+%  }
+%
+%\chapter*{20230622 - Markov Chains}
+%  \begin{itemize}
+%    \item Conditioning on the entire history is the same as conditioning
+%      on the current state
+%    \dfn{ Markov Chain }{
+%      Discrete-time Stochastic Process
+%    }
+%    \dfn{ Time-Homogeneous }{
+%      Transition probability does not depend on time.  I.e, if
+%      \[ P(X_{n+1} = b | n_n=a) = p(a,b) \]
+%      does not depend on time
+%    }
+%    \item Examples
+%      \item SRW
+%      \item IID process
+%    \dfn{ Transition Probability }{
+%      P of transition from a to b, i.e. $p(a,b)$
+%    }
+%    \dfn{ Transition Probability Function }{
+%      A function $p : S \times S \rightarrow [0,1]$ is called a transition
+%      probability function if
+%        \[ \sum^{}_{b \in S} p(a,b) = 1 \]
+%      for all $a \in S$
+%    }
+%    \nt{
+%      For a time-homogensous MC, $P(X_{n+1}=b| X_n=a) = p(a,b)$
+%        deffines a transition prob function
+%    }
+%    \ex{a Video 20230622} {
+%      \begin{itemize}
+%        \item rolling dice @ min 17?
+%
+%        \item (Biased) SRW @ min 18?
+%          \begin{align}
+%            P(a,b) = P(S_{n+1}=b|S_n=a) &= 0 \text{ if } |b-a| > 1 \\
+%                                       &= p  \text{ if } b=a + 1 \\
+%                                       &= 1-p  \text{ if } b=a - 
+%          \end{align}
+%        \item IID (min 24)
+%
+%          Let $Y_0, Y_1, \dots$ be iid with prob
+%          \[ P(Y_0 = 1) = P(Y_0 = -1) = \frac{1}{2} \]
+%          Then $X_n = (Y_n, Y_{n-1}) , n \geq 1$ is a MC with state space
+%          \[ S =  \{ (-1, -1), (-1, 1), (1, -1), (1, 1) \} = \{-1,1\}^2\]
+%          Its' Transition Probabiity Function
+%          \begin{align}
+%            P( (a_1, a_2), (b_1, b_2) &= P(X_{n+1} = (b_1, b_2) | X_n = (a_1, a_2)) \\
+%                                  &= P(Y_{n+1} = b_1, Y_n=b_2| Y_n = a_1, Y_{n-1}=a_2)
+%                                  &= \frac{P(Y_{n+1} = b_1, Y_n=b_2, Y_n = a_1, Y_{n-1}=a_2)}{P(Y_n=a_1, Y_{n-1} = a_2)}
+%                                  &= 0 \text{ if } a_1 \neq b_2
+%                                  &= \frac{1}{2}  \text{ if } a_1 = b_2
+%          \end{align}
+%          For all $(a_1, a_2), (b_1, b_2) \in S$
+%        \item Gambler's Ruin at min 35
+%
+%          Win with prob p (lose with prob 1-p).  The games stops when
+%          fortune is 0 or \$5.  $X_0 = x$.  Transition probability function
+%          \begin{align}
+%            p(a,b) &= p \text{ if } b = a+1, 1 \leq a \leq 4 \\
+%                   &= 1-p \text{ if } b = a-1, 1 \leq a \leq 4 \\
+%                   &= 1 \text{ if } a=b \\
+%                   &= 0 \text{ otherwise }
+%          \end{align}
+%
+%          \dfn{ Absorbing State}{
+%            If a state $a \in S$ such that $p(a,a) = 1$ , then a
+%            is called an absorbing state
+%          }
+%          \dfn{ Initial Distribution }{
+%            Let $\mu$ be a prob dist on $S$.  We say that the MC
+%            $(X_n), n \geq 0$ has initial dist $\mu$ is $P(X_0=x)=\mu(x)
+%            , x \in S$
+%          }
+%          \thm{ title } {
+%            For any prod dist $\mu$ on $S$ and trans prob func
+%            $p(\cdot,\cdot)$ there exists a time-homo MC with state space
+%            $S$ , init dist $\mu$ and trans prob $p(\cdot,\cdot)$
+%          }
+%          \ex{@ 1:08} {
+%            example of Gambler's ruin by MC
+%          }
+%      \end{itemize}
+%      \nt{
+%        If a MC has initial distribution $\mu$, then it's distribution
+%        is denoted by $P_{\mu}$
+%      }
+%    }
+%  \end{itemize}
+%
+%\chapter*{20230626 - Markov Chains}
+%  \begin{itemize}
+%    \item  Success Run Chain: success move you forward, failure moves
+%      back to beginning
+%    \item $P_a = P_{\delta_a}$: The dist of a MC with initial dist
+%      $\mu = \delta_a$, i.e. $X_0 = a$ with prob 1
+%    \item The Expectation with respect to $P_{\mu}$ and $P_a$ are
+%      denoted by $E_{\mu}$ and $E_a$, respectively
+%    \item Let $X_0$ be a RV .  Let $(Y_k)_{k \in \mathbb{N}}$ be a seq
+%      of indep. RVs.  Let $g$ be a certain function.
+%
+%      Then the RVs $(X_n)_{n \in \mathbb{Z} \geq 0}$ defined by 
+%      \[ X_{n+1} = g(X_n, Y_{n+1}) \]
+%      is a Markov Chain
+%
+%  \end{itemize}
+%
+%  \section*{Examples}%
+%    \begin{itemize}
+%    \item min 22 - Transition Probability Function
+%    \item min 45 - Success-Run chain with $g$ function above
+%    \item min 110 - Multi-step MC
+%    \end{itemize}
+%  
+%\chapter{Definitions}%
+%  \dfn{Stopping Time, p. 39}{
+%    The RV, $T$  with values $\mathbb{Z}_{\geq0} \cup \{ \infty \}$ is a 
+%    \underline{Stopping Time} (for the process $X$) if, for each
+%    nonnegative imteger $n$, there is a subset $C_n \subset S^{n+1}$
+%    such that
+%    \[ \{ T = n \} = \{(X_0, \dots , X_n) \in C \} \]
+%    I.e., for each $n$, the values $(X_0, \dots , X_n)$ determine whether
+%    $T=n$ happens or not.
+%
+%    I.E! The first recurrence of some particular thing
+%  }
+%\chapter*{20230627 - Markov Chains}
+%   \begin{itemize}
+%     \item $E_\mu[f(x)] = \mu P^n f(x) $
+%     \item Markov into the infinite future
+%         \[ P_\mu\left( (x_{n+1}, \dots) \in A | X_n=x,(X_k, \dots, X_n) \in B \right) = P_x 
+%         \left( ( X_{n+1}, \dots) \in A) \right) \]
+%   \end{itemize}
+%   \section*{String Markov Property}%
+%   \dfn{ Stopping Time }{
+%     A random variable $T \in [0, \infty]$ is said to be a \underline{Stooping Time} if for any $n \geq 0$
+%     there exists  a set $C_n$ such that
+%     \[ \{T = n \} = \{ (X_0, \dots , X_n) \in C_n \} \]
+%     When $C_n$ denotes the set of sequences $(x_1, \dots x_n)$ where $x_1 \neq x, \dots, x_{n-1} \neq x$
+%     and $x_n = x$
+%     \ex{$\{T_x = n\}$} {
+%      \[\{T_x = n\} = \{ X_1 \neq x, X_2 \neq x, \dots, X_n = x\} \]
+%       So, $X_n = x$
+%     }
+%   }
+%   \nt{
+%     To verify a \underline{Stopping Time},  justify that $\{T=n\}$ only
+%     involves the history of the MC up to time n.
+%   }
+%   
+%   \dfn{ Hitting Time }{
+%     For any set $A \subset S$, we denote the \underline{hitting time} by
+%     \[ \tau_A = inf \{n \geq 0: X_n \in A \} \]
+%     Then $\tau$ is also a \underline{Stopping Time} because
+%     \[ \{ \tau_A = n \} = \{ X_0 \notin A, X_{n-1} \notin A, X_n \in A \} = \{ (X_0, \dots, X_n) \in C_n \} \]
+%   }
+%   \dfn{ Strong Markov Peroprty }{
+%     For a time-homogeneous MC and and set A,B and any $\mu$, and any stopping time T
+%     \[ P_\mu (  (X_{T+1}, \dots ) \in A | X_T=x, T > \infty , (X_0, \dots, X_T) \in B = P_x( (X_1, X_2 \dots ) \in A) \]
+%     The probability that the future behaves like A, is the same as a MC starting fresh
+%   }
+%   
+%\chapter*{20230628 - Markov Chains}
+%  \nt{
+%    Notation:
+%    \begin{itemize}
+%      \item Stopping time, $T $is the $n$ where $X_n = 3$
+%        \[ T = inf \{n \geq0: X_n = 3\} \]
+%      \item The probability that at 1 past the Stopping Time $T$, $X_n = 2$, given that the
+%        value of $X_n$ at the Stopping Time is 3, and the Stopping Time is finite
+%        \[ P(X_{T+1}=2 | X_T=3, T < \infty) \]
+%      \item $\rho_{xy}: $ Probability that starting from x, we will visit y in finite time
+%        \[ \rho_{xy} = P_x(X_n = y \text{ for some  } n \geq 1) \]
+%      \item Time atfer $k^{th}$ return to x that you return to x, i.e. the k-th return time to x
+%        \[ T^{k+1}_x = inf \{n > T_x^k : X_n = x \}  \]
+%      \item k-th return to y
+%        \[ T^k_y \]
+%      \item Probability of the k-th return to y after starting from x ?
+%        \[ P_x(T^k_y) \]
+%      \item $N_x$ : Total number of visits to x (after time 1)
+%      \item $E_x[N_y]$: Starting from x, how many times will we visit y
+%          \[ E_x[N_y] = \sum^{\infty}_{n=1} P(X_n=y) = \sum^{\infty}_{n=1} T_y^k < \infty  \]
+%          \[ E_x[N_y] = \sum^{\infty}_{k=1} \rho_{xy} \cdot \rho^{k-1}_{yy}   \]
+%            See min 57 off 20230628 video
+%      \item $R_x$ is called the "Communicating Class of x"
+%      \item $T^k_x$: Time to return to x, k times
+%        \[ P_x(\{T^k_x < \infty \text{ for all } k \geq 1\}) = 0 \]
+%        Means that, starting at x, the probabity is 0 that the time to return to x k-times is finite
+%
+%    \end{itemize}
+%  }
+%  \section*{Transience nad Recurrence}%
+%  \dfn{ Transience }{
+%    If $\rho_{xx} < 1$
+%    \[ P_x(T_x^k = \infty \text{ for some k } = 1 \]
+%    \[ P_x(T_x^k < \infty \text{ for all k } = 0 \]
+%    $N_x < \infty$
+%    To prove that a state is transient, show that it has a P > 0 of escaping frfom the state, and there
+%    is a recurrent state with p=1
+%  }
+%  \dfn{ Recurrence }{
+%    If $\rho_{xx} = 1$
+%    \[ P_x(T^k_x < \infty, \text{ for all  } k \geq 1) = 1 \]
+%    \[ P_x(T^k_x = \infty, \text{ for all  } k \geq 1) = 0 \]
+%      \[N_x = \infty \]
+%      Recurrence is contagious, i.e. any state that communicates with a recurrent state is recurrent
+%  }
+%  \[ 
+%  E_x[N_y] =
+%  \begin{cases}
+%    0 &\text{ if } \rho_{xy} = 0 \\
+%    \infty &\text{ if } \rho_{xy} > 0 \& y \text{ is recurrent } \\
+%    \frac{p_{xy}}{1 - \rho_{xy}}  &\text{ if } \rho_{xy} > 0 \& y \text{ is transient }
+%  \end{cases}
+%\]
+%  \thm{ $x$ is recurrent iff } {
+%    $x$ is recurrent $\Leftrightarrow E_x[N_x] = \infty \Leftrightarrow N_x = \infty
+%    \Leftrightarrow \\sum^{\infty}_{n=1} p^n(x,y) = \infty$
+%  }
+%  \myproof {
+%    The return time to x is > 0, to $T_0 \sim $ Geom(1-p) implies
+%    $p(0,0) = p_0(T_0 < \infty) = 1$
+%  }
+%
+%    \ex{SSRW - Symmwetric Simple Random Walk} {
+%      SSRW is recurrent, i.e. all states are recurrent..  We only need to show that "0" is recurrent. I.e
+%      \begin{align}
+%        \infty = E_0[N_0] &= \sum^{\infty}_{n=1} p^n(0,0) \\
+%                          &=  \sum^{\infty}_{k=1} p^{2k}(0,0) \\
+%                          &=  \sum^{\infty}_{k=1} \binom{2k}{k} \frac{1}{2} ^{2k} \\
+%                          &=  \sum^{\infty}_{k=1} \frac{2k!}{k!k!} \frac{1}{2} ^{2k} \\ \\
+%                          &=  \text{ Stirling }
+%      \end{align}
+%    }
+%    \section*{ Classification of States}
+%    \nt{
+%      \begin{itemize}
+%        \item $x \rightarrow y$: if $p^n(x,y) > 0$ for some $n \geq 0$ and we say y is accessible from x
+%        \item $x \leftrightarrow y$: if $x \rightarrow y$ and $x \leftarrow y$, we say x and y communicate
+%      \end{itemize}
+%    }
+%    \thm{ title } {
+%      \begin{itemize}
+%        \item if $x \neq y$, $x \rightarrow y$, and $\rho_{yx} < 1$, then x is transient
+%        \item if $x \neq y$, $x$ is recurrent and $x rightarrow y$, then $\rho_{yx} = 1$, and y is recrrent
+%      \end{itemize}
+%    }
+%\chapter*{20230629 - Markov Chains}
+%    \dfn{ Irreducible }{
+%      $A \subset S$ is irredicible if $x \leftrightarrow y$ for all $xx,y \in A$
+%
+%      We say that $B \subset S$ is closed if for any $x \in B, y \notin B$, we have $x \not\rightarrow y$ 
+%
+%      $R_x$ is called the "Communicating Class of x"
+%    }
+%    `
+%  \thm{ title } {
+%    Every finite closed subsets of a state space contains at least one recurrent state
+%
+%    So every irredicible finite-stae MC is recurrent
+%  }
+%
+%
+%\chapter*{20230703 - Markov Chains}
+%  \dfn{ Canonical Decomposition }{
+%    Union of transient state  with the union of all recurrent states
+%
+%    See min 10 of 20230703
+%  }
+%
+%  Every finite-time Markov chain has an  - eventually - absorbing state
+%
+%  \[ m(x) = E_x[\tau] = (I-Q)^{-1} 1_{x} \]
+%    Where 1 is a column matrix of "1"s.  This is the expected time
+%    spent in transient states
+%
+%    $u(x,y)$ is the probability of going from a specific transient
+%    state to a specific recurrent state. Probabilityof being absorbed
+%
+%    \section{Invariant Measure}%
+%    Describes the long-term behaviour , long-term frequency to 
+%    a state
+%
+%    
+%
+\chapter*{Notation}%
+  \begin{itemize}
+      \item $N_t$: Number of arrivals before time t.  It is indexed by
+        time, so it is a continuous-time stochastic process
+      \item $S_n$: Arrival time of $n^{th}$ "particle"
+      \item $\rho_{xy}: $ Probability that starting from x, we will visit y in finite time
+        \[ \rho_{xy} = P_x(X_n = y \text{ for some  } n \geq 1) \]
+      \item Time atfer $k^{th}$ return to x that you return to x, i.e. the k-th return time to x
+        \[ T^{k+1}_x = inf \{n > T_x^k : X_n = x \}  \]
+      \item k-th return to y
+        \[ T^k_y \]
+      \item Probability of the k-th return to y after starting from x ?
+        \[ P_x(T^k_y) \]
+      \item $N_x$ : Total number of visits to x (after time 1)
+      \item $E_x[N_y]$: Starting from x, how many times will we visit y
+          \[ E_x[N_y] = \sum^{\infty}_{n=1} P(X_n=y) = \sum^{\infty}_{n=1} T_y^k < \infty  \]
+          \[ E_x[N_y] = \sum^{\infty}_{k=1} \rho_{xy} \cdot \rho^{k-1}_{yy}   \]
+            See min 57 off 20230628 video
+      \item $R_x$ is called the "Communicating Class of x"
+      \item $T^k_x$: Time to return to x, k times
+        \[ P_x(\{T^k_x < \infty \text{ for all } k \geq 1\}) = 0 \]
+        Means that, starting at x, the probabity is 0 that the time to return to x k-times is finite
+  \end{itemize}
+
+\chapter*{Definitions}%
+    \dfn{ Arrival Time }{
+      Let $\{X_i: i = 1,2...\}$ be a sequence o iid strictly positive
+      RVs.  Let $S_0 = 0$,
+        \[ S_n = X_1 + \dots X_n, n \geq 1 \]
+      Then the process
+      \[ N_t \text{max} \{ n \geq 0; S_n \leq t \} \]
+      is called the Renewal Process corresponding to $\{X_i; i \geq 1 \}$
+    }
+    \dfn{ Renewal Process }{
+      Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
+          around min 12
+          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}   \]
+    }
+
+    \dfn{ stochastic process }{
+      A series of random variables indexed by time
+    }
+
+    \dfn{ IID Process }{
+      Independent, Identically distributed RVs
+    }
+
+    \dfn{ Renewal-Reward Process}{
+      Let $\{N_t: t \geq 0 \}  $ be a renewal process with strictly 
+      positive inter-arrival times $\{X_k : k \geq 1 \}$.  Let 
+      $\{ Y_n : n \geq 1 \}$ be iid random variables, i.e. "rewards".
+      Then the process
+      \[ R_t = \sum^{N_t}_{n=1} Y_n, t \geq 0 \]
+      is called the Renewal-Reward Process corresponding to 
+      inter-arrival times $(X_k)_{k=1}^{\infty}$ and rewards
+      $(Y_n)_{n=1}^{\infty}$
+
+      \thm{ SLLN for RRP }{
+      \[\lim_{t \to \infty} \frac{R_t}{t}  =  \frac{E[Y_1]}{E[X_1]}  \]
+      }
+    }
+  \dfn{ Markov Chain }{
+    A discrete-time stochastic process $\{X_t: k \in \mathbb{Z}_{\geq 0}\}$
+      with countable state space $S$ is said to be a Markov Chain if
+      \begin{align*}
+         &P(X_{n+1}=a_{n+1}|X_n=a_n, x_{n-1}=a_{n-1},\dots,X_0=a_0) \\
+       = &P(X_{n+1}=a_{n+1}|X_n=a_n)
+      \end{align*}
+
+      for all $a_0, a_1, \dots, a_{n+1} \in S, n \geq 0$
+
+      If $P(X_{n+1}=a_n+1|X_n=a_n)$ does not depend in n, then the Markov Chain is said to be "time-homogeneous" (because IID) , and
+        \[ P(a,b) := P(X_{n+1}=b|X_n =a ) \]
+        is the \underline{transition probability} of jumping rfom a to b.
+  }
+    \dfn{ Time-Homogeneous }{
+      Transition probability does not depend on time.  I.e, if
+      \[ P(X_{n+1} = b | n_n=a) = p(a,b) \]
+      does not depend on time
+    }
+    \dfn{ Transition Probability }{
+      P of transition from a to b, i.e. $p(a,b)$
+    }
+    \dfn{ Transition Probability Function }{
+      A function $p : S \times S \rightarrow [0,1]$ is called a transition
+      probability function if
+        \[ \sum^{}_{b \in S} p(a,b) = 1 \]
+      for all $a \in S$
+    }
+     \dfn{ Absorbing State}{
+       If a state $a \in S$ such that $\rho(a,a) = 1$ , then a
+       is called an absorbing state
+     }
+     \dfn{ Initial Distribution }{
+            Let $\mu$ be a prob dist on $S$.  We say that the MC
+            $(X_n), n \geq 0$ has initial dist $\mu$ is $P(X_0=x)=\mu(x)
+            , x \in S$
+     }
+  \dfn{Stopping Time, p. 39}{
+    The RV, $T$  with values $\mathbb{Z}_{\geq0} \cup \{ \infty \}$ is a 
+    \underline{Stopping Time} (for the process $X$) if, for each
+    nonnegative imteger $n$, there is a subset $C_n \subset S^{n+1}$
+    such that
+    \[ \{ T = n \} = \{(X_0, \dots , X_n) \in C \} \]
+    I.e., for each $n$, the values $(X_0, \dots , X_n)$ determine whether
+    $T=n$ happens or not.
+
+    I.E! The first recurrence of some particular thing
+      E.g Stopping time, $T $is the $n$ where $X_n = 3$ for
+        \[ T = inf \{n \geq0: X_n = 3\} \]
+      \item The probability that at 1 past the Stopping Time $T$, $X_n = 2$, given that the
+        value of $X_n$ at the Stopping Time is 3, and the Stopping Time is finite
+        \[ P(X_{T+1}=2 | X_T=3, T < \infty) \]
+  }
+   \dfn{ Stopping Time }{
+     A random variable $T \in [0, \infty]$ is said to be a \underline{Stooping Time} if for any $n \geq 0$
+     there exists  a set $C_n$ such that
+     \[ \{T = n \} = \{ (X_0, \dots , X_n) \in C_n \} \]
+     When $C_n$ denotes the set of sequences $(x_1, \dots x_n)$ where $x_1 \neq x, \dots, x_{n-1} \neq x$
+     and $x_n = x$
+     \ex{$\{T_x = n\}$} {
+      \[\{T_x = n\} = \{ X_1 \neq x, X_2 \neq x, \dots, X_n = x\} \]
+       So, $X_n = x$
+     }
+   \nt{
+     To verify a \underline{Stopping Time},  justify that $\{T=n\}$ only involves the history
+     of the MC up to time n.
+   }
+   }
+
+   \dfn{ Hitting Time }{
+     For any set $A \subset S$, we denote the \underline{hitting time} by
+     \[ \tau_A = inf \{n \geq 0: X_n \in A \} \]
+     Then $\tau$ is also a \underline{Stopping Time} because
+     \[ \{ \tau_A = n \} = \{ X_0 \notin A, X_{n-1} \notin A, X_n \in A \} = \{ (X_0, \dots, X_n) \in C_n \} \]
+   }
+   \dfn{ Strong Markov Peroprty }{
+     For a time-homogeneous MC and and set A,B and any $\mu$, and any stopping time T
+     \[ P_\mu (  (X_{T+1}, \dots ) \in A | X_T=x, T > \infty , (X_0, \dots, X_T) \in B = P_x( (X_1, X_2 \dots ) \in A) \]
+     The probability that the future behaves like A, is the same as a MC starting fresh
+   }
+  \dfn{ Transience }{
+    If $\rho_{xx} < 1$
+    \[ P_x(T_x^k = \infty \text{ for some k } = 1 \]
+    \[ P_x(T_x^k < \infty \text{ for all k } = 0 \]
+    $N_x < \infty$
+    To prove that a state is transient, show that it has a P > 0 of escaping frfom the state, and there
+    is a recurrent state with p=1
+  }
+  \dfn{ Recurrence }{
+    If $\rho_{xx} = 1$
+    \[ P_x(T^k_x < \infty, \text{ for all  } k \geq 1) = 1 \]
+    \[ P_x(T^k_x = \infty, \text{ for all  } k \geq 1) = 0 \]
+      \[N_x = \infty \]
+      Recurrence is contagious, i.e. any state that communicates with a recurrent state is recurrent
+  }
+    \dfn{ Irreducible }{
+      $A \subset S$ is irredicible if $x \leftrightarrow y$ for all $x,y \in A$
+    }
+    \dfn{ Close }{
+      We say that $B \subset S$ is closed if for any $x \in B, y \notin B$, we have $x \not\rightarrow y$ 
+
+      $R_x$ is called the "Communicating Class of x"
+    }
+\end{document}

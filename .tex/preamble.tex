@@ -549,8 +549,8 @@
 % NOTE BOX
 %================================
 
-%\usetikzlibrary{automata,arrows,positioning,calc,shadows,blur}
-\usetikzlibrary{automata,arrows,positioning,calc,shadows}
+\usetikzlibrary{automata,arrows,positioning,calc,shadows,blur}
+%\usetikzlibrary{automata,arrows,positioning,calc,shadows}
 
 \tcbuselibrary{skins}
 \newtcolorbox{note}[1][]{%
@@ -576,7 +576,8 @@
 					\coordinate (dotB) at ($(interior.east) + (0.5pt,0)$);
 					\begin{scope}
 						\clip (interior.north west) rectangle ([xshift=3ex]interior.east);
-						\filldraw [white, blur shadow={shadow opacity=60, shadow yshift=-.75ex}, rounded corners=2pt] (interior.north west) rectangle (interior.south east);
+						%\filldraw [white, blur shadow={shadow opacity=60, shadow yshift=-.75ex}, rounded corners=2pt] (interior.north west) rectangle (interior.south east);
+						\filldraw [white, rounded corners=2pt] (interior.north west) rectangle (interior.south east);
 					\end{scope}
 					\begin{scope}[gray!80!black]
 						\fill (dotA) circle (2pt);
