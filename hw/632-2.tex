@@ -220,7 +220,7 @@ $$
 \eta=\inf \left\{n \geq 0: X_n=5, X_{n+1}=0\right\}
 $$
 be the first time I reach state 5 but then fail in the very next trial. You can assume that both $\sigma$ and $\eta$ are finite, no matter how the process is started.
-  \begin{itemize}
+  \begin{enumerate}
 	\item  Prove or disprove: $\sigma$ is a stopping time.
 \par\noindent\rule{\textwidth}{0.1pt}
 
@@ -248,11 +248,15 @@ be the first time I reach state 5 but then fail in the very next trial. You can 
       I.e., it "looks into the future" to see $X_{n+1}$
 	\item  Calculate the probability $P_0\left(X_{\eta+1}=0, X_{\eta+2}=0\right)$.
 \par\noindent\rule{\textwidth}{0.1pt}
-      This cannot be done since $\eta$ is not a stopping time.
+      \[ P(X_{\eta + 1},X_{\eta + 2}) = P(X_{\eta + 2}=0)  \]
+      This follows due to the act that the two events contain the same
+      conditioning, sp
+      \[ P(X_{\eta + 1},X_{\eta + 2}) = P(X_{\eta + 2}=0) = 1 - \alpha \]
 	\item  Let $\zeta=\eta+1$. Is $\zeta$ a stopping time?
 \par\noindent\rule{\textwidth}{0.1pt}
-      No.  It is dependent on $\eta$, which is not well-defined.
-  \end{itemize}
+      $\zeta$ is a stopping time since it's definition can be rewritten
+      as $\zeta = \phi$, where $\phi = \eta - 1$
+  \end{enumerate}
 
 \newpage
 
@@ -283,7 +287,11 @@ Find conditions on $\left(p_n\right)_{n \geq 0}$ which guarantee that state 0 is
     \rho_{00} = P_0(T_0 < \infty) = \sum^{\infty}_{n=1} P_0(T_0=n)
     = \sum^{\infty}_{n=1} \left( \prod_{i=0}^{n} p_{i}\right) (1 - p_n) = 1
   \]
-
+  So in order for the above to behave like a Geomtric sequence, our
+  required condition is that
+  \[
+      \prod_{i=0}^{n} p_{i} \Longrightarrow 0
+  \]
 \newpage
 
   \item * Exercise 1.8 in Durrett's book. (This problem will not be graded, but you are highly recommended to try it.)
