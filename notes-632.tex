@@ -525,7 +525,41 @@
     Describes the long-term behaviour , long-term frequency to 
     a state
 
-    
+\chapter{20230711 - Markov Chains}%
+
+  \section{Invariant Distributions}%
+    \dfn{ Stationary }{
+      If by shiftfing the process by time $n$ the distribution of 
+      the process does not change
+    }
+    \ex{Stationary Sequence} {
+      MC whose initial distribution is the invariant distribution
+      is stationary
+    }
+    \dfn{ Positive Recurrent State }{
+      $x \in S$ is positive recurrent i x is recurrent and
+      \[ E_x[T_x] < \infty \]
+    }
+    \nt{
+        If a MC have a positive recurrent state, then
+        an invariant distribution - $\pi$ exists
+        \[ \pi(y) = \frac{E_X[\# \text{ of visits to y before }T_x]}{E_X[T_x]}  \]
+    }
+    \thm{ MC is Positive Recurrent } {
+      If a MC is positive recurrent and irreducible then it has a
+      \underline{unique} invariant distribution
+    }
+    \nt{
+      For a positive recurrent and irreducible MC
+      \[ E_X[T_x] = \frac{1}{\pi(x)}  \]
+      and
+      \[ \pi(x) = \frac{1}{E_X[T_x]} = \frac{E_y[\# \text{ of visits to x}}{E_Y[T_y]}  \]
+    }
+    \thm{ SLLN ffor MC } {
+      If a MC is pos rec and irred. and $f$ is a function on $S$, then
+      \[ \lim_{n \to \infty} \frac{1}{n} \sum^{n}_{k=1} f(X_k) = \sum^{}_{x \in S} \pi(x)f(x)  \]
+    }
+
 
 \chapter*{Notation}%
   \begin{itemize}
@@ -549,6 +583,7 @@
       \item $T^k_x$: Time to return to x, k times
         \[ P_x(\{T^k_x < \infty \text{ for all } k \geq 1\}) = 0 \]
         Means that, starting at x, the probabity is 0 that the time to return to x k-times is finite
+      \item $J_z^n$: The \# of visits to $z$ beore time $n$
   \end{itemize}
 
 \chapter*{Definitions}%

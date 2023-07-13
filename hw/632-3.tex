@@ -1,0 +1,168 @@
+\documentclass{article} % This command is used to set the type of document you are working on such as an article, book, or presenation
+
+%\usepackage[margin=1in]{geometry} % This package allows the editing of the page layout. I've set the margins to be 1 inch. 
+
+\usepackage{amsmath, amsfonts}  % The first package allows the use of a large range of mathematical formula, commands, and symbols.  The second gives some useful mathematical fonts.
+
+\usepackage{graphicx}  % This package allows the importing of images
+\usepackage{marvosym}  % Lightning!
+
+%This allows us to use the theorem and proof environment 
+\usepackage{enumitem}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+%Custom commands.  
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} %absolute value command
+
+%Custom symbols
+\newcommand{\Rb}{\mathbb{R}}
+
+\begin{document}
+
+\begin{center}
+\Large{\textbf{Assignment \#3}
+            
+UW-Madison MATH 632} % Name of course here
+\vspace{5pt}
+        
+\normalsize{  Guy Matz% Your name here
+        \\ Due: July 13, 2023}
+\vspace{15pt}
+\end{center}
+
+\section*{Exercises}%
+\begin{enumerate}[label={\fbox{\textbf{Exercise \#\arabic* :}}}]
+
+
+  \item The following matrices describe transition probability matrices for Markov chains with state space $\{1,2,3,4,5,6\}$. Each $*$ denotes a positive probability. In both cases identify all irreducible sets, all closed sets, and recurrent and transient states.
+
+Hint: Draw a diagram.
+
+  \begin{enumerate}
+  \item 
+$$
+\left[\begin{array}{llllll}
+* & 0 & 0 & * & * & 0 \\
+* & * & * & 0 & * & 0 \\
+0 & * & * & 0 & 0 & * \\
+* & 0 & 0 & * & 0 & 0 \\
+0 & 0 & 0 & * & 0 & * \\
+0 & 0 & 0 & 0 & * & *
+\end{array}\right]
+$$
+
+  \item 
+$$
+\left[\begin{array}{llllll}
+* & 0 & 0 & * & 0 & 0 \\
+0 & * & 0 & 0 & * & 0 \\
+0 & 0 & * & * & * & * \\
+* & 0 & 0 & * & 0 & 0 \\
+0 & * & 0 & 0 & * & 0 \\
+0 & * & 0 & * & 0 & *
+\end{array}\right]
+$$
+  \end{enumerate}
+
+\newpage
+  \item At a sales agency, newly hired employees are classified as beginners (B) for one year. Every year the performance of each agent is reviewed. Past records indicate that transitions through the ranks to intermediate (I) and qualified (Q) can be modeled by the following Markov chain, where $(\mathrm{F})$ indicates workers who were fired:
+
+$$
+P=\left(\begin{array}{cccc}
+\mathrm{B} & \mathrm{I} & \mathrm{Q} & \mathrm{F} \\
+.5 & .3 & 0 & .2 \\
+.1 & .5 & .3 & .1 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right) .
+$$
+  \begin{enumerate}
+
+
+    \item What is the expected time until a beginner either becomes qualified or is fired? 
+    \item Regarding your answer to part (a), how many of those years are expected to be in beginner rank, and how many are expected to be in intermediate rank?
+
+    \item  What fraction of beginners eventually become qualified?
+
+    \item  Given that an employee reaches intermediate status, what is the conditional probability they eventually become qualified?
+  \end{enumerate}
+
+\newpage
+  \item Consider the success run chain with transitions $p(x, x+1)=\alpha$ and $p(x, 0)=1-\alpha$ for all states $x \in\{0,1,2, \ldots\}$, where $0<\alpha<1$ is a fixed parameter.
+
+    See video of 20230710 @ min 16
+
+\begin{enumerate}
+  \item  Calculate $E_{0}\left[T_{k}\right]$, that is, the expected time to get to a success run of length $k$ when you start from zero. If you cannot do the general case, do $k=2$ or $k=3$ for some partial credit.
+
+Hint: You can change the rules so that $k$ is an absorbing state. You may check out Example 2.57 from the Lecture Notes for a similar computation.
+
+    \[ E_0[T_1] = \frac{1}{\alpha}  \]
+    \[ m(x) = E_x[Tk] \dots \]
+    For $k=1$, we have
+    \[ m(0) = \frac{1}{\alpha} \]
+    And for $k=2$, we have
+    \[ m(0) = \frac{1}{\alpha} + m(1) \]
+    So
+      \[ m(0) - m(1) = \frac{1}{\alpha}  \]
+    If $k=3$, then $1 \leq x \leq k-2$ we have
+    \[ m(x) = \alpha m(x+1) + (1- \alpha) m(0) \]
+    Which we can rewrite as
+    \[ 2m(x) = 2\alpha m(x+1) + 2(1- \alpha) m(0) \]
+    Or ?!?
+    \[ m(x) - 2 \alpha m(x+1) = + 2(1- \alpha) m(0) - m(x) \]
+
+  \item  Suppose you are at $k$. What is the expected time until you reach $k+1$ ?
+\end{enumerate}
+
+\newpage
+  \item Let $\pi$ be the invariant distribution for the Markov chain $\left(X_{n}\right)_{n \geq 0}$ with transition matrix
+
+$$
+\mathbb{P}=\left[\begin{array}{ll}
+0 & 1 \\
+\frac{1}{2} & \frac{1}{2}
+\end{array}\right]
+$$
+
+on the state space $\mathcal{S}=\{0,1\}$.
+
+\begin{enumerate}
+  \item  Compute the distribution $\pi=[\pi(0), \pi(1)]$.
+
+  \item  Calculate the probability
+
+$$
+P_{\pi}\left(X_{37}=0, X_{40}=0, X_{42}=0\right)
+$$
+
+Hint: Take a look at Theorem 2.59 in the notes. Your numerical answer should be $\frac{1}{24}$.
+\end{enumerate}
+  \thm{ Theorem 2.59 } {
+    Suppose $\pi$ is an invariant distribution for the transition probability $\mathbf{P}$ and we take $\pi$ as the initial distribution of the Markov chain. Then at each time $n \geq 0$ the distribution of the state $X_n$ is $\pi$. In other words, $P_\pi\left(X_n=y\right)=\pi(y)$ for all $n \geq 0$ and $y \in \mathcal{S}$.
+  }
+
+\newpage
+  \item Find the invariant distribution for the Markov chain on the state space $\{1,2,3,4\}$ with transition matrix:
+
+$P=\left(\begin{array}{llll}.7 & .3 & 0 & 0 \\ .2 & .5 & .3 & 0 \\ .0 & .3 & .6 & .1 \\ 0 & 0 & .2 & .8\end{array}\right)$
+
+
+
+\end{enumerate}
+
+%\newpage
+%\section*{Theorems}
+%
+%\section*{Properties}
+%%  \begin{enumerate}
+%$  \end{enumerate}
+%
+\end{document}
