@@ -7,6 +7,7 @@
 \usepackage{graphicx}  % This package allows the importing of images
 \usepackage{marvosym}  % Lightning!
 
+\usepackage{bbold}
 %This allows us to use the theorem and proof environment 
 \usepackage{enumitem}
 \usepackage{amsthm}
@@ -40,7 +41,6 @@ UW-Madison MATH 632} % Name of course here
 \section*{Exercises}%
 \begin{enumerate}[label={\fbox{\textbf{Exercise \#\arabic* :}}}]
 
-
   \item The following matrices describe transition probability matrices for Markov chains with state space $\{1,2,3,4,5,6\}$. Each $*$ denotes a positive probability. In both cases identify all irreducible sets, all closed sets, and recurrent and transient states.
 
 Hint: Draw a diagram.
@@ -57,6 +57,12 @@ $$
 0 & 0 & 0 & 0 & * & *
 \end{array}\right]
 $$
+  \begin{align*}
+    I &= \{\{2,3\}, \{1,4,5,6\}\} \\
+    C &= \{\{1,4,5,6\}\} \\
+    R &= \{\{1,4,5,6\}\}  \\
+    T &= \{2,3\} 
+  \end{align*}
 
   \item 
 $$
@@ -69,6 +75,12 @@ $$
 0 & * & 0 & * & 0 & *
 \end{array}\right]
 $$
+  \begin{align*}
+    I &= \{\{1,4\}, \{2,5\}\} \\
+    C &= \{\{1,4\}, \{2,5\}\} \\
+    R &= \{1,2,4,5\} \\
+    T &= \{3,6\}
+  \end{align*}
   \end{enumerate}
 
 \newpage
@@ -83,15 +95,68 @@ P=\left(\begin{array}{cccc}
 0 & 0 & 0 & 1
 \end{array}\right) .
 $$
-  \begin{enumerate}
 
+Using Canonical Decomposition . . .
+\[
+P=\left(\begin{array}{cccc}
+\mathrm{Q} & \mathrm{F} & \mathrm{B} & \mathrm{I} \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & .2 & .5 & .3 \\
+.3 & .1 & .1 & 1
+\end{array}\right) .
+\]
+\[
+S=\left(\begin{array}{cccc}
+\mathrm{Q} & \mathrm{F} \\
+0 & .2 \\
+.3 & .1 \\
+\end{array}\right) , 
+Q=\left(\begin{array}{cccc}
+\mathrm{B} & \mathrm{I} \\
+.5 & .3 \\
+.1 & 1
+\end{array}\right)
+\]
+\[
+  (I-Q)=\left(\begin{array}{cccc}
+.5 & -.3 \\
+-.1 & .5 \\
+\end{array}\right)
+(I-Q)'=\left(\begin{array}{cccc}
+2.27 & 1.36 \\
+0.45 & 2.27 \\
+\end{array}\right) ,
+\]
+\[
+U=(I-Q)'S=\left(\begin{array}{cccc}
+0.409 & 0.590 \\
+0.681 & 0.318 \\
+\end{array}\right)
+\]
+\[
+m=(I-Q)'\mathbb{1} =\left(\begin{array}{cccc}
+3.63 & 2.72 \\
+\end{array}\right) .
+\]
+  \begin{enumerate}
+    
 
     \item What is the expected time until a beginner either becomes qualified or is fired? 
+
+      Time from transient state to absorbing state
+      \[ E_B[T] = m(B) = 3.63\]
+
     \item Regarding your answer to part (a), how many of those years are expected to be in beginner rank, and how many are expected to be in intermediate rank?
 
+      6/14 time is spent in B, 8/14 to I, so
+      \[ \frac{6}{14} * 3.63 = 1.55 \in B, \frac{8}{14}  * 3.63 = 2.07 \in  I \]
+
     \item  What fraction of beginners eventually become qualified?
+      \[ P(B,Q) = 0.409 \]
 
     \item  Given that an employee reaches intermediate status, what is the conditional probability they eventually become qualified?
+    \[ P(I,Q) = 0.681 \]
   \end{enumerate}
 
 \newpage
@@ -135,7 +200,10 @@ $$
 on the state space $\mathcal{S}=\{0,1\}$.
 
 \begin{enumerate}
-  \item  Compute the distribution $\pi=[\pi(0), \pi(1)]$.
+  \item  Compute the distribution $\pi=\left[\pi(0), \pi(1)\right]$.
+
+    Sorry I'm not showing any work here.  It's a pain in latex :-(
+    \[ \pi = \left[ \frac{1}{3} , \frac{2}{3} \right] \]
 
   \item  Calculate the probability
 
@@ -145,18 +213,38 @@ $$
 
 Hint: Take a look at Theorem 2.59 in the notes. Your numerical answer should be $\frac{1}{24}$.
 \end{enumerate}
-  \thm{ Theorem 2.59 } {
-    Suppose $\pi$ is an invariant distribution for the transition probability $\mathbf{P}$ and we take $\pi$ as the initial distribution of the Markov chain. Then at each time $n \geq 0$ the distribution of the state $X_n$ is $\pi$. In other words, $P_\pi\left(X_n=y\right)=\pi(y)$ for all $n \geq 0$ and $y \in \mathcal{S}$.
-  }
+\begin{theorem*}[2.59] {
+    Suppose $\pi$ is an invariant distribution for the transition probability $\mathbf{P}$ and we take $\pi$ as the initial distribution of the Markov chain. Then at each time $n \geq 0$ the distribution of the state $X_n$ is $\pi$. In other words, $P_\pi\left(X_n=y\right)=\pi(y)$ for all $n \geq 0$ and $y \in \mathcal{S}$ .
+  \end{theorem*}
 
+\[
+\mathbb{P}^2=\left[\begin{array}{ll}
+\frac{1}{2}  & \frac{1}{2}  \\
+\frac{1}{4} & \frac{3}{4}
+\end{array}\right], 
+\mathbb{P}^3=\left[\begin{array}{ll}
+\frac{1}{4}  & \frac{3}{4}  \\
+\frac{3}{8} & \frac{5}{8}
+\end{array}\right]
+\]
+  So we want to compute $P_{\pi}(X_0=0, X_3=0, X_5=0)$
+  \begin{align*}
+    P_{\pi}(X_0=0, X_3=0, X_5=0) &= \frac{1}{3} \cdot P^3(0,0) \cdot P^2(0,0)  \\
+                 &= \frac{1}{3} \cdot \frac{1}{4} \cdot \frac{1}{2}  \\
+                 &= \frac{1}{24} 
+  \end{align*}
 \newpage
   \item Find the invariant distribution for the Markov chain on the state space $\{1,2,3,4\}$ with transition matrix:
 
 $P=\left(\begin{array}{llll}.7 & .3 & 0 & 0 \\ .2 & .5 & .3 & 0 \\ .0 & .3 & .6 & .1 \\ 0 & 0 & .2 & .8\end{array}\right)$
 
+    Again, Sorry I'm not showing any work here.  :-(
+
+    \[ \pi = \left [\frac{4}{19},  \frac{6}{19},
+            \frac{6}{19}, \frac{3}{19} \right] \]
 
 
-\end{enumerate}
+\end{enumerate*}
 
 %\newpage
 %\section*{Theorems}
