@@ -522,30 +522,78 @@
     state to a specific recurrent state. Probabilityof being absorbed
 
     \section{Invariant Measure}%
-    Describes the long-term behaviour , long-term frequency to 
-    a state
+    Describes the long-term behaviour , long-term frequency to a state
+    \dfn{ Invariant zmeasure }{
+     Let $\mathbf{P}=\{p(x, y)\}_{x, y \in \mathcal{S}}$ be a transition probability and $\mu$ a measure on $\mathcal{S}$. Then $\mu$ is an invariant measure for $\mathbf{P}$ if $\mu=\mu \mathbf{P}$ and $\mu$ is neither identically zero nor identically infinite.
+As before, the equation $\mu=\mu \mathbf{P}$ means that
+$$
+\mu(y)=\sum_{x \in \mathcal{S}} \mu(x) p(x, y) \quad \text { for all } y \in \mathcal{S}
+$$ 
+    }
+    \thm{ Multiplicative constant of an invariant distribution } {
+     Assume that $\mathbf{P}$ is irreducible and recurrent. Then there is an invariant measure $\mu$ such that $0<\mu(x)<\infty$ for all $x \in S$. The invariant measure is unique up to a constant multiple: that is, if $\nu$ is any other invariant measure, then there is a constant $c \in(0, \infty)$ such that $\nu(x)=c \mu(x)$ for all $x \in S$. 
+    }
 
+\chapter{20230706 - Markov Chains}%
+   \dfn{Invariant Measure }{
+     A measure $\mu$ on $S$ is called a
+     \underline{Invariant (or Stationary)}
+     measure of the MC is it satifies
+     \[ \mu(x) = \sum^{}_{y} \mu(u)p(x,y) \]
+   }
+   \dfn{Invariant /Stationary Distribution }{
+    If an invariant Measure is a probability measure, then is it an invariant / staionary distribution
+  }
+   
 \chapter{20230711 - Markov Chains}%
-
   \section{Invariant Distributions}%
-    \dfn{ Stationary }{
+    \dfn{ Stationary Process}{
+      Let $\left\{X_k\right\}_{k \geq 0}$ be a stochastic process with
+      countable state space $\mathcal{S}$, defined on a probability space
+      $(\Omega, \mathcal{F}, P)$. Then $\left\{X_k\right\}_{k \geq 0}$ is a stationary process if the following is true for all integers $m, n \geq 0$ and all states $x_0, \ldots, x_n \in \mathcal{S}$ :
+        \[
+        \begin{aligned}
+        & P\left(X_0=x_0, X_1=x_1, \ldots, X_n=x_n\right) \\
+        & \quad=P\left(X_m=x_0, X_{m+1}=x_1, \ldots, X_{m+n}=x_n\right)
+        \end{aligned}
+        \]
+      I.e, while the state Xn keeps evolving randomly, statistically the process looks the same for all time.
+
       If by shiftfing the process by time $n$ the distribution of 
       the process does not change
+    }
+    \thm{ A MC with an invariant Dist is Stationary } {
+      Suppose $\pi$ is an invariant distribution for the transition probability $\mathbf{P}$ and we take $\pi$ as the initial distribution of the Markov chain. Then the Markov chain is a stationary process: for all integers $m, n \geq 0$ and all states $x_0, \ldots, x_n \in \mathcal{S}$ :
+$$
+\begin{array}{r}
+P_\pi\left(X_m=x_0, X_{m+1}=x_1, \ldots, X_{m+n}=x_n\right) \\
+\quad=P_\pi\left(X_0=x_0, X_1=x_1, \ldots, X_n=x_n\right) .
+\end{array}
+$$
     }
     \ex{Stationary Sequence} {
       MC whose initial distribution is the invariant distribution
       is stationary
     }
-    \dfn{ Positive Recurrent State }{
-      $x \in S$ is positive recurrent i x is recurrent and
-      \[ E_x[T_x] < \infty \]
+    \dfn{ Positive Recurrent / Null State }{
+      A recurrent state $x$ is positive recurrent if $E_x\left[T_x\right]<\infty$ and null recurrent if $E_x\left[T_x\right]=\infty$
     }
+    \thm{ Positive Recurrence is Contagious } {
+      Let $x$ and $y$ be two communicating states $(x \longleftrightarrow y)$. Then if one is positive recurrent, so is the other.
+    }
+    \thm{ Invariant Dist $\Letrightarrow$ All State Pos Rec } {
+       Assume that $\mathbf{P}$ is irreducible. Then $\mathbf{P}$ has an invariant distribution $\pi$ if and only if all states are positive recurrent. In this case the invariant distribution $\pi$ is unique and its values satisfy $\pi(x)=\frac{1}{E_x\left[T_x\right]}$ for all $x \in S$.
+    }
+    \thm{ Irriducible Finite MC $\implies$ Pos Recurrent } {
+      An irreducible finite Markov chain is positive recurrent.
+    }
+
     \nt{
         If a MC have a positive recurrent state, then
         an invariant distribution - $\pi$ exists
         \[ \pi(y) = \frac{E_X[\# \text{ of visits to y before }T_x]}{E_X[T_x]}  \]
     }
-    \thm{ MC is Positive Recurrent } {
+    \thm{ Existence of unique invariant dist} {
       If a MC is positive recurrent and irreducible then it has a
       \underline{unique} invariant distribution
     }
@@ -553,14 +601,356 @@
       For a positive recurrent and irreducible MC
       \[ E_X[T_x] = \frac{1}{\pi(x)}  \]
       and
-      \[ \pi(x) = \frac{1}{E_X[T_x]} = \frac{E_y[\# \text{ of visits to x}}{E_Y[T_y]}  \]
+      \[ \pi(x) = \frac{1}{E_X[T_x]} = \frac{E_y[\# \text{ of visits to x}]}{E_Y[T_y]}  \]
     }
-    \thm{ SLLN ffor MC } {
+    \thm{ SLLN for MC } {
       If a MC is pos rec and irred. and $f$ is a function on $S$, then
       \[ \lim_{n \to \infty} \frac{1}{n} \sum^{n}_{k=1} f(X_k) = \sum^{}_{x \in S} \pi(x)f(x)  \]
     }
 
+\chapter{20230712 - Markov Chains}%
+  \section{Invariant Distribution}%
+    \dfn{ Invariant Distribution }{
 
+      Let $\mathbf{P}=\{p(x, y)\}_{x, y \in \mathcal{S}}$ be a transition probability and $\pi$ a probability measure on $\mathcal{S}$. Then $\pi$ is an invariant distribution for transition matrix $\mathbf{P}$ if $\pi=\pi \mathbf{P}$, or more explicitly,
+      \[ \pi(y)=\sum_{x \in \mathcal{S}} \pi(x) p(x, y) \quad \text { for all } y \in \mathcal{S} \]
+
+    }
+    \nt{
+      Alternative terms for the invariant distribution are invariant
+      probability measure and stationary distribution.
+
+      Long-term frequency of visits to states
+
+      Long-term frequency of visits to transient states is 0
+    }
+    \thm{ $P_\pi(X_n=y)=\pi(y)$ } {
+     Suppose $\pi$ is an invariant distribution for the transition probability $\mathbf{P}$ and we take $\pi$ as the initial distribution of the Markov chain. Then at each time $n \geq 0$ the distribution of the state $X_n$ is $\pi$. In other words, $P_\pi\left(X_n=y\right)=\pi(y)$ for all $n \geq 0$ and $y \in \mathcal{S}$. 
+    }
+    \nt{
+      If a MC has a rec state, x, then it has an invariant measure
+      \[ \mu(x) = E_0[\# \text{ of visits to x before  }T_0] \]
+      if, in addition, the MC is irreducibe, then the invariant measure
+      is unique up to a multiplicative constant
+    }
+   \nt{
+     See 20230712 @ min 29 for how to write an invariant probability with
+     multiple communicating classes
+
+   }
+   \ex{}{
+       If $x_0=1$ then
+       \[ \lim_{n \to \infty} \frac{1}{n} \sum^{n}_{i=1} f(x_i) = f(1) \]
+       If $x_0 \in \{2,3\}$, then
+       \[
+         \lim_{n \to \infty} \frac{1}{n} \sum^{n}_{i=1} f(x_i) =
+          \mu(2) \cdot f(2) + \mu(3) \cdot f(3)
+        \]
+       If $x_0 = 0$, then let
+       \[ T = in \{ n \geq 0 : X_n \in \{1,2\} \]
+         Note that letting  (rem: $h(1) = 1$)
+          \begin{align*}
+            h(x) &= P_x(X_T = 1) \\
+            h(0) &= \frac{1}{4} h(1) + \frac{1}{4} h(0) + \frac{1}{2} h(2) \\
+                 &= \frac{1}{4} \cdot 1 + \frac{1}{4} h(0) + \frac{1}{2} 0 \\
+                 &= \frac{1}{3} 
+          \end{align*}
+          Hence $p_x(X_T \in R_1) = 1/3$, $p_x(X_T \in R_2) = 2/3$
+
+          Therefore, when $X_0=0$,
+          \[
+         \lim_{n \to \infty} \frac{1}{n} \sum^{n}_{i=1} f(x_i) =
+            \begin{cases}
+              f(1) \text{ with prob } 1/3 \\
+              \frac{8}{17} f(2) + \frac{9}{17} (3) \text{ with prob } 2/3
+            \end{cases}
+          \]
+        }
+
+\chapter{20230713 - Markov Chains}%
+  \section{Invariant Distributions}%
+
+  \dfn{ MC Limit Theorem }{
+    If there is a irreducible and Pos Recurrent MC, which is aperiodic, 
+    then the limiting distribution in the invariant disttribution
+  }
+  \nt{
+    Let
+    \[ J_z^n=\sum_{k=1}^n I_{\left\{X_k=z\right\}} \]
+
+    denote the number of visits to $z$ between times 1 and $n$ (inclusive). The normalized quantity $J_z^n / n$ is the frequency of visits to $z$ up to time $n$. The relationship with the random variable $N_z$ introduced in (2.56) is that
+    \[ \lim _{n \rightarrow \infty} J_z^n=N_z \]
+  }
+
+  \thm{ Return Times in irredudible/Recurrent MCs } {
+   Suppose $\mathbf{P}$ is irreducible and recurrent. Let $\mu$ be an arbitrary initial distribution. Let $z$ be any state. Then the following limits hold with probability one:
+$$
+\lim _{k \rightarrow \infty} \frac{T_z^k}{k}=E_z\left[T_z\right]
+$$
+and
+$$
+\lim _{n \rightarrow \infty} \frac{J_z^n}{n}=\frac{1}{E_z\left[T_z\right]}
+$$ 
+  }
+  \nt{ If an invariant dist exists,  Irreducibility guarantees uniquensss
+
+  aperiodicty allows the dist to converge
+
+  Positive recurrence guarantees existence of invariant dist
+
+  }
+  \dfn{ Period }{
+    For any rec state, x, let
+    \[ I_x = \{ n \geq 1: p^n(x,x) > 0 \]
+      i.e. $I_x$ is the set of integers $n$ so that it is possible to go
+      from $x$ to $x$ in $n$ steps.  The greatest comment divisor (gcd)
+      of $I_x$ is called the period of the state $x \in S$.  We denote it
+      by $d(x)$.
+
+      For an irriducible MC, all states have the same period.  This is the
+      period of the MC.
+  }
+  \dfn{ Aperiodic }{
+    Period of every state is one
+  }
+  
+  \dfn{ Null Recurrent }{
+    \[ E_x[T_x] = \infty \]
+  }
+  
+  \nt{
+    For a finite-state MC, every rec state is positive recurrent
+
+    SSRW is NOT Positive Recurrent (it's null recurrent)
+  }
+  \nt{
+    Mean return time - Min 33 of 20230713
+    \[ E_x[T_x] = \frac{1}{\pi(c)}  \]
+  }
+  \dfn{Doubly Stochastic}{
+    A transition probability $\mathbf{P}$ is doubly stochastic if 
+$$
+\sum_{x \in \mathcal{S}} p(x, y)=1 \quad \text { for all states } y \in \mathcal{S}
+$$
+A little more vividly, in a doubly stochastic matrix both rows and columns sum to one.
+  }
+  \nt{
+    If the state space is finite, then the MC has an invariant distribution
+    of the MC is the uniform distribution over the state space
+
+    See video 20230713 @ min 43
+  }
+  \thm{ Doubly Stochastic + Constant Measure = Invariant } {
+     Assume $\mathbf{P}$ is doubly stochastic. Then every constant measure is invariant. If the state space is finite then there is an invariant distribution.
+  }
+  \nt{
+    a Doubly Stochastic MC has no transient states
+  }
+  \thm{Invariant State with $\pi(x) > 0$ is recurrent}{
+     Suppose $\mathbf{P}$ has an invariant distribution $\pi$ and $x$ is a state that satisfies $\pi(x)>0$. Then $x$ is a recurrent state.
+  }
+  \thm{ Irreducible + Recurrent $\implies$ Invariant } {
+   Let $\mathbf{P}$ be the transition matrix of an irreducible and recurrent Markov chain on the state space $\mathcal{S}$. Then for all $x, y \in \mathcal{S}, 0<\lambda_x(y)<\infty$ and $\lambda_x(x)=1$. For all $x \in \mathcal{S}$, the measure $\lambda_x$ is invariant: $\lambda_x=\lambda_x \mathbf{P}$. 
+  }
+
+  \dfn{ Reversible MC }{
+    20230713 @ min 58
+
+    A measure mu on S is said to be reversible (with respect to the MC)
+    if
+      \[ \mu(x) \cdot p(x,y) = \mu(y) \cdot p(y,x) \forall x,y \in S\]
+      E.g. Simple Random Walk
+
+      In paticular if $\mu$ is a probsability measure that satisfies 
+      the equation above, then $\mu$ is a reversible distribution
+
+      This equation is called the detail balance condition
+  }
+  \thm{ Reversible $\Letrightarraw$ Invariant Measure } {
+    A reversible measure is an invariant measure. A reversible distri- bution is an invariant distribution
+  }
+
+  \dfn{ Measure }{
+    function of sets, which gives non-neagtove value to sets.  
+    Measure of disjoint union is the sum of the measure
+  }
+
+  \dfn{ Probability Measure / Distribution }{
+    Measure on the sets so that the measure of the whole set is 1
+  }
+
+  \nt{ Every reversible dist/measure is an invariant dist / measure
+
+    E.g. For symmetric SRW, the measure $\mu(x) = 1$ is a reversible
+    measure since
+      \[ \mu(y)p(y,x) = \mu(x)p(x,y)  \]
+  }
+
+\chapter{20230717 - Markov Chains}%
+  Detailed Baance Condition
+    \[\mu(x)p(x,y) = \mu(y)p(y,x) \forall x,y \in S \]
+  To prove reversible is invariant, need to check that summing over flows
+  to x equals x, i.e.
+    \[ \sum^{}_{y} \mu(y)p(y,x) = \mu(x) \]
+    If $\mu$ is reversible, then by detilaed balance condition
+    \[ \sum^{}_{y} \mu(y)p(y,x) = \sum^{}_{y} \mu(x)p(x,y) = \mu(x) \sum^{}_{y} p(x,y) = \mu(x)  \]
+
+    SRW has two invariant measures
+    \begin{itemize}
+      \item $\mu_1(x) = 1, \forall x \in \mathbb{Z} $
+      \item $\mu_2(x) = \left( \frac{p}{1-p}  \right)^x$
+    \end{itemize}
+    Note: $\mu_1$ is not reversible when $p \neq \frac{1}{2} $
+    
+    But $\mu_2$ is reversible with
+    \[ \mu_2(x)p(x,x+1) \neq \mu_2(x+1) p(x+1,x) \]
+    since $\mu_2(x)$ is equal on both sides
+    
+    
+
+    To show that a $\mu$ is not reversible, show that
+    \[ \mu_1(x)p(x,x+1) \neq \mu_1(x+1) p(x+1,x) \]
+    \thm{  } {
+      If the initial distribution of a MC is a reversible distribution,
+      $\pi$, then
+      \[ P((X_{n+1}, \dots, X_{n+m}) \in A) = P((X_{n+m}, \dots, X_{n+1}) \in A) \forall n,m \in A \]
+    }
+    \thm{ RW on Conductance . . . } {
+      The Random Walk on Conductance model has an Invariant Distribution
+      which is reversible
+        \[ \pi(x) = \sum^{}_{y} c(x,y) \]
+        If the state space is finite, then $\mu$ can be "normalized"
+        to be a reversible distribution
+
+        Only need to check that $\mu$ is reversible , i.e.
+      \[ \sum_{z}c(x,z) \cdot \frac{c(x,y)}{\sum_{z}c(x,z)} = \sum_{w}c(y,w) \frac{c(y,x)}{\sum_{w} c(y,w) } \]
+            implies
+        \[ c(x,y) c(y,x) \]
+    }
+    \nt{
+      To convert a reversible measure to a reversible distribution
+
+      (See 20230717, min 43)
+
+      A reversible measure of a MC , e.g.
+      \[ \mu(A) = c(A,B) + c(A,C) \]
+      can be turned into a reversible distribution, e.g.
+    \[ \pi(A) = \frac{\mu(A)}{\sum_{i \in A}c(A,i)}  \]
+    }
+    \section{Martingales}%
+    Generalizes a SSRW, but it's not a MC
+    \dfn{ Martingale }{
+      For discrete RVs, X, Y  let H be the function defined by
+      \[ H(y) = E[X|Y=y] \]
+      Then conditional expectation of X given Y is defined as
+      \[ E[X|Y] = H(Y) \]
+      No longer a dterministic number, but it's a RV
+    }
+    \ex{min 53} {
+      Let X,Y be indep RVs with
+      \[ X \sim Poisson(\mu), Y \sim Poisson(\lambda) \]
+      \begin{itemize}
+        \item Poisson: $P(X=n) = \frac{\mu^n}{n!} e^{\mu}$
+        \item $X + Y \sim Poisson(\mu + \lambda)$
+      \end{itemize}
+      To compute $E[X|X+Y]$,
+            \begin{align}
+              H(w) &= E[X|X+Y=w] \\
+                  &= \sum^{\infty}_{x=0} x P(X=x| X+Y=w)  \\
+                  &= \sum^{\infty}_{x=0} \frac{P(X=x, X+Y=w}{P(X+Y=w}  \\
+                  &= \sum^{\infty}_{x=0} \frac{P(X=x, Y=w-x}{P(X+Y=w}  \\
+                  &= \sum^{\infty}_{x=0} \frac{P(X=x) P(Y=w-x}{P(X+Y=w}  \\
+                  \vdots
+                  &= \sum^{\infty}_{x=0} \frac{\mu^x \lambda^{w-x}}{(\lambda + \mu)^w} \frac{w!}{x!(w-x)!} x   \\
+            \end{align}
+    }
+    
+\chapter{20230718 - Martingales}%
+   \section{Computing Conditional Expectation}%
+   To compute $E[X|X+Y]$, first we determine $H(n)$:
+            \begin{align*}
+              H(n) &= E[X|X+Y=n] \\
+                  &= \sum^{\infty}_{x=0} x\frac{\mu^x \lambda^{n-x}}{(\lambda + \mu)^n} \frac{n!}{n!(n-x)!} \\
+                  &= \binom{n}{x} \left( \frac{\mu}{\lambda + \mu} \right)^x \left( \frac{\lambda}{\lambda + \mu} \right)^{n-x}
+            \end{align*}
+            And that's the expectaton of pmf Bin(n, $\frac{\mu}{\lambda + \mu}$) which equals $n \cdot p$, or
+            \[ \frac{\mu}{\lambda + \mu} \cdot n \]
+
+    Next we substitute the deterministic input of $H(.)$ by $(X+Y)$ to get conditional expectation
+            \[ E[X|X+Y] = H(X+Y) = \frac{\mu}{\lambda + \mu} (X+Y) \]
+    See min 13 of 20230718
+
+    Remember $H(n)$ . . .
+      \[ H(n) &= E[X|X+Y=n] \]
+    Properties of conditional expecatation that will be useful
+    \begin{enumerate}
+      \item If X and Y are independent, then
+        \[ E[X|Y] = E[X] \]
+      \item $E[X \cdot g(Y)|Y] = g(Y) \cdot E[X|Y]$
+      \item $E[E[X|Y]] = E[X]$
+      \item For an $a,b \in \mathbb{R}$
+        \[ E[aX+bY|Z] = aE[X|Z] + bE[Y|Z] \]
+      \item If X and Y are independent
+        \[ E[g(X,Y)|Y] = \sum_{x} g(x,Y)P(X=x) \]
+    \end{enumerate}
+    \ex{} {
+      \begin{enumerate}
+        \item $X \sim Poi(\mu), Y \sim Poi(\lambda)$ min 33
+        \item SSRW $\{S_n\}_{n \geq 0}$ min 36
+      \end{enumerate}
+    }
+    \section{Martingales}%
+    A fair game!  Based on the the history your best guess is that it's the same as today
+    \dfn{ Msrtingales }{
+      Let $(X_0, X_1, \dots)$ be a sequence of RVs.  A stochastic
+      process is asid to be a Martigale if it satisfies
+      \begin{enumerate}
+        \item $M_n$ is a function of $(X_0, X_1, \dots, X_n)$
+        \item $M_n$ has a finite expectation
+        \item Martingale Condition: 
+          \[ E[M_{n+1}|X_0, \dots, X_n] = M_n \]
+          So the best guess based on the past is where you are now
+      \end{enumerate}
+    \nt{
+      We simply say $\left( M_n \right)_{n=0}^{\infty}$ is a
+      Martingale if it is a MG with respect to itself
+    }
+    \ex{} {
+      \begin{itemize}
+        \item SSRW defined by $\left( S_n \right)_{n=0}^{\infty}$ is a
+          martingale with respect to $(Y_1, Y_2, \dots)$
+
+          Check
+          \begin{itemize}
+            \item $S_n = Y_1 + \dots Y_n$ is a function of $(Y_1, \dots, Y_n) $ up to time n
+            \item Each term in the sequence has finite expectation.  $-n \leq S_n \ leq n$.  Check!
+            \item Check Martingale Property
+                \begin{align*}
+                  E[S_{n+1} | Y_1, \dots , Y_n]$ &= E[S_n + Y_{n+1}|Y_1, \dots, Y_n]\\
+                         &= E[S_n|Y_1, \dots, Y_n] + E[Y_{n+1}|Y_1, \dots, Y_n]\\
+                         &= S_n + E[Y_{n+1}] \\
+                         &= S_n + 0 \\
+                         &= S_n
+                \end{align*}
+          \end{itemize}
+      \end{itemize}
+    }
+    \nt{ If $Y_1, Y_2, \dots$ is a sequence of independent, zero-mean
+      RVS, then
+      \begin{itemize}
+        \item $\left( S_n \right)_{n=0}^{\infty}$ defined by $S_0=0$,
+    $S_n = Y_1 + \dots + Y_n$ is a MG with respect to $(Y_1, Y_2, \dots)$
+        \item min 1:11 Let H be a sequence of functions $(Y_1, \dots, Y_n)$
+          then the sequence $\left( M_n \right)_{n=0}^{\infty}$ defined by 
+          \[ M_n = \sum^{n}_{k=1} Y_k \cdot H_k(Y_1, \dots Y_k) \]
+          is a Martingale (MG) with respect to $(Y_1, Y_2, \dots)$
+
+      \end{itemize}
+  }
+    
+
+
+    
 \chapter*{Notation}%
   \begin{itemize}
       \item $N_t$: Number of arrivals before time t.  It is indexed by
@@ -583,7 +973,7 @@
       \item $T^k_x$: Time to return to x, k times
         \[ P_x(\{T^k_x < \infty \text{ for all } k \geq 1\}) = 0 \]
         Means that, starting at x, the probabity is 0 that the time to return to x k-times is finite
-      \item $J_z^n$: The \# of visits to $z$ beore time $n$
+      \item $T_z^n$: The \# of visits to $z$ beore time $n$
   \end{itemize}
 
 \chapter*{Definitions}%
@@ -721,9 +1111,11 @@
     \dfn{ Irreducible }{
       $A \subset S$ is irredicible if $x \leftrightarrow y$ for all $x,y \in A$
     }
-    \dfn{ Close }{
+    \dfn{ Closed }{
       We say that $B \subset S$ is closed if for any $x \in B, y \notin B$, we have $x \not\rightarrow y$ 
 
       $R_x$ is called the "Communicating Class of x"
     }
+
+    
 \end{document}

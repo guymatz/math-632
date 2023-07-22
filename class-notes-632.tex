@@ -1,0 +1,115 @@
+\documentclass{report}
+
+\input{.tex/preamble}
+\input{.tex/macros}
+\input{.tex/letterfonts}
+
+\title{
+  \Huge{Math 431 - Introduction to Probability Theory}
+  \\
+  Notes
+}
+\author{\huge{Guy Matz}}
+\date{}
+
+\begin{document}
+%\maketitle
+
+% \setcounter{chapter}{1}
+\chapter{20230629 - Markov Chains}%
+  \section*{Decomposition of States}%
+    \subsection*{Recall}%
+    \begin{itemize}
+      \item  $T_x=\inf \left\{n \geqslant 1: \quad X_n=x\right\}, \quad \inf \phi=\infty$ 
+  \item $N_x=\sum_{n=1}^{\infty} I_{\left\{x_n=x\right\}}=\sum_{k=1}^{\infty} I_{\left\{T_x^k<\infty\right\}}$
+  \item $E\left[N_x\right] =\sum_{n=1}^{\infty} p^{(n)}(x, x)=\sum_{k=1}^{\infty} P_x\left(T_x^k<\infty\right)$
+    \item 
+  \[
+  \begin{align*}
+    $x$ \text{ is rec. } &\Leftrightarrow P_{x x^{\prime}}=P_x\left(T_x<\infty\right)=1$ \\
+    & \Leftrightarrow P_x\left(N_x=\infty\right)=1 \\
+    & \Leftrightarrow E_x\left[N_x\right]=\infty \\
+    &= \sum_{n=1}^{\infty} p^{(n)}(x, x)
+  \end{align*}
+  \]
+  \end{itemize}
+  \subsection*{Notation}%
+    \begin{itemize}
+      \item Write "$x \to y$" if $p^{(n)}(x,y) > 0 $ for some $n \geq 0$, 
+        and we say that "y is accessible from x"
+      \item $x \to x$ because $p^{(n)}(x,y)  =1$
+      \item Write "$ x \leftrightarrow y$ if $x \to y$ and $y \to x$
+        we say "x and y communicate"
+    \end{itemize}
+    \thm{ Transience / Recurrence } {
+     \begin{enumerate}
+       \item If $x \neq y, x \rightarrow y$ and $\rho_{y x}<1 \Rightarrow x$ is tran.
+        \item If $x \neq y, x$ is rec. and $x \rightarrow y \Rightarrow \rho_{y x}=1$ and $y$ is recurrent. 
+     \end{enumerate} 
+     Note: This lemma says that rec. property is contagious
+    }
+    \thm{ $\leftrightarrow$ is an equivalencce relation } {
+      The relation $\leftrightarrow$ is an equivalencce relation in the
+      sense that
+      \begin{enumerate}
+        \item $x \leftrightarrow x$ 
+        \item $x \leftrightarrow y, y \leftrightarrow z \implies x \leftrightarrow z$ 
+        \item $x \leftrightarrow y \implies y \leftrightarrow x$ 
+      \end{enumerate}
+    }
+    \subsection*{Definitions}%
+    \dfn{ Irreducible }{
+      We say that $A \subset S$ is irreducible if $x \leftrightarrow y$
+      for all $x,y \in  A$
+    }
+    \dfn{ Closed }{
+      We say that $B \subset S$ is closed if for any $x \in B, y \not\in B$
+      we have $ x \not\to y$
+    }
+    \dfn{ Communicating Class - $R_x$}{
+      If x is rec., we let $R_x$ denote the biggest irreducible and closed
+      set that contains x.  $R_x$ is called the commmunicating class of x
+    }
+    \thm{ $R_x$ are communicating classes } {
+      The state space $S$ can be decomposed as a disjoint union of
+      transient states and communicating classes
+      \[ S = T \cup \left( \cup_{i=I} R_i \right) \]
+      T Is the set of transitent states
+    }
+    \thm{  } {
+      \begin{itemize}
+        \item Every finite close subset o a state space contains at lest one recurrent state
+        \item Every irreducible finite state MC is recurrent
+      \end{itemize}
+    }
+  
+  
+
+\chapter{20230703 - Markov Chains}%
+  \section{Recall}%
+    Canonical Decompoisition o the State space results in the communicating classes, $R_x$
+
+      The state space $S$ can be decomposed as a disjoint union of
+      transient states and communicating classes
+      \[ S = T \cup \left( \cup_{i=I} R_i \right) \]
+      T Is the set of transitent states
+  
+    \dfn{ Canonical Decomposition }{
+      Results in 3 matrices, R, Q and S, where
+      \begin{itemize}
+        \item R Is the recurrent state
+        \item Q is the transitions from transient states to transient states
+        \item S is the transitions from transient states to recurrent states
+      \end{itemize}
+    }
+    
+\chapter{20230706 - Markov Chains}%
+\chapter{20230710 - Markov Chains}%
+\chapter{20230711 - Markov Chains}%
+\chapter{20230712 - Markov Chains}%
+\chapter{20230713 - Markov Chains}%
+\chapter{20230717 - Markov Chains}%
+\chapter{20230718 - Markov Chains}%
+\chapter{20230719 - Markov Chains}%
+\chapter{20230720 - Markov Chains}%
+\end{document}

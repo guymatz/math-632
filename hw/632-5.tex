@@ -1,0 +1,98 @@
+\documentclass{article} % This command is used to set the type of document you are working on such as an article, book, or presenation
+
+%\usepackage[margin=1in]{geometry} % This package allows the editing of the page layout. I've set the margins to be 1 inch. 
+
+\usepackage{amsmath, amsfonts}  % The first package allows the use of a large range of mathematical formula, commands, and symbols.  The second gives some useful mathematical fonts.
+
+\usepackage{graphicx}  % This package allows the importing of images
+\usepackage{marvosym}  % Lightning!
+
+\usepackage{bbold}
+%This allows us to use the theorem and proof environment 
+\usepackage{enumitem}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+%Custom commands.  
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} %absolute value command
+
+%Custom symbols
+\newcommand{\Rb}{\mathbb{R}}
+
+\begin{document}
+
+\begin{center}
+\Large{\textbf{Assignment \#5}
+            
+UW-Madison MATH 632} % Name of course here
+\vspace{5pt}
+        
+\normalsize{  Guy Matz% Your name here
+        \\ Due: July 24, 2023}
+\vspace{15pt}
+\end{center}
+
+\section*{Exercises}%
+
+\begin{enumerate}[label={\fbox{\textbf{Exercise \#\arabic* :}}}]
+
+  \item Let $X_n, n \geq 1$ be i.i.d., and set $S_0=0, S_n=\sum_{k=1}^n X_k$. Assume that for a $t \in \mathbb{R}$ the moment generating function $M_{X_1}(t)=E\left[e^{t X_1}\right]$ is finite. Show that $Y_n=e^{t S_n} M_{X_1}(t)^{-n}, n \geq 0$ is a martingale with respect to $X_n, n \geq 1$.
+
+\newpage
+  \item Suppose that $X_n, n \geq 1$ are i.i.d. with distribution
+$$
+P\left(X_1=2\right)=\frac{1}{4}, \quad P\left(X_1=-1\right)=\frac{1}{2}, \quad P\left(X_1=0\right)=0 .
+$$
+Let $S_n=\sum_{k=1}^n X_k$ with $S_0=0$.
+(a) Show that $S_n, n \geq 0$ is a martingale.
+(b) Find a $c>0$ so that $S_n^2-c n, n \geq 0$ is a martingale.
+(c) (A bit harder) For a $K>0$ let $T_K$ be the first $n$ for which $\left|S_n\right| \geq K$. Show that $\lim _{K \rightarrow \infty} \frac{1}{K^2} E\left[T_K\right]$ exists, and find its limit.
+
+\newpage
+  \item Suppose that $\left\{X_k, k \geq 1\right\}$ is a sequence of i.i.d. random variables with $P\left(X_1= \pm 1\right)=\frac{1}{2}$. Let $S_n=\sum_{k=1}^n X_k$ (i.e. $S_n, n \geq 1$ is a symmetric simple random walk with steps $X_k, k \geq 1$ ).
+
+(a) Compute $E\left[S_{n+1}^3 \mid X_1, \ldots, X_n\right]$ for $n \geq 1$.
+Hint: Check out Example 3.8 for inspiration.
+(b) Find deterministic coefficients $a_n, b_n, c_n$ possibly depending on $n$ so that $M_n=S_n^3+a_n S_n^2+$ $b_n S_n+c_n$ is a martingale with respect to $\left\{X_k, k \geq 1\right\}$.
+\newpage
+
+  \item Let $\left\{X_k\right\}_{k \geq 1}$ be i.i.d. random variables such that $X_k>0, E\left[X_k\right]=1$ and $E\left[\log X_k\right]<0$.
+(a) Give an example of a random variable $X_k$ that satisfies the assumptions above and has exactly two possible values.
+(b) Give a justification for why the limit
+$$
+Z=\lim _{n \rightarrow \infty} \prod_{k=1}^n X_k
+$$
+exists with probability one.
+(c) Find the exact value of $Z$. Hint: : Applying the SLLN to the random variables $\left\{\log X_k\right\}_{k \geq 1}$ can give you useful information.
+
+\newpage
+  \item Exercise 3.25. A deck of cards contains 26 red and 26 black cards. We shuffle the cards and flip them one by one. Let $R_n$ denote the number of red cards remaining in the deck after the first $n$ cards have been revealed. (You may note that $R_0=26$ and $R_{52}=0$.) Let $M_n, 0 \leq n \leq 51$ denote the ratio of red cards remaining in the deck after the first $n$ cards are revealed.
+
+Suppose you play the following game: before the 52 nd card is flipped you can say STOP at any time, and if the next card is red then you win, otherwise you lose. (You can say STOP after $n$ cards have been flipped for any value of $n$ between 0 and 51.)
+
+(a) Show that $M_n, 0 \leq n \leq 51$ is a martingale with respect to $R_n, 0 \leq n \leq 51$.
+Remark: These stochastic processes are only defined for $0 \leq n \leq 51$. You only need to check the martingale condition for these values.
+
+(b) Suppose that you decide to just say STOP at the beginning of the game, before any of the cards are flipped. What is the probability of winning the game?
+\newpage
+(c) Suppose you decide to use the following strategy: you say STOP when you see the first black card. Show that the probability of winning is $1 / 2$ with this strategy.
+
+Hint: Denote by $T$ the number of cards that have been flipped when you say STOP. What can you say about $T$ ? How can you express the probability of winning in terms of $T$ and $M_n, n \geq 0$ ?
+
+(d) Is there any strategy that gives you a better than 1/2 chance of winning the game?
+\end{enumerate*}
+
+%\newpage
+%\section*{Theorems}
+%
+%\section*{Properties}
+%%  \begin{enumerate}
+%$  \end{enumerate}
+%
+\end{document}

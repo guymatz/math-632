@@ -1,0 +1,147 @@
+\documentclass{article} % This command is used to set the type of document you are working on such as an article, book, or presenation
+
+%\usepackage[margin=1in]{geometry} % This package allows the editing of the page layout. I've set the margins to be 1 inch. 
+
+\usepackage{amsmath, amsfonts}  % The first package allows the use of a large range of mathematical formula, commands, and symbols.  The second gives some useful mathematical fonts.
+
+\usepackage{graphicx}  % This package allows the importing of images
+\usepackage{marvosym}  % Lightning!
+
+\usepackage{bbold}
+%This allows us to use the theorem and proof environment 
+\usepackage{enumitem}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+%Custom commands.  
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} %absolute value command
+
+%Custom symbols
+\newcommand{\Rb}{\mathbb{R}}
+
+\begin{document}
+
+\begin{center}
+\Large{\textbf{Assignment \#4}
+            
+UW-Madison MATH 632} % Name of course here
+\vspace{5pt}
+        
+\normalsize{  Guy Matz% Your name here
+        \\ Due: July 13, 2023}
+\vspace{15pt}
+\end{center}
+
+\section*{Exercises}%
+
+\begin{enumerate}[label={\fbox{\textbf{Exercise \#\arabic* :}}}]
+
+  \item Familiarize yourself with the term undirected simple graph and the corresponding terms in Example 2.77 in the lecture notes. Consider a undirected simple graph with finite degrees. If $x \sim y$, we denote by $(x, y)=(y, x)$ the (undirected) edge that connects $x$ and $y$. Assume that $c$ is a positive function on the edges. That is, every edge $(x, y)$ is assigned a weight $c(x, y)=c(y, x)>0$ (called the conductance of the edge $(x, y)$ ).
+
+A random walk on the graph with conductance $c$ is defined to be the Markov chain on the vertex set $\mathcal{V}$ with transition probability (for $x, y \in \mathcal{V}$ )
+
+$$
+p(x, y)= \begin{cases}\frac{c(x, y)}{\sum_{z: z \sim x} c(x, z)} & \text { if } x \sim y \\ 0 & \text { if } x \not\sim y .\end{cases}
+$$
+
+That is, when the random walker is at point $x$, it moves to one of its neighbor $y$ with a probability proportional to the conductance $c(x, y)$ of the edge $(x, y)$. You have seen an example of such a model in problem 8 of the practice exam.
+  \begin{enumerate}
+    \item  Verify that the measure $\mu$ defined by $\mu(x)=\sum_{z: z \sim x} c(x, z)$ is an invariant measure of the random walk. Is this measure reversible with respect to the Markov chain?
+
+      min 10  and 35 of video 20230717
+
+    \item  If the graph has only finitely many vertices, find an invariant distribution of the random walk (in terms of $\mu$ and $c$ ).
+  \end{enumerate}
+
+
+\newpage
+  \item Suppose a taxicab driver moves between four locations $\mathbf{a}, \mathbf{b}, \mathbf{c}, \mathbf{d}$ following the Markov chain with transition matrix
+\[
+\end{array}\left(\begin{array}{cccc}
+0 & .3 & 0 & .7 \\
+.3 & 0 & .7 & 0 \\
+.2 & .4 & .3 & .1 \\
+.5 & .3 & 0 & .2
+\end{array}\right)
+\]
+    \begin{enumerate}
+      \item  What is the period of state a?
+
+      \item  Compute its invariant distribution $\pi$.
+
+      \item  Suppose the driver begins at location a at time 0, find the expectation of the number of times she visits location $\mathbf{c}$ before returning to $\mathbf{a}$.
+    \end{enumerate}
+
+\newpage
+  \item  We model the daily weather of a town by a Markov chain $\left\{X_{n}: n \geq 0\right\}$ with state space $\mathcal{S}=\{S, C, R\}$ and transition matrix
+\[
+\end{array}\left(\begin{array}{ccc}
+5/6 & 1/6 & 0 \\
+1/6 & 1/3 & 1/2 \\
+1/6 & 1/2 & 1/3 \\
+\end{array}\right)
+\]
+
+  \begin{enumerate}
+    \item  In the long run, what are the proportions of days that are sunny, cloudy, and rainy?
+
+    \item  Given that today is cloudy, how many days does it take on average till the next cloudy day?
+
+    \item  On average, a coffee store has 300, 210, and 140 customers on a sunny, cloudy, and rainy day, respectively. In the long run, what is the average number of customers per day?
+
+    \item  Find the limits of $P_{S}\left(X_{n}=C\right), P_{S}\left(X_{n}=C, X_{n+2}=S\right)$, and $P_{S}\left(X_{n}=R, X_{2 n}=C\right)$ as $n \rightarrow \infty$.
+  \end{enumerate}
+\newpage
+  \item Consider a Markov chain on the state space $\mathcal{S}=\{1,2,3,4,5\}$ with transition probability matrix
+$$
+\mathbf{P}=\left[\begin{array}{ccccc}
+\frac{1}{4} & \frac{3}{4} & 0 & 0 & 0 \\
+\frac{1}{2} & \frac{1}{2} & 0 & 0 & 0 \\
+0 & 0 & \frac{1}{3} & \frac{2}{3} & 0 \\
+0 & 0 & \frac{4}{5} & \frac{1}{5} & 0 \\
+0 & \frac{1}{3} & 0 & \frac{1}{3} & \frac{1}{3}
+\end{array}\right]
+$$
+
+  \begin{enumerate}
+    \item  Find all stationary distributions of the MC.
+
+      Hint: You may compare this problem to Example 2.62 in the book.
+
+    \item  Find the limit of $\frac{1}{n} \sum_{k=1}^{n}\left|X_{k}-3\right|$ if we start the Markov chain from $X_{0}=2$.
+
+    \item  Find the limit of $\frac{1}{n} \sum_{k=1}^{n}\left|X_{k}-3\right|$ if we start the Markov chain from uniform initial distribution. Hint: The answer may consist of different limiting values and their probabilities, like Example 2.90 in the lecture notes.
+
+  \end{enumerate}
+
+\newpage
+  \item Let $p \in(0,1)$. Consider a Markov chain $\left(X_{n}\right)_{n \geq 0}$ on $\mathbb{Z}$ with transition probabilities $p(0,1)=$ $p(0,-1)=\frac{1}{2}$, and
+
+    \[
+      p(x, x+1)=1-p(x, x-1)= \begin{cases}p & \text { if } x>0 \\ 1-p & \text { if } x<0\end{cases}
+  \]
+  \begin{enumerate}
+    \item  Find an invariant measure for this Markov chain. Hint: Consider the conductance $c(x, y)=$ $\left(\frac{p}{1-p}\right)^{\max \{|x|,|y|\}}$ on the edges, and use the conclusion in Problem 1(a).
+
+    \item  For what values of $p \in(0,1)$ is this Markov chain recurrent? For what values of $p \in(0,1)$ is it positive recurrent? Hint: To answer the first question you may use the conclusions in Example 2.40 of the lecture notes. For the case $p>1 / 2$, it might be helpful to compare $\left|X_{n}\right|$ to the transient SRW in Example 2.40.
+
+  \end{enumerate}
+
+
+
+\end{enumerate*}
+
+%\newpage
+%\section*{Theorems}
+%
+%\section*{Properties}
+%%  \begin{enumerate}
+%$  \end{enumerate}
+%
+\end{document}
