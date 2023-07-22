@@ -581,8 +581,12 @@ $$
     \thm{ Positive Recurrence is Contagious } {
       Let $x$ and $y$ be two communicating states $(x \longleftrightarrow y)$. Then if one is positive recurrent, so is the other.
     }
-    \thm{ Invariant Dist $\Letrightarrow$ All State Pos Rec } {
-       Assume that $\mathbf{P}$ is irreducible. Then $\mathbf{P}$ has an invariant distribution $\pi$ if and only if all states are positive recurrent. In this case the invariant distribution $\pi$ is unique and its values satisfy $\pi(x)=\frac{1}{E_x\left[T_x\right]}$ for all $x \in S$.
+    \thm{ Invariant Dist $\Leftrightarrow$ All State Pos Rec } {
+       Assume that $\mathbf{P}$ is irreducible. Then $\mathbf{P}$ has an
+       invariant distribution $\pi$ if and only if all states are
+       positive recurrent. In this case the invariant distribution $\pi$
+       is unique and its values satisfy
+       $\pi(x)=\frac{1}{E_x\left[T_x\right]}$ for all $x \in S$.
     }
     \thm{ Irriducible Finite MC $\implies$ Pos Recurrent } {
       An irreducible finite Markov chain is positive recurrent.
@@ -590,7 +594,7 @@ $$
 
     \nt{
         If a MC have a positive recurrent state, then
-        an invariant distribution - $\pi$ exists
+        an invariant distribution $\pi$ exists
         \[ \pi(y) = \frac{E_X[\# \text{ of visits to y before }T_x]}{E_X[T_x]}  \]
     }
     \thm{ Existence of unique invariant dist} {
@@ -766,8 +770,8 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
 
       This equation is called the detail balance condition
   }
-  \thm{ Reversible $\Letrightarraw$ Invariant Measure } {
-    A reversible measure is an invariant measure. A reversible distri- bution is an invariant distribution
+  \thm{ Reversible $\Leftrightarrow$ Invariant Measure } {
+    A reversible measure is an invariant measure. A reversible distribution is an invariant distribution
   }
 
   \dfn{ Measure }{
@@ -864,7 +868,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
                   &= \sum^{\infty}_{x=0} \frac{\mu^x \lambda^{w-x}}{(\lambda + \mu)^w} \frac{w!}{x!(w-x)!} x   \\
             \end{align}
     }
-    
+
 \chapter{20230718 - Martingales}%
    \section{Computing Conditional Expectation}%
    To compute $E[X|X+Y]$, first we determine $H(n)$:
@@ -881,7 +885,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
     See min 13 of 20230718
 
     Remember $H(n)$ . . .
-      \[ H(n) &= E[X|X+Y=n] \]
+      \[ H(n) = E[X|X+Y=n] \]
     Properties of conditional expecatation that will be useful
     \begin{enumerate}
       \item If X and Y are independent, then
@@ -901,7 +905,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
     }
     \section{Martingales}%
     A fair game!  Based on the the history your best guess is that it's the same as today
-    \dfn{ Msrtingales }{
+    \dfn{ Martingales }{
       Let $(X_0, X_1, \dots)$ be a sequence of RVs.  A stochastic
       process is asid to be a Martigale if it satisfies
       \begin{enumerate}
@@ -911,6 +915,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
           \[ E[M_{n+1}|X_0, \dots, X_n] = M_n \]
           So the best guess based on the past is where you are now
       \end{enumerate}
+    }
     \nt{
       We simply say $\left( M_n \right)_{n=0}^{\infty}$ is a
       Martingale if it is a MG with respect to itself
@@ -920,7 +925,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
         \item SSRW defined by $\left( S_n \right)_{n=0}^{\infty}$ is a
           martingale with respect to $(Y_1, Y_2, \dots)$
 
-          Check
+          Check (how to show a sequence is a martingale)
           \begin{itemize}
             \item $S_n = Y_1 + \dots Y_n$ is a function of $(Y_1, \dots, Y_n) $ up to time n
             \item Each term in the sequence has finite expectation.  $-n \leq S_n \ leq n$.  Check!
@@ -935,6 +940,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
           \end{itemize}
       \end{itemize}
     }
+  
     \nt{ If $Y_1, Y_2, \dots$ is a sequence of independent, zero-mean
       RVS, then
       \begin{itemize}
@@ -947,175 +953,294 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
 
       \end{itemize}
   }
-    
+
+\chapter{20230719 - Martingales}%
+  \section{Recall}%
+    Expected value?  based on past is where you are now
+  \[ E[M_{n+1}|X_0, \dots, X_n] = M_n \]
+  This only works because $E[X_{n+1}] = 0$?
 
 
+  Martingales, in general, are not Markov Chains.  If the means of the RVs
+  are not 0, we should not expect a MG.  E.g., biased SRW is not a MG
+
+  Martingale Property
+  \[ E[M_{n+1} - M_n | X_1, \dots, X_n] = 0 \]
     
-\chapter*{Notation}%
+  Check that BSRW is NOT a MG - min 26 of 20230719
+    \begin{align*}
+    E\left[S_{n+1}-S_n \mid Y_1, \cdots, Y_n\right] &= E\left[Y_{n+1} \mid Y_1, \cdots, Y_n\right) \\
+          & =E\left[Y_{n+1}\right] \\
+          & =1 \cdot p+(-1)(1-p)=2 p-1 \neq 0 \text { since } p \neq \frac{1}{2} .
+    \end{align*}
+
+    \section{Polya's Urn}
+    See min 35 off 20230719
+
+    There are originally 2 balls in an urn, one yellow, one green.  If
+    you pick a yellow ball, you add a yellow.  If you pick a green, then
+    you add a green.  It's a biased system.  But it's a Martingale!!  The
+    proprtion of green balls in the urn is a MG.
+
+    At start time, $Y_0 = G_0 = 1$.  Let $X_n = (Y_n, G_n)$ be the total
+    number of balls.  Then 
+      \[ M_n = \frac{G_n}{Y_n + G_n}  \]
+    Does this satisfy the MG properties?
+    \begin{enumerate}
+      \item Is $M_n$ a function all info up to time n?  Yes, since $M_n$
+        is a function of $(X_1, \dots, X_n)$
+      \item Does each term in the proc have finite expectation?  Yes,
+        since $M_n$ is the ration above, so it is between 0 and 1
+      \item Martingale Property?  Given the past, up to time n, is
+        \[ E[M_{n+1}| ... ] = M_n\] ?
+        For any deterministic seqeunce $\{(y_k, g_k)\}$ we compute first
+        the P of getting a yellow ball
+        \[ P(M_{n+1}) = \frac{g_n}{y_n+g_n+1}   | X_1=(y_1, g_1), \dots X_n=(y_n,g_n)] = \frac{y_n}{y_n+g_n} \]
+        Then the P of getting a greeen ball in the n+1 step
+        \[ P(M_{n+1}) = \frac{g_n+1}{y_n+g_n+1}   | X_1=(y_1, g_1), \dots X_n=(y_n,g_n)] = \frac{g_n}{y_n+g_n} \]
+        Now we can compute conditional expectation 
+        \[ E[M_{n+1}|X_1=(y_1, g_1), \dots, X_n=(y_n,g_n)] = \frac{g_n}{y_n+g_n+1}  \cdot \frac{y_n}{y_n+g_n}  + \frac{g_n+1}{y_n+g_n+1}  \cdot  \frac{g_n}{y_n+g_n} \]
+        Which becomes
+        \[ \frac{g_n}{y_n+g_n}  \]
+    Substituting $(y_1,g_1), \dots (y_n,g_n)$by $(Y_1,G_1),
+    \dots (Y_n,G_n)$ in the expression above we get
+    \[ E[M_{n+1}|X_1, \dots, X_n] = \frac{G_n}{Y_n+G_n} = M_n \]
+    \end{enumerate}
+    So we have a Martingale!
+
+    \section{Martingale Limit Theorem}%
+    Remember, MG is a fair game where E[|Y] is 0, and E[|Y] increments
+    are 0
+    \thm{ Lemma } {
+      If $(M_n)^{\infty}_{n=1}$ is a Martingale, then
+      \[ E[M_n] = E[M_1] \]
+    }
+    \thm{ Martingale Limit Theorem } {
+      Let $(M_n)_{n \geq 0}$ be a MG.  If almost surely the sequence
+      has a uniform upper bound or lower bound, i,e. there exists a
+      constant c such that 
+        \[ P(M_n \leq c) = 1 \forall n \]
+        or
+        \[ P(M_n \geq c) = 1 \forall n \]
+        then there exists a RV $M_{\infty}$ such that
+        \[ \lim_{n \to \infty} M_n = M_{\infty} \]
+
+        I.e., what is this saying?  That M_n stays within the bound?
+
+        Should this be and?  Not or?
+
+        Polya's urn is an exmaple here.  See min 1:10 of 20230719
+    }
+
+\chapter{20230720 - Martingales}%
+  \section{Optional Stopping Theorem}%
+  Observations.  If $(M_n)^{\infty}_{n=0}$ is a MG
   \begin{itemize}
-      \item $N_t$: Number of arrivals before time t.  It is indexed by
-        time, so it is a continuous-time stochastic process
-      \item $S_n$: Arrival time of $n^{th}$ "particle"
-      \item $\rho_{xy}: $ Probability that starting from x, we will visit y in finite time
-        \[ \rho_{xy} = P_x(X_n = y \text{ for some  } n \geq 1) \]
-      \item Time atfer $k^{th}$ return to x that you return to x, i.e. the k-th return time to x
-        \[ T^{k+1}_x = inf \{n > T_x^k : X_n = x \}  \]
-      \item k-th return to y
-        \[ T^k_y \]
-      \item Probability of the k-th return to y after starting from x ?
-        \[ P_x(T^k_y) \]
-      \item $N_x$ : Total number of visits to x (after time 1)
-      \item $E_x[N_y]$: Starting from x, how many times will we visit y
-          \[ E_x[N_y] = \sum^{\infty}_{n=1} P(X_n=y) = \sum^{\infty}_{n=1} T_y^k < \infty  \]
-          \[ E_x[N_y] = \sum^{\infty}_{k=1} \rho_{xy} \cdot \rho^{k-1}_{yy}   \]
-            See min 57 off 20230628 video
-      \item $R_x$ is called the "Communicating Class of x"
-      \item $T^k_x$: Time to return to x, k times
-        \[ P_x(\{T^k_x < \infty \text{ for all } k \geq 1\}) = 0 \]
-        Means that, starting at x, the probabity is 0 that the time to return to x k-times is finite
-      \item $T_z^n$: The \# of visits to $z$ beore time $n$
+    \item $E[M_n] = E[M_0]$ for all n
+    \item $W_n = \sum^{}_{k=1} (M_k - M_{k-1}) \cdot H_k(M_0, \dost, M_{k-1})$
+      This is a MG.  (here $H_k$ is a seq of functions)
+      Let's check!  See min 34 of 20230720
+
+      Martingale Propery check.  Verify that
+      \[ E[W_{n+1} - W_n | X_0, \dots, X_n ] = 0 \]
   \end{itemize}
+  \dfn{ Optional Stopping Time }{
+    \begin{itemize}
+        \item For any stopping time T of the MG with
+          $T \wedge n = \text{ min }\{T,n\}$, i.e.
+          \[ \{T \leq n \} = \{(M_0 \dots, M_n) \in C_n\}) \]
+          $\left( M_{T \wedge n} \right)^{\infty}_{n=0}$ is still a MG.
 
-\chapter*{Definitions}%
-    \dfn{ Arrival Time }{
-      Let $\{X_i: i = 1,2...\}$ be a sequence o iid strictly positive
-      RVs.  Let $S_0 = 0$,
-        \[ S_n = X_1 + \dots X_n, n \geq 1 \]
-      Then the process
-      \[ N_t \text{max} \{ n \geq 0; S_n \leq t \} \]
-      is called the Renewal Process corresponding to $\{X_i; i \geq 1 \}$
-    }
-    \dfn{ Renewal Process }{
-      Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
-          around min 12
-          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}   \]
-    }
-
-    \dfn{ stochastic process }{
-      A series of random variables indexed by time
-    }
-
-    \dfn{ IID Process }{
-      Independent, Identically distributed RVs
-    }
-
-    \dfn{ Renewal-Reward Process}{
-      Let $\{N_t: t \geq 0 \}  $ be a renewal process with strictly 
-      positive inter-arrival times $\{X_k : k \geq 1 \}$.  Let 
-      $\{ Y_n : n \geq 1 \}$ be iid random variables, i.e. "rewards".
-      Then the process
-      \[ R_t = \sum^{N_t}_{n=1} Y_n, t \geq 0 \]
-      is called the Renewal-Reward Process corresponding to 
-      inter-arrival times $(X_k)_{k=1}^{\infty}$ and rewards
-      $(Y_n)_{n=1}^{\infty}$
-
-      \thm{ SLLN for RRP }{
-      \[\lim_{t \to \infty} \frac{R_t}{t}  =  \frac{E[Y_1]}{E[X_1]}  \]
-      }
-    }
-  \dfn{ Markov Chain }{
-    A discrete-time stochastic process $\{X_t: k \in \mathbb{Z}_{\geq 0}\}$
-      with countable state space $S$ is said to be a Markov Chain if
-      \begin{align*}
-         &P(X_{n+1}=a_{n+1}|X_n=a_n, x_{n-1}=a_{n-1},\dots,X_0=a_0) \\
-       = &P(X_{n+1}=a_{n+1}|X_n=a_n)
-      \end{align*}
-
-      for all $a_0, a_1, \dots, a_{n+1} \in S, n \geq 0$
-
-      If $P(X_{n+1}=a_n+1|X_n=a_n)$ does not depend in n, then the Markov Chain is said to be "time-homogeneous" (because IID) , and
-        \[ P(a,b) := P(X_{n+1}=b|X_n =a ) \]
-        is the \underline{transition probability} of jumping rfom a to b.
+        See min 45 in 20230720
+      \item $E[M_{T \wedge n}]  = E[M_0]$
+    \end{itemize}
   }
-    \dfn{ Time-Homogeneous }{
-      Transition probability does not depend on time.  I.e, if
-      \[ P(X_{n+1} = b | n_n=a) = p(a,b) \]
-      does not depend on time
-    }
-    \dfn{ Transition Probability }{
-      P of transition from a to b, i.e. $p(a,b)$
-    }
-    \dfn{ Transition Probability Function }{
-      A function $p : S \times S \rightarrow [0,1]$ is called a transition
-      probability function if
-        \[ \sum^{}_{b \in S} p(a,b) = 1 \]
-      for all $a \in S$
-    }
-     \dfn{ Absorbing State}{
-       If a state $a \in S$ such that $p(a,a) = 1$ , then a
-       is called an absorbing state
-     }
-     \dfn{ Initial Distribution }{
-            Let $\mu$ be a prob dist on $S$.  We say that the MC
-            $(X_n), n \geq 0$ has initial dist $\mu$ is $P(X_0=x)=\mu(x)
-            , x \in S$
-     }
-  \dfn{Stopping Time, p. 39}{
-    The RV, $T$  with values $\mathbb{Z}_{\geq0} \cup \{ \infty \}$ is a 
-    \underline{Stopping Time} (for the process $X$) if, for each
-    nonnegative imteger $n$, there is a subset $C_n \subset S^{n+1}$
-    such that
-    \[ \{ T = n \} = \{(X_0, \dots , X_n) \in C \} \]
-    I.e., for each $n$, the values $(X_0, \dots , X_n)$ determine whether
-    $T=n$ happens or not.
-
-    I.E! The first recurrence of some particular thing
-      E.g Stopping time, $T $is the $n$ where $X_n = 3$ for
-        \[ T = inf \{n \geq0: X_n = 3\} \]
-      \item The probability that at 1 past the Stopping Time $T$, $X_n = 2$, given that the
-        value of $X_n$ at the Stopping Time is 3, and the Stopping Time is finite
-        \[ P(X_{T+1}=2 | X_T=3, T < \infty) \]
+  \thm{ Optional Stopping Theorem } {
+    Let $(M_n)^{\infty}_{n=0}$ be a MG with respect to 
+    $(X_k)^{\infty}_{k=0}$.  Let $T < \infty$ be a stopping time of MG.
+    Then we have $E[M_T] = E[M_0]$ is one of the following conditions
+    are satisfied
+    \begin{enumerate}
+      \item T has a deterministic upper bound, i.e.
+        \[ \exists c > 0 s.t. P(T \leq c) = 1 \]
+        i.e. T is finite
+      \item $\exists c > 0$ such that $P(M_{T \wedge n} \leq c) = 1$
+        for all n
+      \item Increment is finite
+        \[ E[T] < \infty \text{ and } P(|M_{T \wedge(n+1)} - M_{T \wedge n} | \leq c) = 1   \]
+          for all n
+    \end{enumerate}
   }
-   \dfn{ Stopping Time }{
-     A random variable $T \in [0, \infty]$ is said to be a \underline{Stooping Time} if for any $n \geq 0$
-     there exists  a set $C_n$ such that
-     \[ \{T = n \} = \{ (X_0, \dots , X_n) \in C_n \} \]
-     When $C_n$ denotes the set of sequences $(x_1, \dots x_n)$ where $x_1 \neq x, \dots, x_{n-1} \neq x$
-     and $x_n = x$
-     \ex{$\{T_x = n\}$} {
-      \[\{T_x = n\} = \{ X_1 \neq x, X_2 \neq x, \dots, X_n = x\} \]
-       So, $X_n = x$
-     }
-   \nt{
-     To verify a \underline{Stopping Time},  justify that $\{T=n\}$ only involves the history
-     of the MC up to time n.
-   }
-   }
-
-   \dfn{ Hitting Time }{
-     For any set $A \subset S$, we denote the \underline{hitting time} by
-     \[ \tau_A = inf \{n \geq 0: X_n \in A \} \]
-     Then $\tau$ is also a \underline{Stopping Time} because
-     \[ \{ \tau_A = n \} = \{ X_0 \notin A, X_{n-1} \notin A, X_n \in A \} = \{ (X_0, \dots, X_n) \in C_n \} \]
-   }
-   \dfn{ Strong Markov Peroprty }{
-     For a time-homogeneous MC and and set A,B and any $\mu$, and any stopping time T
-     \[ P_\mu (  (X_{T+1}, \dots ) \in A | X_T=x, T > \infty , (X_0, \dots, X_T) \in B = P_x( (X_1, X_2 \dots ) \in A) \]
-     The probability that the future behaves like A, is the same as a MC starting fresh
-   }
-  \dfn{ Transience }{
-    If $\rho_{xx} < 1$
-    \[ P_x(T_x^k = \infty \text{ for some k } = 1 \]
-    \[ P_x(T_x^k < \infty \text{ for all k } = 0 \]
-    $N_x < \infty$
-    To prove that a state is transient, show that it has a P > 0 of escaping frfom the state, and there
-    is a recurrent state with p=1
-  }
-  \dfn{ Recurrence }{
-    If $\rho_{xx} = 1$
-    \[ P_x(T^k_x < \infty, \text{ for all  } k \geq 1) = 1 \]
-    \[ P_x(T^k_x = \infty, \text{ for all  } k \geq 1) = 0 \]
-      \[N_x = \infty \]
-      Recurrence is contagious, i.e. any state that communicates with a recurrent state is recurrent
-  }
-    \dfn{ Irreducible }{
-      $A \subset S$ is irredicible if $x \leftrightarrow y$ for all $x,y \in A$
-    }
-    \dfn{ Closed }{
-      We say that $B \subset S$ is closed if for any $x \in B, y \notin B$, we have $x \not\rightarrow y$ 
-
-      $R_x$ is called the "Communicating Class of x"
-    }
-
+  \ex{Examples start at min 58} {
     
+  }
+  
+  
+%\chapter*{Notation}%
+%  \begin{itemize}
+%      \item $N_t$: Number of arrivals before time t.  It is indexed by
+%        time, so it is a continuous-time stochastic process
+%      \item $S_n$: Arrival time of $n^{th}$ "particle"
+%      \item $\rho_{xy}: $ Probability that starting from x, we will visit y in finite time
+%        \[ \rho_{xy} = P_x(X_n = y \text{ for some  } n \geq 1) \]
+%      \item Time atfer $k^{th}$ return to x that you return to x, i.e. the k-th return time to x
+%        \[ T^{k+1}_x = inf \{n > T_x^k : X_n = x \}  \]
+%      \item k-th return to y
+%        \[ T^k_y \]
+%      \item Probability of the k-th return to y after starting from x ?
+%        \[ P_x(T^k_y) \]
+%      \item $N_x$ : Total number of visits to x (after time 1)
+%      \item $E_x[N_y]$: Starting from x, how many times will we visit y
+%          \[ E_x[N_y] = \sum^{\infty}_{n=1} P(X_n=y) = \sum^{\infty}_{n=1} T_y^k < \infty  \]
+%          \[ E_x[N_y] = \sum^{\infty}_{k=1} \rho_{xy} \cdot \rho^{k-1}_{yy}   \]
+%            See min 57 off 20230628 video
+%      \item $R_x$ is called the "Communicating Class of x"
+%      \item $T^k_x$: Time to return to x, k times
+%        \[ P_x(\{T^k_x < \infty \text{ for all } k \geq 1\}) = 0 \]
+%        Means that, starting at x, the probabity is 0 that the time to return to x k-times is finite
+%      \item $T_z^n$: The \# of visits to $z$ beore time $n$
+%  \end{itemize}
+%
+%\chapter*{Definitions}%
+%    \dfn{ Arrival Time }{
+%      Let $\{X_i: i = 1,2...\}$ be a sequence o iid strictly positive
+%      RVs.  Let $S_0 = 0$,
+%        \[ S_n = X_1 + \dots X_n, n \geq 1 \]
+%      Then the process
+%      \[ N_t \text{max} \{ n \geq 0; S_n \leq t \} \]
+%      is called the Renewal Process corresponding to $\{X_i; i \geq 1 \}$
+%    }
+%    \dfn{ Renewal Process }{
+%      Let $\{X_i : i=1,2...\{$ be a sequence of i.i.d. (See video
+%          around min 12
+%          \[ \lim_{t \to \infty} \frac{N_t}{t} = \frac{1}{E[X_1]}   \]
+%    }
+%
+%    \dfn{ stochastic process }{
+%      A series of random variables indexed by time
+%    }
+%
+%    \dfn{ IID Process }{
+%      Independent, Identically distributed RVs
+%    }
+%
+%    \dfn{ Renewal-Reward Process}{
+%      Let $\{N_t: t \geq 0 \}  $ be a renewal process with strictly 
+%      positive inter-arrival times $\{X_k : k \geq 1 \}$.  Let 
+%      $\{ Y_n : n \geq 1 \}$ be iid random variables, i.e. "rewards".
+%      Then the process
+%      \[ R_t = \sum^{N_t}_{n=1} Y_n, t \geq 0 \]
+%      is called the Renewal-Reward Process corresponding to 
+%      inter-arrival times $(X_k)_{k=1}^{\infty}$ and rewards
+%      $(Y_n)_{n=1}^{\infty}$
+%
+%      \thm{ SLLN for RRP }{
+%      \[\lim_{t \to \infty} \frac{R_t}{t}  =  \frac{E[Y_1]}{E[X_1]}  \]
+%      }
+%    }
+%  \dfn{ Markov Chain }{
+%    A discrete-time stochastic process $\{X_t: k \in \mathbb{Z}_{\geq 0}\}$
+%      with countable state space $S$ is said to be a Markov Chain if
+%      \begin{align*}
+%         &P(X_{n+1}=a_{n+1}|X_n=a_n, x_{n-1}=a_{n-1},\dots,X_0=a_0) \\
+%       = &P(X_{n+1}=a_{n+1}|X_n=a_n)
+%      \end{align*}
+%
+%      for all $a_0, a_1, \dots, a_{n+1} \in S, n \geq 0$
+%
+%      If $P(X_{n+1}=a_n+1|X_n=a_n)$ does not depend in n, then the Markov Chain is said to be "time-homogeneous" (because IID) , and
+%        \[ P(a,b) := P(X_{n+1}=b|X_n =a ) \]
+%        is the \underline{transition probability} of jumping rfom a to b.
+%  }
+%    \dfn{ Time-Homogeneous }{
+%      Transition probability does not depend on time.  I.e, if
+%      \[ P(X_{n+1} = b | n_n=a) = p(a,b) \]
+%      does not depend on time
+%    }
+%    \dfn{ Transition Probability }{
+%      P of transition from a to b, i.e. $p(a,b)$
+%    }
+%    \dfn{ Transition Probability Function }{
+%      A function $p : S \times S \rightarrow [0,1]$ is called a transition
+%      probability function if
+%        \[ \sum^{}_{b \in S} p(a,b) = 1 \]
+%      for all $a \in S$
+%    }
+%     \dfn{ Absorbing State}{
+%       If a state $a \in S$ such that $p(a,a) = 1$ , then a
+%       is called an absorbing state
+%     }
+%     \dfn{ Initial Distribution }{
+%            Let $\mu$ be a prob dist on $S$.  We say that the MC
+%            $(X_n), n \geq 0$ has initial dist $\mu$ is $P(X_0=x)=\mu(x)
+%            , x \in S$
+%     }
+%  \dfn{Stopping Time, p. 39}{
+%    The RV, $T$  with values $\mathbb{Z}_{\geq0} \cup \{ \infty \}$ is a 
+%    \underline{Stopping Time} (for the process $X$) if, for each
+%    nonnegative imteger $n$, there is a subset $C_n \subset S^{n+1}$
+%    such that
+%    \[ \{ T = n \} = \{(X_0, \dots , X_n) \in C \} \]
+%    I.e., for each $n$, the values $(X_0, \dots , X_n)$ determine whether
+%    $T=n$ happens or not.
+%
+%    I.E! The first recurrence of some particular thing
+%      E.g Stopping time, $T $is the $n$ where $X_n = 3$ for
+%        \[ T = inf \{n \geq0: X_n = 3\} \]
+%      \item The probability that at 1 past the Stopping Time $T$, $X_n = 2$, given that the
+%        value of $X_n$ at the Stopping Time is 3, and the Stopping Time is finite
+%        \[ P(X_{T+1}=2 | X_T=3, T < \infty) \]
+%  }
+%   \dfn{ Stopping Time }{
+%     A random variable $T \in [0, \infty]$ is said to be a \underline{Stooping Time} if for any $n \geq 0$
+%     there exists  a set $C_n$ such that
+%     \[ \{T = n \} = \{ (X_0, \dots , X_n) \in C_n \} \]
+%     When $C_n$ denotes the set of sequences $(x_1, \dots x_n)$ where $x_1 \neq x, \dots, x_{n-1} \neq x$
+%     and $x_n = x$
+%     \ex{$\{T_x = n\}$} {
+%      \[\{T_x = n\} = \{ X_1 \neq x, X_2 \neq x, \dots, X_n = x\} \]
+%       So, $X_n = x$
+%     }
+%   \nt{
+%     To verify a \underline{Stopping Time},  justify that $\{T=n\}$ only involves the history
+%     of the MC up to time n.
+%   }
+%   }
+%
+%   \dfn{ Hitting Time }{
+%     For any set $A \subset S$, we denote the \underline{hitting time} by
+%     \[ \tau_A = inf \{n \geq 0: X_n \in A \} \]
+%     Then $\tau$ is also a \underline{Stopping Time} because
+%     \[ \{ \tau_A = n \} = \{ X_0 \notin A, X_{n-1} \notin A, X_n \in A \} = \{ (X_0, \dots, X_n) \in C_n \} \]
+%   }
+%   \dfn{ Strong Markov Peroprty }{
+%     For a time-homogeneous MC and and set A,B and any $\mu$, and any stopping time T
+%     \[ P_\mu (  (X_{T+1}, \dots ) \in A | X_T=x, T > \infty , (X_0, \dots, X_T) \in B = P_x( (X_1, X_2 \dots ) \in A) \]
+%     The probability that the future behaves like A, is the same as a MC starting fresh
+%   }
+%  \dfn{ Transience }{
+%    If $\rho_{xx} < 1$
+%    \[ P_x(T_x^k = \infty \text{ for some k } = 1 \]
+%    \[ P_x(T_x^k < \infty \text{ for all k } = 0 \]
+%    $N_x < \infty$
+%    To prove that a state is transient, show that it has a P > 0 of escaping frfom the state, and there
+%    is a recurrent state with p=1
+%  }
+%  \dfn{ Recurrence }{
+%    If $\rho_{xx} = 1$
+%    \[ P_x(T^k_x < \infty, \text{ for all  } k \geq 1) = 1 \]
+%    \[ P_x(T^k_x = \infty, \text{ for all  } k \geq 1) = 0 \]
+%      \[N_x = \infty \]
+%      Recurrence is contagious, i.e. any state that communicates with a recurrent state is recurrent
+%  }
+%    \dfn{ Irreducible }{
+%      $A \subset S$ is irredicible if $x \leftrightarrow y$ for all $x,y \in A$
+%    }
+%    \dfn{ Closed }{
+%      We say that $B \subset S$ is closed if for any $x \in B, y \notin B$, we have $x \not\rightarrow y$ 
+%
+%      $R_x$ is called the "Communicating Class of x"
+%    }
+
+
 \end{document}
