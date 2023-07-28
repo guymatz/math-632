@@ -6,6 +6,7 @@
 
 \usepackage{graphicx}  % This package allows the importing of images
 \usepackage{marvosym}  % Lightning!
+\usepackage{wasysym}  % Smileys!
 
 \usepackage{bbold}
 %This allows us to use the theorem and proof environment 
@@ -44,49 +45,184 @@ UW-Madison MATH 632} % Name of course here
 
   \item Let $X_n, n \geq 1$ be i.i.d., and set $S_0=0, S_n=\sum_{k=1}^n X_k$. Assume that for a $t \in \mathbb{R}$ the moment generating function $M_{X_1}(t)=E\left[e^{t X_1}\right]$ is finite. Show that $Y_n=e^{t S_n} M_{X_1}(t)^{-n}, n \geq 0$ is a martingale with respect to $X_n, n \geq 1$.
 
+    \begin{itemize}
+      \item Is $Y_n$ a function of $(X_1, \dots X_n)$?
+
+        $Y_n$ is a function of $S_n$, which is a
+        function of $X_n$, so yes.
+      \item Does $Y_n$ have finite expectation?
+
+        Since $E[e^{tX_1}]$ is finite, we know that
+        $X_n$ is finite.  Since $S_n$ is the sum
+        of a finite number of $X_n$ - which are finite -
+        $S_n$ is finite.  And since $M_{X_1}(t)$ is finite,
+        it's inverse $M_{X_1}(t)^{-n}$ is finite.  Hence,
+        $Y_n$ is finite.
+      \item Does the Martingale Property hold?
+
+        \begin{align*}
+          E[Y_{n+1} | X_1, \dots, X_n] &= E[ e^{tS_{n+1}} M_{X_1} {(t)}^{-(n+1)}
+                    | X_1, \dots X_n ]\\
+                &= E[ e^{tS_{n}}e^{tX_{n+1}} M_{X_1} {(t)}^{-(n+1)}
+                    | X_1, \dots X_n ]\\
+                &= E[e^{tS_{n}}] \cdot E[ e^{tX_{n+1}} M_{X_1} {(t)}^{-(n+1)}
+                    | X_1, \dots X_n ]\\
+                &= E[e^{tS_{n}}] \cdot 1 \\
+                &= E[e^{tS_{n}}]  \\
+                &= E[Y_n] 
+        \end{align*}
+    \end{itemize}
+
 \newpage
-  \item Suppose that $X_n, n \geq 1$ are i.i.d. with distribution
-$$
-P\left(X_1=2\right)=\frac{1}{4}, \quad P\left(X_1=-1\right)=\frac{1}{2}, \quad P\left(X_1=0\right)=0 .
-$$
+  \item Suppose that $X_n, n \geq 1$ are i.i.d\. with distribution
+    \[ P\left(X_1=2\right)=\frac{1}{4}, \quad P\left(X_1=-1\right)=\frac{1}{2}, \quad P\left(X_1=0\right)=\frac{1}{4} \]
 Let $S_n=\sum_{k=1}^n X_k$ with $S_0=0$.
-(a) Show that $S_n, n \geq 0$ is a martingale.
-(b) Find a $c>0$ so that $S_n^2-c n, n \geq 0$ is a martingale.
-(c) (A bit harder) For a $K>0$ let $T_K$ be the first $n$ for which $\left|S_n\right| \geq K$. Show that $\lim _{K \rightarrow \infty} \frac{1}{K^2} E\left[T_K\right]$ exists, and find its limit.
+  \begin{enumerate}
+    \item  Show that $S_n, n \geq 0$ is a martingale.
+    \begin{itemize}
+      \item Is $S_n$ a function of $(X_1, \dots X_n)$?
+
+        $S_n$ is a function of $X_n$, so yes.
+      \item Does $S_n$ have finite expectation?
+
+        The expectation of $X_1$ is finite so the sum
+        of a finite number - n - of $X's$ is finite
+      \item Does the Martingale Property hold?
+
+        \begin{align*}
+          E[S_{n+1} | X_1, \dots, X_n] &= E[\sum^{n+1}_{i=1} X_i
+                    | X_1, \dots X_n ]\\
+                &= E[X_{n+1}] + E[\sum^{n}_{i=1} X_i
+                    | X_1, \dots X_n ]\\
+                &= 0 + E[\sum^{n}_{i=1} X_i
+                    | X_1, \dots X_n ]\\
+                &= E[\sum^{n}_{i=1} X_i
+                    | X_1, \dots X_n ]\\
+                &= E[S_n | X_1, \dots X_n ]\\
+                &= S_n
+        \end{align*}
+    \end{itemize}
+    \item  Find a $c>0$ so that $S_n^2-c n, n \geq 0$ is a martingale.
+      In order for $M_n$ to be a Martingale, the expected value
+      of $M_n$ must be 0, so $E[S_n^2]$ must equal $cn$.
+      \begin{align*}
+        E[S^2_n] &= E \left[ \sum^{n}_{i=1} X_i^2 + 2 \cdot \sum^{}_{1 \leq j \leq k \leq n} X_jX_k \right] \\
+            &=E \left[ \sum^{n}_{i=1} X_i^2 \right] \\
+            &= n E \left[ X_1^2 \right] \\
+            &= \frac{3}{2} n \\
+      \end{align*}
+      So 
+      \[ c = E[X_1^2] = \frac{3}{2}  \]
+
+    \item  (A bit harder) For a $K>0$ let $T_K$ be the first $n$ for which $\left|S_n\right| \geq K$. Show that $\lim _{K \rightarrow \infty} \frac{1}{K^2} E\left[T_K\right]$ exists, and find its limit.
+
+    \[ \lim_{K \to \infty} \frac{E[T_K]}{K^2} = 1 \]
+  \end{enumerate}
 
 \newpage
   \item Suppose that $\left\{X_k, k \geq 1\right\}$ is a sequence of i.i.d. random variables with $P\left(X_1= \pm 1\right)=\frac{1}{2}$. Let $S_n=\sum_{k=1}^n X_k$ (i.e. $S_n, n \geq 1$ is a symmetric simple random walk with steps $X_k, k \geq 1$ ).
 
-(a) Compute $E\left[S_{n+1}^3 \mid X_1, \ldots, X_n\right]$ for $n \geq 1$.
-Hint: Check out Example 3.8 for inspiration.
-(b) Find deterministic coefficients $a_n, b_n, c_n$ possibly depending on $n$ so that $M_n=S_n^3+a_n S_n^2+$ $b_n S_n+c_n$ is a martingale with respect to $\left\{X_k, k \geq 1\right\}$.
+\begin{enumerate}
+  \item  Compute $E\left[S_{n+1}^3 \mid X_1, \ldots, X_n\right]$ for $n \geq 1$.
+
+    \emph{Hint: Check out Example 3.8 for inspiration.}
+
+    Let $\smiley{} = (X_1, \dots X_n)$
+    \begin{align*}
+      E[S_{n+1}^3|S_n] &= E[(S_n + X_{n+1})^3|\smiley{}] \\
+                       &= E[S_n^3|\smiley{}] + 3E[S_n^2X_{n+1}|\smiley{}] +
+                       3E[S_nX_{n+1}^2|\smiley{}] + E[X_{n+1}^3|\smiley{}] \\
+             &= S_n^3 + 0 + 3 \cdot S_n \cdot 1 +
+             E[X_{n+1}^3|\smiley{}] \\
+             &= S_n^3 + 3 S_n +
+                     \sum^{}_{i \in \{-1,1\}} i^3 P(X=i)  \\
+             &= S_n^3 + 3 S_n +
+                     (-1)^3 \cdot \frac{1}{2} + (1)^3 \cdot \frac{1}{2} \\
+             &= S_n^3 + 3 S_n + 0 \\
+             &= S_n^3 + 3 S_n 
+    \end{align*}
+  \item Find deterministic coefficients $a_n, b_n, c_n$ possibly depending on $n$ so that $M_n=S_n^3+a_n S_n^2+$ $b_n S_n+c_n$ is a martingale with respect to $\left\{X_k, k \geq 1\right\}$.
+$$
+    \begin{align*}
+        E[M_{n+1} | X_1 \ldots X_n] 
+        & =E[S_{n+1}^3+a_{n+1} S_{n+1}^2+b_{n+1} S_{n+1}+c_{n+1} | X_1 \ldots X_n] \\
+        & =E[S_{n+1}^3| X_1 \ldots X_n] +a_{n+1} E[S_{n+1}^2| X_1 \ldots X_n] \\
+        &   +b_{n+1} E[S_{n+1}| X_1 \ldots X_n] +c_{n+1} \\
+        & =S_n^3+3 S_n+a_{n+1} S_n^2+b_{n+1}(S_n)+c_{n+1} \\
+        &= \text{ Not sure where to go from here . . . }
+    \end{align*}
+$$
+\end{enumerate}
 \newpage
 
   \item Let $\left\{X_k\right\}_{k \geq 1}$ be i.i.d. random variables such that $X_k>0, E\left[X_k\right]=1$ and $E\left[\log X_k\right]<0$.
-(a) Give an example of a random variable $X_k$ that satisfies the assumptions above and has exactly two possible values.
-(b) Give a justification for why the limit
-$$
-Z=\lim _{n \rightarrow \infty} \prod_{k=1}^n X_k
-$$
-exists with probability one.
-(c) Find the exact value of $Z$. Hint: : Applying the SLLN to the random variables $\left\{\log X_k\right\}_{k \geq 1}$ can give you useful information.
+  \begin{enumerate}
+     \item Give an example of a random variable $X_k$ that satisfies the assumptions above and has exactly two possible values.
+       \begin{align*}
+         P(X=1/2) &= 1/2 \\
+         P(X=3/2) &= 1/2
+       \end{align*}
+    \item  Give a justification for why the limit exists with probability one.
+      \[ Z=\lim _{n \rightarrow \infty} \prod_{k=1}^n X_k \]
 
+
+  Since $Z$ is a Martingale, as shown in class, it satisfies the 
+  Martingale Limit Theorem and converges.
+
+    \item  Find the exact value of $Z$. Hint: : Applying the SLLN to the random variables $\left\{\log X_k\right\}_{k \geq 1}$ can give you useful information.
+
+      The SLLN says the limit will converge to 0.
+  \end{enumerate}
 \newpage
   \item Exercise 3.25. A deck of cards contains 26 red and 26 black cards. We shuffle the cards and flip them one by one. Let $R_n$ denote the number of red cards remaining in the deck after the first $n$ cards have been revealed. (You may note that $R_0=26$ and $R_{52}=0$.) Let $M_n, 0 \leq n \leq 51$ denote the ratio of red cards remaining in the deck after the first $n$ cards are revealed.
 
 Suppose you play the following game: before the 52 nd card is flipped you can say STOP at any time, and if the next card is red then you win, otherwise you lose. (You can say STOP after $n$ cards have been flipped for any value of $n$ between 0 and 51.)
 
-(a) Show that $M_n, 0 \leq n \leq 51$ is a martingale with respect to $R_n, 0 \leq n \leq 51$.
+    \begin{enumerate}
+    \item  Show that $M_n, 0 \leq n \leq 51$ is a martingale with respect to $R_n, 0 \leq n \leq 51$.
 Remark: These stochastic processes are only defined for $0 \leq n \leq 51$. You only need to check the martingale condition for these values.
+  \begin{enumerate}
+      \item Is $M_n$ a function of $(R_0, \dots R_n)$?
 
-(b) Suppose that you decide to just say STOP at the beginning of the game, before any of the cards are flipped. What is the probability of winning the game?
+        Yes
+      \item Does $M_n$ have finite expectation?
+
+        $M_n$ is between 0 and, so yes it has finite expectation
+      \item Does the Martingale Property hold?
+
+        We know that
+        \[ P(R_{n+1} = r-1|R_n=r,R_{n-1}=r_{n-1} \dots) = \frac{r}{52-n}\]
+        So we have
+        \[ P(R_{n+1} = r-1|R_n=r,R_{n-1}=r_{n-1} \dots) = 1 -  \frac{r}{52-n} = \frac{52-n-r}{52-n} \]
+
+        And since $M_{n+1} = \frac{R_{n+1}}{51-n} $ we have
+
+        \begin{align*}
+          E[M_{n+1} | R_n=r_n, R_{n-1} = r_{n-1} \dots, ]
+            &= \frac{r-1}{51-n} \cdot \frac{r}{52-n}
+            +\frac{r}{51-n} \cdot \frac{52-n-r}{52-n}  \\
+            &= \frac{r}{52-n}  \\
+            &= E[M_n] 
+        \end{align*}
+  \end{enumerate}
+
+    \item  Suppose that you decide to just say STOP at the beginning of the game, before any of the cards are flipped. What is the probability of winning the game?
+
+      With 26 red cards out of 52 cards to choose, $P=1/2$
 \newpage
-(c) Suppose you decide to use the following strategy: you say STOP when you see the first black card. Show that the probability of winning is $1 / 2$ with this strategy.
+    \item  Suppose you decide to use the following strategy: you say STOP when you see the first black card. Show that the probability of winning is $1 / 2$ with this strategy.
 
-Hint: Denote by $T$ the number of cards that have been flipped when you say STOP. What can you say about $T$ ? How can you express the probability of winning in terms of $T$ and $M_n, n \geq 0$ ?
+      \emph{Hint: Denote by $T$ the number of cards that have been flipped when you say STOP. What can you say about $T$ ? How can you express the probability of winning in terms of $T$ and $M_n, n \geq 0$ ?}
+      Using the Optional Stopping Theorem we have
+      \[ E[M_T] = E[M_0] = \frac{1}{2}  \]
 
-(d) Is there any strategy that gives you a better than 1/2 chance of winning the game?
-\end{enumerate*}
+      So the probability of winning is always 1/2
+
+    \item  Is there any strategy that gives you a better than 1/2 chance of winning the game?
+
+      No!!!
+    \end{enumerate}
+\end{enumerate}
 
 %\newpage
 %\section*{Theorems}

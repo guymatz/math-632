@@ -518,8 +518,9 @@
     Where 1 is a column matrix of "1"s.  This is the expected time
     spent in transient states
 
-    $u(x,y)$ is the probability of going from a specific transient
-    state to a specific recurrent state. Probabilityof being absorbed
+    $u(x)$ is the probability of going from the transient
+    state - $x$ - to a specific recurrent state. Probability
+    of being absorbed
 
     \section{Invariant Measure}%
     Describes the long-term behaviour , long-term frequency to a state
@@ -739,7 +740,10 @@ $$
 A little more vividly, in a doubly stochastic matrix both rows and columns sum to one.
   }
   \nt{
-    If the state space is finite, then the MC has an invariant distribution
+    Every Doubly Stochastic MC has an invariant
+    measure $\mu(x) = 1, \forall x \in S$.
+
+    If the state space is finite, then an invariant distribution
     of the MC is the uniform distribution over the state space
 
     See video 20230713 @ min 43
@@ -1009,7 +1013,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
     So we have a Martingale!
 
     \section{Martingale Limit Theorem}%
-    Remember, MG is a fair game where E[|Y] is 0, and E[|Y] increments
+    Remember, MG is a fair game where $E[M|Y]$ is 0, and $E[M|Y]$ increments
     are 0
     \thm{ Lemma } {
       If $(M_n)^{\infty}_{n=1}$ is a Martingale, then
@@ -1025,7 +1029,7 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
         then there exists a RV $M_{\infty}$ such that
         \[ \lim_{n \to \infty} M_n = M_{\infty} \]
 
-        I.e., what is this saying?  That M_n stays within the bound?
+        I.e., what is this saying?  That $M_n$ stays within the bound?
 
         Should this be and?  Not or?
 
@@ -1075,8 +1079,103 @@ A little more vividly, in a doubly stochastic matrix both rows and columns sum t
     
   }
   
-  
-%\chapter*{Notation}%
+\chapter{20230724 - Branching Processes}%
+  \section{Recall}%
+    Optional Stopping Theorem
+    \[ E[M_T] = E[M_0] \]
+    if any of these hold true
+    \begin{itemize}
+      \item $P(T \leq c) = 1$
+        Deterministric stopping time
+      \item $P(|M_{T^n}| \leq c) = 1$ for all n
+        MG has determinisitic upper bound for time n
+      \item $E[T] < \infty$ and $P(|M_{T^n+1}-M_{T^n}| \leq c) = 1$ for all n
+          Finite bound, finite increments of MG
+    \end{itemize}
+    Example: SSRW between -N and N.  See min2 of 20230724
+
+    \section{Probability Generating Function}%
+    \dfn{ PGF }{
+      For $\mathbb{Z}_{\geq 0} \cup\{\infty\}$-valued RV X, the
+      probability generating finction is defined by
+      \begin{align}
+        g(s) = g_Z(s) =& E[s^X 1_{X < \infty}]\\
+                      =& \sum^{\infty}_{k=0} s^kP(X=k)
+      \end{align}
+      Peroperties
+      \begin{itemize}
+        \item PGF is well-defined for $|s| \leq 1$ because
+          \[ |\sum^{\infty}_{k=0} s^kP(X=k)| \leq \sum^{\infty}_{k=0} P(X=k) = P(X < \infty) \]
+        \item $g(0) = P(X=0), g(1) = \sum^{\infty}_{k=0} s^kP(X=k) = P(X < \infty)$
+        \item $g'(s) = (E[s^X1_{X< \infty}])' = E[Xs^{x-1}1_{X < \infty}]$
+
+          Hence $g'(1-) = \lim_{s \to 1-} g(s) = E[X1_{X < \infty}]$
+          In particular, if $P(X < \infty) = 1$, then $g'(1-) = E[X]$, so the expectation is the derivative of the pgf at 1.
+        \item For an $\mathbb{Z}_{\geq 0} \cup \{\infty\}$-valued RV,
+          \underline{the PGF uniquely identifies the distribution}
+        \item if $X_1, \dots $ are inde $\mathbb{Z}^+$-valued RVs
+          then
+          \begin{enumerate}
+            \item see min 24 of 20230724 
+          \end{enumerate}
+      \end{itemize}
+    }
+    \ex{PFG For Bernoulli} {
+      Let $X \sim $ Ber(p), i.e. $P(X=1) = p, P(X=0)=1-p$
+      \begin{align}
+        g_X(s) &= \sum^{\infty}_{k=0} s^kP(X=k)\\
+              &= s^0P(X=0) + s^1P(X=1)\\
+              &= (1-p) + s \cdot p, s\in \mathbb{R} 
+      \end{align}
+    }
+    \ex{PFG For Binomial} {
+      Min 33 od 20230724
+
+      Let $X \sim $ Bin(n,p)
+      \begin{align}
+        g_X(s) &= g_{\sum^{n}_{i=1}}(s) \\
+               &= \left( g_{X_1}(s) \right)^n
+               &= [ (1-p) + s \cdot p]^n
+      \end{align}
+      And for Expectation we get
+      \begin{align}
+        E[Y]=g^{\prime}(1) & =\left.n p[(1-p)+p s]^{n-1}\right|_{s=1} \\
+& =n p[(1-p)+p]^{n-1}=n p .
+      \end{align}
+    }
+    \section{Branching Process}%
+      Used to model growth, money, bacteria, etc.
+      \dfn{ Branching Process }{
+        $X_n$ = population of the n-th generation
+
+        $Z_{n,j}$ = Number of n-th gen children of the j-th individual (in the (n-1) generation
+
+        Assumption $\{Z_{n,j}: n,j \geq 1 \} $ are iid $\mathbb{Z}^+$-valued RVs with distribution
+        \[ \beta = (\beta_k)_{k \geq 0} \]
+        So individual j has 0 children with probabilty $B_0$, 
+        1 with prob $B_1$, etc. $\beta$ is called the offspring 
+    distribution of the branching process, $(X_n)^{\infty}_{n=0}$
+      }
+
+      \ex{Extinction P} {
+        We are intsrested in D = extinct eventually = 
+        $\{X_n=0$ for some $n \geq 1\}$.  What is
+          \begin{align}
+              \pi &= P_1(D) = P(D | X_0 = 1) \\
+                &= P(\text{ with a single ancestor, the population 
+                eventually goes extinct)}
+          \end{align}
+      }
+      \nt{
+        If $\beta_0=0$, (i.e. P(Num of children $\geq $) = 1) then $\pi = 0$
+
+        If $\beta_0=1$, then $\pi = 1$
+
+        Here $\beta_x$ = P(an individual has k children)
+      }
+
+
+\chapter*{Notation}%
 %  \begin{itemize}
 %      \item $N_t$: Number of arrivals before time t.  It is indexed by
 %        time, so it is a continuous-time stochastic process
