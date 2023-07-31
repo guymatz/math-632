@@ -1,0 +1,124 @@
+\documentclass{article} % This command is used to set the type of document you are working on such as an article, book, or presenation
+
+%\usepackage[margin=1in]{geometry} % This package allows the editing of the page layout. I've set the margins to be 1 inch. 
+
+\usepackage{amsmath, amsfonts}  % The first package allows the use of a large range of mathematical formula, commands, and symbols.  The second gives some useful mathematical fonts.
+
+\usepackage{graphicx}  % This package allows the importing of images
+\usepackage{marvosym}  % Lightning!
+\usepackage{wasysym}  % Smileys!
+
+\usepackage{bbold}
+%This allows us to use the theorem and proof environment 
+\usepackage{enumitem}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+
+\newtheoremstyle{case}{}{}{}{}{}{:}{ }{}
+\theoremstyle{case}
+\newtheorem{case}{Case}
+
+%Custom commands.  
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} %absolute value command
+
+%Custom symbols
+\newcommand{\Rb}{\mathbb{R}}
+
+\begin{document}
+
+\begin{center}
+\Large{\textbf{Assignment \#6}
+            
+UW-Madison MATH 632} % Name of course here
+\vspace{5pt}
+        
+\normalsize{  Guy Matz% Your name here
+        \\ Due: July 24, 2023}
+\vspace{15pt}
+\end{center}
+
+\section*{Exercises}%
+
+\begin{enumerate}[label={\fbox{\textbf{Exercise \#\arabic* :}}}]
+
+  \item 
+    \begin{enumerate}
+    \item Let $X \sim \operatorname{Poisson}(\lambda)$. Find its probability generating function (PGF) $g_X(s)$. Use the PGF to find $E X$.
+      \[ \text{ PGF } = g(s)=\sum_{k=0}^{\infty} s^k P(X=k) \]
+    The slope of the generating function $g(s)$ at $s=1$ gives the mean EX
+
+    \item  Let $X_1, \ldots, X_n$ be independent with marginal distribution $X_k \sim \operatorname{Poisson}\left(\lambda_k\right)$ for $k=$ $1, \ldots, n$. Let $S=X_1+\cdots+X_n$ denote the sum. Use PGFs to identify the distribution of $S$
+  \end{enumerate}
+\newpage
+  \item Let $0<p<1$. Consider a branching process whose offspring distribution satisfies $\beta_0=1-p$ and $\beta_3=p$. Find the extinction probability.
+
+    \emph{Hint: You solve a third degree polynomial, but one of the roots should be easy to guess. Note that the PGF for the offspring distribution satisfies $g(1)=E\left[1^Z\right]=1$. Hence the problem reduces to finding the roots of a quadratic.}
+\newpage
+
+  \item Let $0<p<1$. Consider a population of organisms whose lifecycle goes as follows. A newborn individual has probability $p$ of reaching adulthood. Once an adult, the individual gives birth to exactly two offspring, and then dies. Start with a single adult individual. Find the probability that this population eventually goes extinct.
+    \emph{Hint: Consider the process of the adults.}
+\newpage
+
+  \item Suppose that phone calls arrive to an office at rate $10 /$ hour Poisson process. Find the probabilities of the following events.
+
+    See Exercise 4.18 and Theorem 4.9
+    \begin{enumerate}
+      \item  There are 4 calls between $1 \mathrm{pm}$ and $3 \mathrm{pm}$, and 3 calls between $4 \mathrm{pm}$ and $4: 30 \mathrm{pm}$.
+      \item  There are 6 calls between $2 \mathrm{pm}$ and $4 \mathrm{pm}$, but no calls between $3 \mathrm{pm}$ and $3: 30 \mathrm{pm}$.
+      \item  There are 5 calls between $1 \mathrm{pm}$ and $3 \mathrm{pm}$, and 2 calls between $2 \mathrm{pm}$ and $4 \mathrm{pm}$.
+    \end{enumerate}
+\newpage
+
+  \item Traffic on a particular road follows a Poisson process with rate $2 / 3$ 's of a vehicle per minute. 10 $\%$ of the vehicles are trucks, the other $90 \%$ are cars.
+
+    See Exercise 4.21
+    \begin{enumerate}
+      \item  What is the probability that at least one truck passes in an hour?
+      \item  What is the probability that out of the next three vehicles at least two are cars?
+      \item  Find the conditional probability of seeing exactly 5 trucks and 45 cars in the next two hours given that 50 vehicles arrive in that time period.
+      \item Find the conditional expectation of the number of vehicles it the next hour given that ten trucks arrive in that time period.
+    \end{enumerate}
+\newpage
+
+  \item A lightbulb has a lifetime that is exponential with a mean of 200 days. When it burns out a janitor replaces it immediately. In addition there is a handyman who comes at times of a Poisson process at rate 0.01 day and replaces the bulb as "preventive maintenance."
+    \begin{enumerate}
+      \item  Consider the process of times when the bulb is replaced. What is this process?
+
+        Let $X_1$ be the process of bulbs replaced by the janitor, and
+        let $X_2$ be the process of bulbs replaced by the handyman.  And
+        let $X = \operatorname{min}\{X_1, X_2\}$.
+
+        Since $X_1$ is Exp we can convert it to Poisson with
+        $\lambda = \frac{1}{200}$
+
+        Then $X$ is the frequency of bulb replacement is given by
+        \[ X \sim \operatorname{Pois}(.005 + .01) \]
+
+      \item  What is the probability that the next two bulb replacements are done by the handyman?
+
+        Let $\lambda$ be the rate for `janitor' and $\mu$ the rate
+        for `handyman'.
+
+        By superposition, the number of replacements by the handyman
+        follow a Binomials distribution
+        \[ \operatorname{Bin}\left(2,\frac{\lambda}{\lambda + \mu} \right) \]
+        So P(within the next two replacements, both are by the handyman)
+        \[ = \binom{2}{2} \left( \frac{\lambda}{\lambda + \mu} \right)^2  \]
+      \item  In the long run what fraction of the replacements are due to failure?
+
+        These are the bulbs replaced by the handyman
+        \[ \frac{\lambda}{\lambda + \mu} \]
+
+
+    \end{enumerate}
+\end{enumerate}
+%\newpage
+%\section*{Theorems}
+%
+%\section*{Properties}
+%%  \begin{enumerate}
+%$  \end{enumerate}
+%
+\end{document}
